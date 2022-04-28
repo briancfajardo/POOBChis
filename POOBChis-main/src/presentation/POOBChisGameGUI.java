@@ -4,24 +4,23 @@ import javax.swing.*;
 import java.awt.*;
 
 public class POOBChisGameGUI extends JFrame {
-    GridBagLayout grid;
+    GridBagLayout grid = new GridBagLayout();
     GridBagConstraints constraints = new GridBagConstraints();
+
     public POOBChisGameGUI(){
         super("POOBChisGame");
         prepareElements();
     }
     public void prepareElements(){
-
-        grid = new GridBagLayout();
         setLayout(grid);
         setSize(900,900);
         //init();
         //crearBoton();
         //crearPanel();
-        pruebaaaaaaMil();
+        tab();
 
         setVisible(true);
-        repaint();
+        //repaint();
 
     }
     public void crearPanel(){
@@ -187,6 +186,25 @@ public class POOBChisGameGUI extends JFrame {
 
     }
 
+    protected void makebutton(String name) {
+        Button button = new Button(name);
+        gridbag.setConstraints(button, constraints);
+        add(button);
+    }
+
+    public void tab(){
+        setFont(new Font("SansSerif", Font.PLAIN, 14));
+
+        //Primera carcel
+        c.gridwidth = 8;
+        c.gridheight = 8;
+        makebutton("Carcel");
+
+        //Casillas
+
+        //Segunda carcel
+
+    }
 
 }
 
