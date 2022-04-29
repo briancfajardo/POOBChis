@@ -51,6 +51,6 @@ public class CarcelGUI extends JPanel {
         g.fillOval(90,70,ancho,alto);
         g.fillOval(30,130,ancho,alto);
         g.fillOval(90,130,ancho,alto);
-        //g.set
+        //g.drawImage();
     }
 }
