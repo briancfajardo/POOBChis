@@ -5,7 +5,7 @@ import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
-public class Game extends JFrame {
+public class TableroGUI extends JFrame {
 
     GridBagLayout grid = new GridBagLayout();
     GridBagConstraints constraints = new GridBagConstraints();
@@ -37,7 +37,7 @@ public class Game extends JFrame {
     };
 
 
-    public Game() {
+    public TableroGUI() {
         super("POOBChisGame");
         prepareElements();
     }
@@ -189,19 +189,39 @@ public class Game extends JFrame {
             casilla.setBackground(new Color(192, 180, 179));
         }
     }
-
+    //public void paint(Graphics g){
+    //    super.paint(g);
+    //    Graphics2D circulo = (Graphics2D)g;
+    //    circulo.setStroke(new BasicStroke(10.f));
+    //    circulo.setPaint(new Color(23, 88, 151));
+    //    circulo.fillOval(100,100,40,40);
+    //}
 
     public void carcel(){
+        //GridLayout grid = new GridLayout();
         //Primera carcel
+        CarcelGUI carcel1 = new CarcelGUI(new Color(23, 88, 151), new Color(31, 143, 254));
         constraints.gridwidth = 8;
         constraints.gridheight = 8;
-        makebutton("Carcel");
+        grid.setConstraints(carcel1, constraints);
+        add(carcel1);
+        //JPanel carcel1 = makebutton("Carcel");
+        //carcel1.setBackground(new Color(31, 143, 254));
+        //grid.addLayoutComponent("Carcel",new CarcelGUI(new Color(23, 88, 151)));
+        //carcel1.setLayout(grid);
+        //carcel1.
+
+
 
         //Segunda carcel
         constraints.gridx = 14;
         constraints.gridwidth = 8;
         constraints.gridheight = 8;
-        makebutton("Carcel");
+        //JPanel carcel2 = makebutton("Carcel");
+        //carcel2.setBackground(new Color(248, 197, 27));
+        CarcelGUI carcel2 = new CarcelGUI(new Color(151, 120, 17), new Color(248, 197, 27));
+        grid.setConstraints(carcel2, constraints);
+        add(carcel2);
 
         //Centro
         constraints.gridx = 8;
@@ -215,19 +235,27 @@ public class Game extends JFrame {
         constraints.gridy = 14;
         constraints.gridwidth = 8;
         constraints.gridheight = 8;
-        makebutton("Carcel");
+        //JPanel carcel3 = makebutton("Carcel");
+        //carcel3.setBackground(new Color(232, 73, 55));
+        CarcelGUI carcel3 = new CarcelGUI(new Color(144, 47, 36), new Color(232, 73, 55));
+        grid.setConstraints(carcel3, constraints);
+        add(carcel3);
 
         //Cuarta carcel
         constraints.gridx = 14;
         constraints.gridy = 14;
         constraints.gridwidth = 8;
         constraints.gridheight = 8;
-        makebutton("Carcel");
+        //JPanel carcel4 = makebutton("Carcel");
+        //carcel4.setBackground(new Color(33, 202, 88));
+        CarcelGUI carcel4 = new CarcelGUI(new Color(22, 119, 52), new Color(33, 202, 88));
+        grid.setConstraints(carcel4, constraints);
+        add(carcel4);
 
 
     }
 
     public static void main (String args[]){
-        Game u = new Game();
+        TableroGUI u = new TableroGUI();
     }
 }
