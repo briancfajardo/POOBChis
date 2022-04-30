@@ -9,36 +9,10 @@ public class TableroGUI extends JFrame {
 
     GridBagLayout grid = new GridBagLayout();
     GridBagConstraints constraints = new GridBagConstraints();
-    MouseListener clic = new MouseListener() {
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            System.out.println("Lumpias");
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-
-        }
-    };
-
-
+    private TableroGUI.Fondo fondo = new TableroGUI.Fondo();
     public TableroGUI() {
         super("POOBChisGame");
+        this.setContentPane(fondo);
         prepareElements();
     }
 
@@ -55,23 +29,6 @@ public class TableroGUI extends JFrame {
 
         setVisible(true);
         //repaint();
-
-    }
-
-    protected JPanel makebutton(String name) {
-
-        JPanel button = new JPanel();
-        button.add(new JLabel(name));
-
-        button.setBorder(BorderFactory.createEtchedBorder());
-
-        button.addMouseListener(clic);
-        //button.setBackground(Color.green);
-        button.setVisible(true);
-        grid.setConstraints(button, constraints);
-        add(button);
-
-        return button;
 
     }
 
@@ -94,7 +51,10 @@ public class TableroGUI extends JFrame {
         //constraints.gridwidth = GridBagConstraints.RELATIVE;
 
         for (int i = 0; i <= 47; i++){
-            JPanel casilla = makebutton("       ");
+            CasillasGUI casilla = new CasillasGUI(0,"       ");
+            casilla.setTipo(casilla.ANCHA);
+            grid.setConstraints(casilla, constraints);
+            add(casilla);
             validacionAzulVerde(casilla);
 
             constraints.gridx += 2;
@@ -148,7 +108,10 @@ public class TableroGUI extends JFrame {
         int cont = 0;
 
         for (int i = 0; i <= 47; i++){
-            JPanel casilla = makebutton("<html><br><br><html>");
+            CasillasGUI casilla = new CasillasGUI(0,"<html><br><br><html>");
+            casilla.setTipo(casilla.ALTA);
+            grid.setConstraints(casilla, constraints);
+            add(casilla);
             validacionRojoAmarillo(casilla);
 
             constraints.gridx += 1;
@@ -190,17 +153,13 @@ public class TableroGUI extends JFrame {
         }
     }
     //public void paint(Graphics g){
-    //    super.paint(g);
-    //    Graphics2D circulo = (Graphics2D)g;
-    //    circulo.setStroke(new BasicStroke(10.f));
-    //    circulo.setPaint(new Color(23, 88, 151));
-    //    circulo.fillOval(100,100,40,40);
+    //    Image img = new ImageIcon(getClass().getResource("/imagenes/CircleP10"+"Azul"+".png")).getImage();
     //}
 
     public void carcel(){
         //GridLayout grid = new GridLayout();
         //Primera carcel
-        CarcelGUI carcel1 = new CarcelGUI(new Color(23, 88, 151), new Color(31, 143, 254));
+        CarcelGUI carcel1 = new CarcelGUI(new Color(23, 88, 151), new Color(31, 143, 254),"Azul", 4);
         constraints.gridwidth = 8;
         constraints.gridheight = 8;
         grid.setConstraints(carcel1, constraints);
@@ -219,7 +178,7 @@ public class TableroGUI extends JFrame {
         constraints.gridheight = 8;
         //JPanel carcel2 = makebutton("Carcel");
         //carcel2.setBackground(new Color(248, 197, 27));
-        CarcelGUI carcel2 = new CarcelGUI(new Color(151, 120, 17), new Color(248, 197, 27));
+        CarcelGUI carcel2 = new CarcelGUI(new Color(151, 120, 17), new Color(248, 197, 27),"Amarillo",4);
         grid.setConstraints(carcel2, constraints);
         add(carcel2);
 
@@ -228,7 +187,9 @@ public class TableroGUI extends JFrame {
         constraints.gridwidth = 6;
         constraints.gridheight = 6;
         constraints.gridy = 8;
-        makebutton("Colores");
+        GanadoresGUI win1 = new GanadoresGUI("Azul",4);
+        grid.setConstraints(win1, constraints);
+        add(win1);
 
         //Tercera carcel
         constraints.gridx = 0;
@@ -237,7 +198,7 @@ public class TableroGUI extends JFrame {
         constraints.gridheight = 8;
         //JPanel carcel3 = makebutton("Carcel");
         //carcel3.setBackground(new Color(232, 73, 55));
-        CarcelGUI carcel3 = new CarcelGUI(new Color(144, 47, 36), new Color(232, 73, 55));
+        CarcelGUI carcel3 = new CarcelGUI(new Color(144, 47, 36), new Color(232, 73, 55),"Rojo",4);
         grid.setConstraints(carcel3, constraints);
         add(carcel3);
 
@@ -248,14 +209,26 @@ public class TableroGUI extends JFrame {
         constraints.gridheight = 8;
         //JPanel carcel4 = makebutton("Carcel");
         //carcel4.setBackground(new Color(33, 202, 88));
-        CarcelGUI carcel4 = new CarcelGUI(new Color(22, 119, 52), new Color(33, 202, 88));
+        CarcelGUI carcel4 = new CarcelGUI(new Color(22, 119, 52), new Color(33, 202, 88),"Verde",4);
         grid.setConstraints(carcel4, constraints);
         add(carcel4);
 
 
     }
 
-    public static void main (String args[]){
+    public static void main (String[] args){
         TableroGUI u = new TableroGUI();
+    }
+    class Fondo extends JPanel{
+        private Image imagen;
+        @Override
+        public void paint(Graphics g){
+            imagen = new ImageIcon(getClass().getResource("/imagenes/Fondo2.jpg")).getImage();
+            g.drawImage(imagen,0,0,getWidth(),getHeight(),this);
+
+            setOpaque(false);
+
+            super.paint(g);
+        }
     }
 }

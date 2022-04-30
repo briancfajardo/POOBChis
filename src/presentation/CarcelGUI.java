@@ -11,38 +11,16 @@ public class CarcelGUI extends JPanel {
     private final int ancho = 40;
     private final int alto = 40;
     private Color color;
-    MouseListener clic = new MouseListener() {
-        @Override
-        public void mouseClicked(MouseEvent e) {
-            System.out.println("Lumpias!!!");
-        }
-
-        @Override
-        public void mousePressed(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseReleased(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseEntered(MouseEvent e) {
-
-        }
-
-        @Override
-        public void mouseExited(MouseEvent e) {
-
-        }
-    };
-    public CarcelGUI(Color color, Color color2){
+    private int cant;
+    private FichasGUI fichas;
+    public CarcelGUI(Color color, Color color2, String col, int cant){
+        this.cant = cant;
         this.color = color;
         setBorder(BorderFactory.createEtchedBorder());
-        addMouseListener(clic);
         setBackground(color2);
         setVisible(true);
+        fichas = new FichasGUI("Azul" ,4);
+        fichas.setTipo(fichas.CARCEL);
     }
     public void paint(Graphics g){
         super.paint(g);
@@ -51,6 +29,6 @@ public class CarcelGUI extends JPanel {
         g.fillOval(90,70,ancho,alto);
         g.fillOval(30,130,ancho,alto);
         g.fillOval(90,130,ancho,alto);
-        //g.drawImage();
+        fichas.paint(g);
     }
 }

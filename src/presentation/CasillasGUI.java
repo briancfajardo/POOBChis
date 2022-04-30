@@ -6,15 +6,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class CasillasGUI extends JPanel {
-    private int x = 100;
-    private int y = 100;
-    private final int ancho = 40;
-    private final int alto = 40;
-    private Color color;
     MouseListener clic = new MouseListener() {
         @Override
         public void mouseClicked(MouseEvent e) {
-            System.out.println("Lumpias");
+            System.out.println("Lumpias u");
         }
 
         @Override
@@ -37,4 +32,34 @@ public class CasillasGUI extends JPanel {
 
         }
     };
+    int alto;
+    int ancho;
+    public int ANCHA = 1;
+    public int ALTA = 0;
+    private int tipo;
+    FichasGUI ficha;
+    public CasillasGUI(int num, String msg){
+        setBorder(BorderFactory.createEtchedBorder());
+        addMouseListener(clic);
+        setVisible(true);
+        add(new JLabel(msg));
+        alto = getSize().height;
+        ancho = getSize().width;
+        ficha = new FichasGUI("Azul",num);
+    }
+    public void setTipo(int tipo){
+        this.tipo = tipo;
+        if(tipo == ANCHA){
+            ficha.setTipo(ficha.ANCHA);
+        }else {
+            ficha.setTipo(ficha.ALTA);
+        }
+    }
+    public void paint(Graphics g){
+        super.paint(g);
+        alto = getSize().height;
+        ancho = getSize().width;
+        ficha.setXY(ancho,alto);
+        ficha.paint(g);
+    }
 }
