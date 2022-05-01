@@ -1,5 +1,7 @@
 package presentation;
 
+import domain.Parchis;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
@@ -37,15 +39,25 @@ public class CasillasGUI extends JPanel {
     public int ANCHA = 1;
     public int ALTA = 0;
     private int tipo;
-    FichasGUI ficha;
-    public CasillasGUI(int num, String msg){
+    private FichasGUI ficha;
+    private int num;
+    private Parchis parchis;
+    private String color;
+    public CasillasGUI(int num, String msg, Parchis parchis, String color){
+        this.parchis = parchis;
+        this.color = color;
         setBorder(BorderFactory.createEtchedBorder());
         addMouseListener(clic);
         setVisible(true);
         add(new JLabel(msg));
         alto = getSize().height;
         ancho = getSize().width;
-        ficha = new FichasGUI("Azul",num);
+        ficha = new FichasGUI("Azul",0);
+        this.num = num;
+    }
+    public void actualizar(){
+        ficha.setCant(parchis.getCantidadCasilla(color, num));
+        repaint();
     }
     public void setTipo(int tipo){
         this.tipo = tipo;

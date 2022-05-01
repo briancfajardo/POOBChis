@@ -12,6 +12,7 @@ public class FichasGUI extends JFrame{
     protected int y;
     protected int cant;
     protected String color;
+    protected String color2;
     public int ANCHA = 1;
     public int ALTA = 0;
     public int CARCEL = 2;
@@ -21,12 +22,20 @@ public class FichasGUI extends JFrame{
         this.cant =cant;
         this.color = color;
     }
+
     public void setXY(int numX, int numY){
         x = numX;
         y = numY;
     }
+    public void setColor2(String color){
+        this.color2 = color;
+    }
     public void setTipo(int tipo){
         this.tipo = tipo;
+    }
+
+    public void setCant(int cant) {
+        this.cant = cant;
     }
 
     public void paint(Graphics g){

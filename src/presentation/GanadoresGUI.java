@@ -16,7 +16,7 @@ public class GanadoresGUI extends JPanel {
         this.cant = cant;
         setBorder(BorderFactory.createEtchedBorder());
         setVisible(true);
-        fichas = new FichasGUI("Rojo" ,4);
+        fichas = new FichasGUI("Rojo" ,0);
         fichas.setTipo(fichas.FINAL);
     }
     public void paint(Graphics g){
