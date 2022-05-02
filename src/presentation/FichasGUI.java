@@ -40,7 +40,7 @@ public class FichasGUI extends JFrame{
 
     public void paint(Graphics g){
         super.paint(g);
-        Image img = new ImageIcon(getClass().getResource("/imagenes/CircleP10"+"Azul"+".png")).getImage();
+        Image img = new ImageIcon(getClass().getResource("/imagenes/CircleP10"+"AzulVentajosa"+".png")).getImage();
 
         if (cant == 1 && tipo != CARCEL && tipo != FINAL){
             g.drawImage(img,(x/2)-5,(y/2)-5,this);
