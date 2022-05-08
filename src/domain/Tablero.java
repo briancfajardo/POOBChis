@@ -4,10 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class Tablero {
-    HashMap<Integer, ArrayList<String>> rojo = new HashMap<>();
-    HashMap<Integer, ArrayList<String>> verde= new HashMap<>();
-    HashMap<Integer, ArrayList<String>> amarillo = new HashMap<>();
-    HashMap<Integer, ArrayList<String>> azul = new HashMap<>();
+    HashMap<Integer, ArrayList<Casilla>> rojo = new HashMap<>();
+    HashMap<Integer, ArrayList<Casilla>> verde= new HashMap<>();
+    HashMap<Integer, ArrayList<Casilla>> amarillo = new HashMap<>();
+    HashMap<Integer, ArrayList<Casilla>> azul = new HashMap<>();
     public Tablero(){
         prepareTablero();
     }
@@ -19,16 +19,16 @@ public class Tablero {
             azul.put(i,new ArrayList<>());
         }
     }
-    public void cambiarCasilla(String color, int pos, String colorf){
-
-        switch (color) {
-            case "Amarillo" -> amarillo.get(pos).add(colorf);
-            case "Azul" -> azul.get(pos).add(colorf);
-            case "Rojo" -> rojo.get(pos).add(colorf);
-            default -> verde.get(pos).add(colorf);
-        }
-    }
-    public ArrayList<String> getCasilla(String color, int pos){
+    //public void cambiarCasilla(String color, int pos, String colorf){
+//
+    //    switch (color) {
+    //        case "Amarillo" -> amarillo.get(pos).add(colorf);
+    //        case "Azul" -> azul.get(pos).add(colorf);
+    //        case "Rojo" -> rojo.get(pos).add(colorf);
+    //        default -> verde.get(pos).add(colorf);
+    //    }
+    //}
+    public ArrayList<Casilla> getCasilla(String color, int pos){
         return switch (color) {
             case "Amarillo" -> amarillo.get(pos);
             case "Azul" -> azul.get(pos);

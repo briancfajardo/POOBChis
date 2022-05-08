@@ -3,13 +3,16 @@ package domain;
 import java.util.ArrayList;
 
 public class Carcel {
-    int rojo = 4;
-    int amarillo = 4;
-    int azul =4;
-    int verde = 4;
+    int rojo;
+    int amarillo;
+    int azul;
+    int verde;
 
     public Carcel(){
-
+        rojo = 4;
+        amarillo = 4;
+        azul = 4;
+        verde = 4;
     }
 
     public int getColor(String color) {

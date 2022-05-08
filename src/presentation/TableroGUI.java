@@ -1,6 +1,5 @@
 package presentation;
 
-import domain.Casilla;
 import domain.Parchis;
 
 import javax.swing.*;
@@ -61,8 +60,6 @@ public class TableroGUI extends JFrame {
         casillasAmarillas();
         casillasRojas();
         casillasVerdes();
-        //CasillasHorizontales();
-        //CasillasVerticales();
         dados();
     }
     public void dados(){
@@ -263,118 +260,6 @@ public class TableroGUI extends JFrame {
             }casillaVerde.add(casilla);
         }
     }
-    public void CasillasHorizontales() {
-        //Casillas primera parte
-        int cont = 0;
-        constraints.gridx = 8;
-        constraints.gridwidth = 2;
-        constraints.gridheight = 1;
-        constraints.gridy = 0;
-        constraints.fill = GridBagConstraints.BOTH;
-        int cont2 = 0;
-        int cont3 = 1;
-
-        for (int i = 0; i <= 47; i++){
-            CasillasGUI casilla = new CasillasGUI(0,"       ", parchis, "Verde");
-            casilla.setTipo(casilla.ANCHA);
-            add(casilla,constraints);
-            validacionAzulVerde(casilla);
-
-            constraints.gridx += 2;
-            cont += 1;
-
-            if (cont == 3) {
-                constraints.gridx = 8;
-                constraints.gridy = 14 + cont2;
-            }
-
-            if (cont == 6){
-                cont2 += 1;
-                constraints.gridy = cont3;
-                cont3 += 1;
-                cont = 0;
-                constraints.gridx = 8;
-            }
-        }
-    }
-
-    public void validacionAzulVerde(JPanel casilla){
-        if (constraints.gridx == 10 && constraints.gridy >=0 && constraints.gridy < 8){
-            if (constraints.gridy == 0){
-                casilla.setBackground(new Color (192, 180, 179));
-            }else {
-                casilla.setBackground(new Color(31, 144, 255));
-            }
-        } else if (constraints.gridx == 10 && constraints.gridy >=14){
-            if (constraints.gridy == 21){
-                casilla.setBackground(new Color (192, 180, 179));
-            }else {
-                casilla.setBackground(new Color(33, 203, 88));
-            }
-        } else if (constraints.gridx == 8 && constraints.gridy == 4){
-            casilla.setBackground(new Color (31,144,255));
-        } else if (constraints.gridx == 12 && constraints.gridy == 17) {
-            casilla.setBackground(new Color(33, 203, 88));
-        } else if (constraints.gridx == 12 && constraints.gridy == 4) {
-            casilla.setBackground(new Color(192, 180, 179));
-        } else if (constraints.gridx == 8 && constraints.gridy == 17) {
-            casilla.setBackground(new Color(192, 180, 179));
-        }
-    }
-
-    public void CasillasVerticales(){
-        //Casillas segunda parte
-        constraints.gridwidth = 1;
-        constraints.gridheight = 2;
-        constraints.gridy = 8;
-        constraints.gridx = 0;
-        constraints.fill = GridBagConstraints.BOTH;
-        int cont = 0;
-
-        for (int i = 0; i <= 47; i++){
-            CasillasGUI casilla = new CasillasGUI(0,"<html><br><br><html>", parchis, "Verde");
-            casilla.setTipo(casilla.ALTA);
-            add(casilla,constraints);
-            validacionRojoAmarillo(casilla);
-
-            constraints.gridx += 1;
-            cont += 1;
-
-            if (cont == 8){
-                constraints.gridx = 14;
-            }
-
-            if (cont == 16){
-                constraints.gridy += 2;
-                constraints.gridx = 0;
-                cont = 0;
-            }
-        }
-    }
-
-    public void validacionRojoAmarillo(JPanel casilla) {
-        if (constraints.gridy == 10 && constraints.gridx >=0 && constraints.gridx < 8){
-            if (constraints.gridx == 0){
-                casilla.setBackground(new Color (192, 180, 179));
-            }else{
-                casilla.setBackground(new Color (233, 73, 55));
-            }
-        } else if (constraints.gridy == 10 && constraints.gridx >=14){
-            if (constraints.gridx == 21){
-                casilla.setBackground(new Color (192, 180, 179));
-            }else {
-                casilla.setBackground(new Color(249, 198, 27));
-            }
-        } else if (constraints.gridx == 4 && constraints.gridy == 12){
-            casilla.setBackground(new Color (233, 73, 55));
-        } else if (constraints.gridx == 17 && constraints.gridy == 8) {
-            casilla.setBackground(new Color(249, 198, 27));
-        } else if (constraints.gridx == 4 && constraints.gridy == 8) {
-            casilla.setBackground(new Color(192, 180, 179));
-        } else if (constraints.gridx == 17 && constraints.gridy == 12) {
-            casilla.setBackground(new Color(192, 180, 179));
-        }
-    }
 
     public void carcel(){
         constraints.fill = GridBagConstraints.BOTH;
@@ -433,8 +318,6 @@ public class TableroGUI extends JFrame {
         carcel4 = new CarcelGUI(new Color(22, 119, 52), new Color(33, 202, 88),"Verde",parchis);
         //grid.setConstraints(carcel4, constraints);
         add(carcel4,constraints);
-
-
     }
 
     public static void main (String[] args){
