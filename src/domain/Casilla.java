@@ -45,10 +45,15 @@ public class Casilla extends  Elemento{
         Ficha f = (Ficha) elementos.get(0);
         if (f.getColor() == ficha.getColor()){
             setBloqueado();
-            elementos.add(f);
+            elementos.add(ficha);
         }else{
-            elementos.remove(0);
-            elementos.add(f);
+            if (!isSeguro()) {
+                elementos.remove(0);
+                elementos.add(ficha);
+            }else{
+                setBloqueado();
+                elementos.add(ficha);
+            }
         }
     }
 

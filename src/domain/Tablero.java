@@ -50,22 +50,74 @@ public class Tablero {
 
     public void moverFicha(String color, Ficha ficha, int mover, int numCasilla){
         String ultimoColor = color;
+        boolean ultimo = false;
 
-        while (mover != 0 && !ultimoColor.equals("detenido")){
-            ultimoColor = avanzarUno(color, ficha, numCasilla);
-            if (mover == 1){
-
+        if (!verficarBloqueo(color, numCasilla, mover, ficha.getColor())){
+            for (int i = 0; i < mover; i++){
+                if (i == mover -1 ){ultimo = true;}
+                ultimoColor = avanzarUno(color, ficha, numCasilla, ultimo);
             }
-            mover -= 1;
-            numCasilla += 1;
         }
+    }
+
+    public boolean verficarBloqueo(String color, int inicio, int mover, String fichaColor){
+        for (int i = 0; i < mover; i++){
+            if (inicio == 23){return false;}
+            switch (color) {
+                case "amarillo":
+                    if (amarillo.get(inicio + 1).isBloqueado()){
+                        return true;
+                    } else if(inicio + 1 == 16){
+                        inicio = 15;
+                        color = "azul";
+                    } else if (inicio + 1 == 17 && !fichaColor.equals(color)) {
+                        inicio = -1;
+                    }
+                    inicio += 1;
+
+                case "azul":
+                    if (azul.get(inicio + 1).isBloqueado()){
+                        return true;
+                    } else if(inicio + 1 == 16){
+                        inicio = 15;
+                        color = "rojo";
+                    } else if (inicio + 1 == 17 && !fichaColor.equals(color)) {
+                        inicio = -1;
+                    }
+                    inicio += 1;
+
+                case "rojo":
+                    if (rojo.get(inicio + 1).isBloqueado()){
+                        return true;
+                    } else if(inicio + 1 == 16){
+                        inicio = 15;
+                        color = "verde";
+                    } else if (inicio + 1 == 17 && !fichaColor.equals(color)) {
+                        inicio = -1;
+                    }
+                    inicio += 1;
+
+                default:
+                    if (verde.get(inicio + 1).isBloqueado()){
+                        return true;
+                    } else if(inicio + 1 == 16){
+                        inicio = 15;
+                        color = "amarillo";
+                    } else if (inicio + 1 == 17 && !fichaColor.equals(color)) {
+                        inicio = -1;
+                    }
+                    inicio += 1;
+
+            };
+        }
+        return false;
     }
 
     public String primeraMayuscula(String mensaje){
         return mensaje.toUpperCase().charAt(0) + mensaje.substring(1, mensaje.length()).toLowerCase();
     }
 
-    public String avanzarUno(String colorCasa, Ficha ficha, int numCasilla){
+    public String avanzarUno(String colorCasa, Ficha ficha, int numCasilla, boolean ultimo){
         Casilla casilla;
         Casilla nuevaCasilla;
         String ultimoColor = colorCasa;
@@ -75,9 +127,9 @@ public class Tablero {
 
         switch (colorCasa) {
             case "amarillo":
+                asociado = amarillo;
                 casilla = amarillo.get(numCasilla);
                 nuevaCasilla = azul.get(numCasilla + 1);
-                asociado = amarillo;
                 siguiente = "azul";
             case "azul":
                 casilla = azul.get(numCasilla);
@@ -96,38 +148,43 @@ public class Tablero {
                 siguiente = "amarillo";
         };
 
-
-        //Subir para ganadores
         if (ficha.getColor().equals(mayusculaCasa) && numCasilla + 1 == 24) {
             casilla.quitarElemento(ficha);
             ganadores.addColor(mayusculaCasa);
-        }else if(!ficha.getColor().equals(mayusculaCasa) && numCasilla + 1 == 17 && !asociado.get(0).isBloqueado()){
+        }else if(!ficha.getColor().equals(mayusculaCasa) && numCasilla + 1 == 17){
             casilla.quitarElemento(ficha);
             asociado.get(0).agregarUno(ficha);
-        }else if(!ficha.getColor().equals(mayusculaCasa) && numCasilla + 1 == 17 && asociado.get(0).isBloqueado()){
-            ultimoColor = "detenido";
-        }else if (numCasilla + 1 == 16 && !nuevaCasilla.isBloqueado()) {
+        }else if (numCasilla + 1 == 16) {
             casilla.quitarElemento(ficha);
             nuevaCasilla.agregarUno(ficha);
             ultimoColor = siguiente;
-        }else if (numCasilla + 1 == 16 && nuevaCasilla.isBloqueado()) {
-            ultimoColor = "detenido";
-        }else if (!asociado.get(numCasilla + 1).isBloqueado()){
+        }else {
             casilla.quitarElemento(ficha);
             asociado.get(numCasilla + 1).agregarUno(ficha);
-        }else{
-            ultimoColor = "detenido";
+        }
+
+        if (ultimo){
+            Elemento e = casilla.getElementos().get(0);
         }
 
         switch (colorCasa) {
             case "amarillo":
                 amarillo = asociado;
+                amarillo.replace(numCasilla, casilla);
+                azul.replace(numCasilla + 1, nuevaCasilla);
             case "azul":
                 azul = asociado;
+                azul.replace(numCasilla, casilla);
+                rojo.replace(numCasilla + 1, nuevaCasilla);
             case "rojo":
                 rojo = asociado;
+                rojo.replace(numCasilla, casilla);
+                verde.replace(numCasilla + 1, nuevaCasilla);
             default:
                 verde = asociado;
+                verde.replace(numCasilla, casilla);
+                amarillo.replace(numCasilla + 1, nuevaCasilla);
+
         };
 
         return ultimoColor;
@@ -136,16 +193,16 @@ public class Tablero {
 
     public static void main(String arg[]){
         Tablero u = new Tablero();
-        u.amarillo.get(10).addElemento(new Ficha("Verde"));
-        Ficha f = (Ficha) u.amarillo.get(10).getElementos().get(0);
-        u.moverFicha("amarillo", f, 3, 10);
-        System.out.println(u.amarillo.get(10));
+        u.amarillo.get(15).addElemento(new Ficha("Amarillo"));
+        Ficha f = (Ficha) u.amarillo.get(15).getElementos().get(0);
+        u.avanzarUno("amarillo", f, 15, false);
+        System.out.println(u.amarillo.get(15));
         System.out.println("_________");
-        System.out.println(u.amarillo.get(11));
+        System.out.println(u.amarillo.get(16));
         System.out.println("_________");
-        System.out.println(u.amarillo.get(12));
+        System.out.println(u.amarillo.get(0));
         System.out.println("_________");
-        System.out.println(u.amarillo.get(13));
+        System.out.println(u.azul.get(16));
         System.out.println("_________");
         System.out.println(u.ganadores);
 
