@@ -172,22 +172,6 @@ public class TableroGUI extends JFrame {
         //tramo 1
         for (int i = 0; i < 8; i++){
             constraints.gridx = i;
-            constraints.gridy = 10;
-            constraints.gridwidth = 1;
-            constraints.gridheight = 2;
-            constraints.fill = GridBagConstraints.BOTH;
-            CasillasGUI casilla = new CasillasGUI(16+i,"<html><br><br><html>", parchis, "Rojo");
-            casilla.setTipo(casilla.ALTA);
-            add(casilla,constraints);
-            if(i == 0){
-                casilla.setBackground(new Color (192, 180, 179));
-            }else {
-                casilla.setBackground(new Color(232, 73, 55));
-            }casillaRoja.add(casilla);
-        }
-        //tramo 2
-        for (int i = 0; i < 8; i++){
-            constraints.gridx = i;
             constraints.gridy = 12;
             constraints.gridwidth = 1;
             constraints.gridheight = 2;
@@ -199,7 +183,7 @@ public class TableroGUI extends JFrame {
                 casilla.setBackground(new Color (232, 73, 55));
             }casillaRoja.add(casilla);
         }
-        //tramo 3
+        //tramo 2
         for (int i = 0; i < 8; i++){
             constraints.gridx = 8;
             constraints.gridy = 14+i;
@@ -211,6 +195,23 @@ public class TableroGUI extends JFrame {
             add(casilla,constraints);
             if(i == 3){
                 casilla.setBackground(new Color (192, 180, 179));
+            }casillaRoja.add(casilla);
+        }
+
+        //tramo 3
+        for (int i = 0; i < 8; i++){
+            constraints.gridx = i;
+            constraints.gridy = 10;
+            constraints.gridwidth = 1;
+            constraints.gridheight = 2;
+            constraints.fill = GridBagConstraints.BOTH;
+            CasillasGUI casilla = new CasillasGUI(16+i,"<html><br><br><html>", parchis, "Rojo");
+            casilla.setTipo(casilla.ALTA);
+            add(casilla,constraints);
+            if(i == 0){
+                casilla.setBackground(new Color (192, 180, 179));
+            }else {
+                casilla.setBackground(new Color(232, 73, 55));
             }casillaRoja.add(casilla);
         }
     }
