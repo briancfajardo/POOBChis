@@ -72,6 +72,7 @@ public class CasillasGUI extends JPanel {
         }else {
             ficha.setTipo(ficha.ALTA);
         }
+
     }
     public void paint(Graphics g){
         super.paint(g);

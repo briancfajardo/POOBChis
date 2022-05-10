@@ -345,6 +345,7 @@ public class Tablero {
     }
 
 
+
     public static void main(String arg[]){
         Tablero u = new Tablero();
         u.verde.get(13).agregarUno(new Ficha("Amarillo"));

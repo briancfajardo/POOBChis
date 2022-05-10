@@ -8,6 +8,7 @@ public class Ficha extends Elemento{
         this.color = color;
     }
 
+
     public String getColor(){
         return color;
     }

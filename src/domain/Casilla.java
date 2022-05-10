@@ -36,6 +36,7 @@ public class Casilla extends  Elemento{
         comodin.mostrarPoder();
     }
 
+
     public void quitarElemento(Elemento elemento){
         elementos.remove(elemento);
     }

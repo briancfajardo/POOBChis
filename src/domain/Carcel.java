@@ -21,6 +21,7 @@ public class Carcel {
             default -> verde;
         };
     }
+
     public void setColor(String color){
         switch (color) {
             case "Amarillo" -> amarillo -= 1;

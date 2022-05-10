@@ -107,6 +107,7 @@ public class Parchis {
             }
         }
 
+
     }
     public int getCantidadCasilla(String color, int pos){
         return  tablero.getCasilla(color,pos).size();

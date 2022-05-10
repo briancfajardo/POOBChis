@@ -327,6 +327,7 @@ public class TableroGUI extends JFrame {
     }
 
 
+
     class Fondo extends JPanel{
         private Image imagen;
         @Override

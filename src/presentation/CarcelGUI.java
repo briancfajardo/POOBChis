@@ -33,6 +33,7 @@ public class CarcelGUI extends JPanel {
         fichas.setCant(cant);
         repaint();
     }
+
     public void paint(Graphics g){
         super.paint(g);
         g.setColor(color);
