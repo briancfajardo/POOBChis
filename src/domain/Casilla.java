@@ -23,38 +23,9 @@ public class Casilla extends  Elemento{
         return elementos;
     }
 
-    public void addElemento(Elemento nuevoElemento) {
-        if (elementos.isEmpty()) {
-            elementos.add(nuevoElemento);
-        } else if (nuevoElemento instanceof Ficha nuevo){
-            Elemento e = elementos.get(0);
-
-            if (e instanceof Ficha) {
-                BloquearOMatar(nuevo);
-            } else if (e instanceof Comodin) {
-                tomarComodin((Comodin) e, nuevo);
-            }
-        }
-    }
 
     public void agregarUno(Elemento nuevoElemento) {
         elementos.add(nuevoElemento);
-    }
-
-    public void BloquearOMatar(Ficha ficha){
-        Ficha f = (Ficha) elementos.get(0);
-        if (f.getColor() == ficha.getColor()){
-            setBloqueado();
-            elementos.add(ficha);
-        }else{
-            if (!isSeguro()) {
-                elementos.remove(0);
-                elementos.add(ficha);
-            }else{
-                setBloqueado();
-                elementos.add(ficha);
-            }
-        }
     }
 
     public void tomarComodin(Comodin comodin, Ficha ficha){
