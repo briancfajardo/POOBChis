@@ -111,6 +111,9 @@ public class Parchis {
 
 
     }
+    public int getGanadores(String color){
+        return tablero.getGanadores(color);
+    }
     public boolean isBloqueado(String color, int pos){
         return  tablero.isBloqueado(color, pos);
     }

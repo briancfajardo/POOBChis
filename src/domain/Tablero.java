@@ -186,7 +186,7 @@ public class Tablero {
                         if (ficha.getColor().equals(mayusculaCasa) && numCasilla + 1 == 24) {
                             casilla.quitarElemento(ficha);
                             ganadores.addColor(mayusculaCasa);
-                            numCasilla += 1;
+                            numCasilla = 24;
 
                         } else if (!ficha.getColor().equals(mayusculaCasa) && numCasilla + 1 == 17) {
                             casilla.quitarElemento(ficha);
@@ -216,7 +216,7 @@ public class Tablero {
                         if (ficha.getColor().equals(mayusculaCasa) && numCasilla + 1 == 24) {
                             casilla.quitarElemento(ficha);
                             ganadores.addColor(mayusculaCasa);
-                            numCasilla += 1;
+                            numCasilla = 24;
 
                         } else if (!ficha.getColor().equals(mayusculaCasa) && numCasilla + 1 == 17) {
                             casilla.quitarElemento(ficha);
@@ -246,7 +246,7 @@ public class Tablero {
                         if (ficha.getColor().equals(mayusculaCasa) && numCasilla + 1 == 24) {
                             casilla.quitarElemento(ficha);
                             ganadores.addColor(mayusculaCasa);
-                            numCasilla += 1;
+                            numCasilla = 24;
 
                         } else if (!ficha.getColor().equals(mayusculaCasa) && numCasilla + 1 == 17) {
                             casilla.quitarElemento(ficha);
@@ -361,8 +361,8 @@ public class Tablero {
     }
 
 
-    public Ganadores getGanadores(){
-        return ganadores;
+    public int getGanadores(String color){
+        return ganadores.getColor(color);
     }
 
 

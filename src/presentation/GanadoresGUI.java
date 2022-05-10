@@ -1,23 +1,44 @@
 package presentation;
 
+import domain.Parchis;
+
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class GanadoresGUI extends JPanel {
-    private FichasGUI fichas;
-    private String color;
-    private int cant;
+    private FichasGUI fichasRojo;
+    private FichasGUI fichasAzul;
+    private FichasGUI fichasAmarillo;
+    private FichasGUI fichasVerde;
     private int alto;
     private int ancho;
-    public GanadoresGUI(String color, int cant){
-        this.color = color;
-        this.cant = cant;
+    private Parchis parchis;
+    public GanadoresGUI(Parchis parchis){
         setBorder(BorderFactory.createEtchedBorder());
         setVisible(true);
-        fichas = new FichasGUI("Rojo" ,0);
-        fichas.setTipo(fichas.FINAL);
+        fichasRojo = new FichasGUI("Rojo" ,0);
+        fichasRojo.setTipo(fichasRojo.FINAL);
+
+        fichasVerde = new FichasGUI("Verde" ,0);
+        fichasVerde.setTipo(fichasVerde.FINAL);
+
+        fichasAzul = new FichasGUI("Azul" ,0);
+        fichasAzul.setTipo(fichasAzul.FINAL);
+
+        fichasAmarillo = new FichasGUI("Amarillo" ,0);
+        fichasAmarillo.setTipo(fichasAmarillo.FINAL);
+
+        this.parchis = parchis;
+    }
+    public void actualizar(){
+
+        fichasRojo.setCant(parchis.getGanadores("Rojo"));
+        fichasVerde.setCant(parchis.getGanadores("Verde"));
+        fichasAmarillo.setCant(parchis.getGanadores("Amarillo"));
+        fichasAzul.setCant(parchis.getGanadores("Azul"));
+        repaint();
     }
     public void paint(Graphics g){
         super.paint(g);
@@ -44,7 +65,14 @@ public class GanadoresGUI extends JPanel {
         g.setColor(new Color(232, 73, 55));
         g.fillPolygon(puntosX4,puntosy4,3);
 
-        fichas.setXY(ancho,alto);
-        fichas.paint(g);
+        fichasRojo.setXY(ancho,alto);
+        fichasVerde.setXY(ancho,alto);
+        fichasAzul.setXY(ancho,alto);
+        fichasAmarillo.setXY(ancho,alto);
+
+        fichasRojo.paint(g);
+        fichasAmarillo.paint(g);
+        fichasAzul.paint(g);
+        fichasVerde.paint(g);
     }
 }

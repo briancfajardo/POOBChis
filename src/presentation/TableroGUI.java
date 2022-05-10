@@ -24,6 +24,7 @@ public class TableroGUI extends JFrame {
     private ArrayList<CasillasGUI> casillaRoja= new ArrayList<>();
     private ArrayList<CasillasGUI> casillaVerde= new ArrayList<>();
     private  JLabel turno;
+    private GanadoresGUI win1;
     public TableroGUI() {
         super("POOBChisGame");
         this.setContentPane(fondo);
@@ -37,6 +38,7 @@ public class TableroGUI extends JFrame {
             carcel2.actualizar();
             carcel3.actualizar();
             carcel4.actualizar();
+            win1.actualizar();
             for(int i = 0; i<24;i++){
                 casillaAzul.get(i).actualizar();
                 casillaAmarilla.get(i).actualizar();
@@ -324,7 +326,7 @@ public class TableroGUI extends JFrame {
         constraints.gridwidth = 6;
         constraints.gridheight = 6;
         constraints.gridy = 8;
-        GanadoresGUI win1 = new GanadoresGUI("Azul",0);
+        win1 = new GanadoresGUI( parchis);
         //grid.setConstraints(win1, constraints);
         add(win1,constraints);
 

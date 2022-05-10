@@ -7,7 +7,10 @@ public class Ganadores {
     int verde;
 
     public Ganadores(){
-
+        rojo = 0;
+        amarillo = 0;
+        azul = 0;
+        verde = 0;
     }
 
     public int getColor(String color) {
