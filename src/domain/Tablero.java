@@ -211,12 +211,12 @@ public class Tablero {
 
                     if (ultCasilla.getElementos().get(0) instanceof Ficha && ultCasilla.getElementos().get(1) instanceof Ficha
                             && ((Ficha) ultCasilla.getElementos().get(0)).getColor().equals(((Ficha) ultCasilla.getElementos().get(1)).getColor())) {
-                        casilla.setBloqueado();
+                        ultCasilla.setBloqueado();
 
                     } else if (ultCasilla.getElementos().get(0) instanceof Ficha && ultCasilla.getElementos().get(1) instanceof Ficha
                             && !((Ficha) ultCasilla.getElementos().get(0)).getColor().equals(((Ficha) ultCasilla.getElementos().get(1)).getColor())
                             && !ultCasilla.isSeguro()) {
-                        casilla.getElementos().remove(0);
+                        ultCasilla.getElementos().remove(0);
 
                     } else if (ultCasilla.getElementos().get(0) instanceof Comodin && ultCasilla.getElementos().get(1) instanceof Ficha) {
                         ultCasilla.tomarComodin((Comodin) ultCasilla.getElementos().get(0), (Ficha) ultCasilla.getElementos().get(1));
@@ -295,15 +295,21 @@ public class Tablero {
     public static void main(String arg[]){
         Tablero u = new Tablero();
         u.verde.get(13).agregarUno(new Ficha("Amarillo"));
+        u.verde.get(15).agregarUno(new Ficha("Azul"));
+        u.verde.get(14).agregarUno(new Ficha("Azul"));
+
+        Ficha f2 = (Ficha) u.verde.get(14).getElementos().get(0);
+        u.moverFicha("verde", f2, 14, 1);
         Ficha f = (Ficha) u.verde.get(13).getElementos().get(0);
-        u.moverFicha("verde", f, 13, 4);
-        System.out.println(u.amarillo.get(16));
+        u.moverFicha("verde", f, 13, 2);
+
+        System.out.println(u.verde.get(13));
         System.out.println("_________");
-        System.out.println(u.amarillo.get(17));
+        System.out.println(u.verde.get(14));
         System.out.println("_________");
-        System.out.println(u.azul.get(16));
+        System.out.println(u.verde.get(15));
         System.out.println("_________");
-        System.out.println(u.azul.get(0));
+        System.out.println(u.azul.get(11));
         System.out.println("_________");
         System.out.println(u.ganadores);
 
