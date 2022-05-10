@@ -19,6 +19,10 @@ public class Casilla extends  Elemento{
         seguro = true;
     }
 
+    public void quitarBloqueo(){
+        bloqueado = false;
+    }
+
     public ArrayList<Elemento> getElementos(){
         return elementos;
     }
