@@ -23,6 +23,7 @@ public class TableroGUI extends JFrame {
     private ArrayList<CasillasGUI> casillaAmarilla= new ArrayList<>();
     private ArrayList<CasillasGUI> casillaRoja= new ArrayList<>();
     private ArrayList<CasillasGUI> casillaVerde= new ArrayList<>();
+    private  JLabel turno;
     public TableroGUI() {
         super("POOBChisGame");
         this.setContentPane(fondo);
@@ -31,6 +32,7 @@ public class TableroGUI extends JFrame {
     }
     public void juego(){
         while (!terminar){
+            mensajeTurno();
             carcel1.actualizar();
             carcel2.actualizar();
             carcel3.actualizar();
@@ -61,12 +63,40 @@ public class TableroGUI extends JFrame {
         casillasRojas();
         casillasVerdes();
         dados();
+        tituloTurno();
+    }
+    public void tituloTurno(){
+        constraints.gridx = 22;
+        constraints.gridwidth = 8;
+        constraints.gridheight = 3;
+        constraints.gridy = 0;
+        constraints.fill = GridBagConstraints.BOTH;
+        turno = new JLabel();
+        Font letra = new Font("Serif", Font.CENTER_BASELINE, 30);
+        turno.setFont(letra);
+        mensajeTurno();
+        add(turno, constraints);
+    }
+    public void mensajeTurno(){
+        if(parchis.getTurno(parchis.ROJO)){
+            turno.setText("Turno del rojo");
+            turno.setForeground(new Color(227, 128, 128));
+        } else if (parchis.getTurno(parchis.VERDE)) {
+            turno.setText("Turno del verde");
+            turno.setForeground(new Color(87, 234, 135));
+        }else if (parchis.getTurno(parchis.AZUL)) {
+            turno.setText("Turno del azul");
+            turno.setForeground(new Color(56, 152, 248));
+        }else if (parchis.getTurno(parchis.AMARILLO)) {
+            turno.setText("Turno del amarillo");
+            turno.setForeground(new Color(241, 206, 89));
+        }
     }
     public void dados(){
         constraints.gridx = 22;
         constraints.gridwidth = 8;
         constraints.gridheight = 4;
-        constraints.gridy = 1;
+        constraints.gridy = 3;
         constraints.fill = GridBagConstraints.BOTH;
         DadosGUI dado = new DadosGUI(parchis);
         dado1 = dado.getValor1();

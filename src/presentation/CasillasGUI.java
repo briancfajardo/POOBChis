@@ -11,6 +11,7 @@ public class CasillasGUI extends JPanel {
     MouseListener clic = new MouseListener() {
         @Override
         public void mouseClicked(MouseEvent e) {
+
             parchis.moverFicha(color, num);
         }
 
@@ -62,6 +63,9 @@ public class CasillasGUI extends JPanel {
             ficha.setColor(parchis.getColorFicha(color,num,0));
         }else if(aux == 2){
             ficha.setColor2(parchis.getColorFicha(color,num,1));
+        }
+        if(parchis.isBloqueado(color,num)){
+            setBackground(new Color (192, 180, 179));
         }
         repaint();
     }

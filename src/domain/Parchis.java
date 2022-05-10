@@ -43,7 +43,9 @@ public class Parchis {
             }
         }
     }
-    public int getTurno(){return turno;}
+    public boolean getTurno(int turnoP){
+        return turnoP == turno;
+    }
 
     public void tirarDado() {
         valor1 = dado1.tirarDado();
@@ -109,10 +111,13 @@ public class Parchis {
 
 
     }
+    public boolean isBloqueado(String color, int pos){
+        return  tablero.isBloqueado(color, pos);
+    }
     public int getCantidadCasilla(String color, int pos){
-        return  tablero.getCasilla(color,pos).size();
+        return  tablero.getElementosCasilla(color,pos).size();
     }
     public String getColorFicha(String color, int pos, int i){
-        return  ((Ficha) tablero.getCasilla(color,pos).get(i)).getColor();
+        return  ((Ficha) tablero.getElementosCasilla(color,pos).get(i)).getColor();
     }
 }

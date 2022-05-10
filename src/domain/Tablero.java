@@ -41,7 +41,28 @@ public class Tablero {
     }
 
     private void ponerSeguro(int numCasilla, String nombreCasa){
-
+        switch (nombreCasa){
+            case "Azul"->{
+                azul.get(numCasilla).setSeguro();
+            }
+            case "Rojo"->{
+                rojo.get(numCasilla).setSeguro();
+            }
+            case "Amarillo"->{
+                amarillo.get(numCasilla).setSeguro();
+            }
+            default -> {
+                verde.get(numCasilla).setSeguro();
+            }
+        }
+    }
+    public boolean isBloqueado(String color, int pos){
+        return switch (color) {
+            case "Amarillo" -> amarillo.get(pos).isBloqueado();
+            case "Azul" -> azul.get(pos).isBloqueado();
+            case "Rojo" -> rojo.get(pos).isBloqueado();
+            default -> verde.get(pos).isBloqueado();
+        };
     }
 
     public void nuevaFicha(String color, int pos, String colorf){
@@ -52,7 +73,7 @@ public class Tablero {
             default -> verde.get(pos).agregarUno(new Ficha(colorf));
         }
     }
-    public ArrayList<Elemento> getCasilla(String color, int pos){
+    public ArrayList<Elemento> getElementosCasilla(String color, int pos){
         return switch (color) {
             case "Amarillo" -> amarillo.get(pos).getElementos();
             case "Azul" -> azul.get(pos).getElementos();
