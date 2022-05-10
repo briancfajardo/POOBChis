@@ -25,7 +25,7 @@ public class CarcelGUI extends JPanel {
         setBorder(BorderFactory.createEtchedBorder());
         setBackground(color2);
         setVisible(true);
-        fichas = new FichasGUI("Azul" ,cant);
+        fichas = new FichasGUI(col ,cant);
         fichas.setTipo(fichas.CARCEL);
     }
     public void actualizar(){

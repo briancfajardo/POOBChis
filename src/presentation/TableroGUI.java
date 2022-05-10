@@ -233,14 +233,14 @@ public class TableroGUI extends JFrame {
         //tramo 2
         for (int i = 0; i < 8; i++){
             constraints.gridx = 12;
-            constraints.gridy = 14+i;
+            constraints.gridy = 21-i;
             constraints.gridwidth = 2;
             constraints.gridheight = 1;
             constraints.fill = GridBagConstraints.BOTH;
             CasillasGUI casilla = new CasillasGUI(i,"       ", parchis, "Verde");
             casilla.setTipo(casilla.ANCHA);
             add(casilla,constraints);
-            if(i == 3){
+            if(i == 4){
                 casilla.setBackground(new Color (33, 202, 88));
             }casillaVerde.add(casilla);
         }

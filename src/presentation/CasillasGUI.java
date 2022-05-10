@@ -11,7 +11,7 @@ public class CasillasGUI extends JPanel {
     MouseListener clic = new MouseListener() {
         @Override
         public void mouseClicked(MouseEvent e) {
-            System.out.println("Lumpias u");
+            parchis.moverFicha(color, num);
         }
 
         @Override
@@ -52,11 +52,17 @@ public class CasillasGUI extends JPanel {
         add(new JLabel(msg));
         alto = getSize().height;
         ancho = getSize().width;
-        ficha = new FichasGUI("Azul",0);
+        ficha = new FichasGUI(color,0);
         this.num = num;
     }
     public void actualizar(){
-        ficha.setCant(parchis.getCantidadCasilla(color, num));
+        int aux = parchis.getCantidadCasilla(color, num);
+        ficha.setCant(aux);
+        if (aux == 1){
+            ficha.setColor(parchis.getColorFicha(color,num,0));
+        }else if(aux == 2){
+            ficha.setColor2(parchis.getColorFicha(color,num,1));
+        }
         repaint();
     }
     public void setTipo(int tipo){

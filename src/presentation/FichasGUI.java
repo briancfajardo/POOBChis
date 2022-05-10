@@ -21,11 +21,15 @@ public class FichasGUI extends JFrame{
     public FichasGUI(String color, int cant){
         this.cant =cant;
         this.color = color;
+        this.color2 = color;
     }
 
     public void setXY(int numX, int numY){
         x = numX;
         y = numY;
+    }
+    public void setColor(String color){
+        this.color = color;
     }
     public void setColor2(String color){
         this.color2 = color;
@@ -40,16 +44,17 @@ public class FichasGUI extends JFrame{
 
     public void paint(Graphics g){
         super.paint(g);
-        Image img = new ImageIcon(getClass().getResource("/imagenes/CircleP10"+"Rojo"+"Borde.png")).getImage();
+        Image img = new ImageIcon(getClass().getResource("/imagenes/CircleP10"+color+"Borde.png")).getImage();
+        Image img2 = new ImageIcon(getClass().getResource("/imagenes/CircleP10"+color2+"Borde.png")).getImage();
 
         if (cant == 1 && tipo != CARCEL && tipo != FINAL){
             g.drawImage(img,(x/2)-5,(y/2)-5,this);
         }else if(cant == 2 && tipo == ANCHA){
             g.drawImage(img,(x/2)-12,(y/2)-5,this);
-            g.drawImage(img,(x/2)+2,(y/2)-5,this);
+            g.drawImage(img2,(x/2)+2,(y/2)-5,this);
         }else if(cant == 2 && tipo == ALTA){
             g.drawImage(img,(x/2)-5,(y/2)-12,this);
-            g.drawImage(img,(x/2)-5,(y/2)+2,this);
+            g.drawImage(img2,(x/2)-5,(y/2)+2,this);
         }
 
         else if(tipo == CARCEL){
