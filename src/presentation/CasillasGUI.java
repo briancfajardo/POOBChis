@@ -60,13 +60,15 @@ public class CasillasGUI extends JPanel {
         int aux = parchis.getCantidadCasilla(color, num);
         ficha.setCant(aux);
         if (aux == 1){
+            //System.out.println(aux);
             ficha.setColor(parchis.getColorFicha(color,num,0));
         }else if(aux == 2){
+            ficha.setColor(parchis.getColorFicha(color,num,0));
             ficha.setColor2(parchis.getColorFicha(color,num,1));
         }
-        if(parchis.isBloqueado(color,num)){
-            setBackground(new Color (192, 180, 179));
-        }
+        //if(parchis.isBloqueado(color,num)){
+        //    setBackground(new Color (192, 180, 179));
+        //}
         repaint();
     }
     public void setTipo(int tipo){

@@ -129,8 +129,197 @@ public class Tablero {
             }
         }
     }
+    public void moverFicha(String colorCasa, Ficha ficha, int numCasilla, int mover){
+        if (!verficarBloqueo(colorCasa, numCasilla, mover, ficha.getColor())){
+            switch (colorCasa) {
+                case "Amarillo" -> {
+                    amarillo.get(numCasilla).quitarBloqueo();
+                    if (ficha.getColor().equals(colorCasa) && numCasilla + mover == 24 && numCasilla >= 16) {
+                        amarillo.get(numCasilla).quitarElemento(ficha);
+                        ganadores.addColor(colorCasa);
 
-    public void moverFicha(String colorCasa, Ficha ficha, int numCasilla, int mover) {
+                    } else if (numCasilla + mover == 16) {
+                        amarillo.get(numCasilla).quitarElemento(ficha);
+                        azul.get(16).agregarUno(ficha);
+                        ponerBlooqueoComodin(azul.get(16));
+
+                    } else if (!ficha.getColor().equals(colorCasa) && numCasilla == 16) {
+                        amarillo.get(numCasilla).quitarElemento(ficha);
+                        amarillo.get(mover-1).agregarUno(ficha);
+                        ponerBlooqueoComodin(amarillo.get(mover-1));
+
+                    } else if (numCasilla < 16 && numCasilla + mover > 16) {
+                        amarillo.get(numCasilla).quitarElemento(ficha);
+                        azul.get((numCasilla + mover) - 17).agregarUno(ficha);
+                        ponerBlooqueoComodin(azul.get((numCasilla + mover) - 17));
+
+                    }else if (ficha.getColor().equals("Azul") && numCasilla + mover > 16 && numCasilla + mover < 24) {
+                        amarillo.get(numCasilla).quitarElemento(ficha);
+                        azul.get(numCasilla + mover).agregarUno(ficha);
+                        ponerBlooqueoComodin(azul.get(numCasilla + mover));
+
+                    }else if (ficha.getColor().equals("Azul") && numCasilla + mover == 24) {
+                        amarillo.get(numCasilla).quitarElemento(ficha);
+                        ganadores.addColor("Azul");
+
+                    }else if (ficha.getColor().equals(colorCasa) && numCasilla >= 16 && numCasilla + mover < 24) {
+                        amarillo.get(numCasilla).quitarElemento(ficha);
+                        amarillo.get(numCasilla + mover).agregarUno(ficha);
+                        ponerBlooqueoComodin(amarillo.get(numCasilla + mover));
+
+                    }else if(numCasilla + mover < 16) {
+                        amarillo.get(numCasilla).quitarElemento(ficha);
+                        amarillo.get(numCasilla + mover).agregarUno(ficha);
+                        ponerBlooqueoComodin(amarillo.get(numCasilla + mover));
+                    }
+                }
+                case "Azul" -> {
+                    azul.get(numCasilla).quitarBloqueo();
+                    if (ficha.getColor().equals(colorCasa) && numCasilla + mover == 24 && numCasilla >= 16) {
+                        azul.get(numCasilla).quitarElemento(ficha);
+                        ganadores.addColor(colorCasa);
+
+                    } else if (numCasilla + mover == 16) {
+                        azul.get(numCasilla).quitarElemento(ficha);
+                        rojo.get(16).agregarUno(ficha);
+                        ponerBlooqueoComodin(rojo.get(16));
+
+                    }else if (!ficha.getColor().equals(colorCasa) && numCasilla == 16) {
+                        azul.get(numCasilla).quitarElemento(ficha);
+                        azul.get(mover-1).agregarUno(ficha);
+                        ponerBlooqueoComodin(azul.get(mover-1));
+
+                    }else if (numCasilla < 16 && numCasilla + mover > 16) {
+                        azul.get(numCasilla).quitarElemento(ficha);
+                        rojo.get(numCasilla + mover - 17).agregarUno(ficha);
+                        ponerBlooqueoComodin(rojo.get(numCasilla + mover - 17));
+
+                    }else if (ficha.getColor().equals("Rojo") && numCasilla + mover > 16 && numCasilla + mover < 24) {
+                        azul.get(numCasilla).quitarElemento(ficha);
+                        rojo.get(numCasilla + mover).agregarUno(ficha);
+                        ponerBlooqueoComodin(rojo.get(numCasilla + mover));
+
+                    }else if (ficha.getColor().equals("Rojo") && numCasilla + mover == 24) {
+                        azul.get(numCasilla).quitarElemento(ficha);
+                        ganadores.addColor("Rojo");
+
+                    }else if (ficha.getColor().equals(colorCasa) && numCasilla >= 16 && numCasilla + mover < 24) {
+                        azul.get(numCasilla).quitarElemento(ficha);
+                        azul.get(numCasilla + mover).agregarUno(ficha);
+                        ponerBlooqueoComodin(azul.get(numCasilla + mover));
+
+                    }else if(numCasilla + mover < 16){
+                        azul.get(numCasilla).quitarElemento(ficha);
+                        azul.get(numCasilla + mover).agregarUno(ficha);
+                        ponerBlooqueoComodin(azul.get(numCasilla + mover));
+                    }
+                }
+                case "Rojo" -> {
+                    rojo.get(numCasilla).quitarBloqueo();
+                    if (ficha.getColor().equals(colorCasa) && numCasilla + mover == 24 && numCasilla >= 16) {
+                        rojo.get(numCasilla).quitarElemento(ficha);
+                        ganadores.addColor(colorCasa);
+
+                    } else if (numCasilla + mover == 16) {
+                        rojo.get(numCasilla).quitarElemento(ficha);
+                        verde.get(16).agregarUno(ficha);
+                        ponerBlooqueoComodin(verde.get(16));
+
+                    }else if (!ficha.getColor().equals(colorCasa) && numCasilla == 16) {
+                        rojo.get(numCasilla).quitarElemento(ficha);
+                        rojo.get(mover-1).agregarUno(ficha);
+                        ponerBlooqueoComodin(rojo.get(mover-1));
+
+                    }else if (numCasilla < 16 && numCasilla + mover > 16) {
+                        rojo.get(numCasilla).quitarElemento(ficha);
+                        verde.get(numCasilla + mover - 17).agregarUno(ficha);
+                        ponerBlooqueoComodin(verde.get(numCasilla + mover - 17));
+
+                    }else if (ficha.getColor().equals("Verde") && numCasilla + mover > 16 && numCasilla + mover < 24) {
+                        rojo.get(numCasilla).quitarElemento(ficha);
+                        verde.get(numCasilla + mover).agregarUno(ficha);
+                        ponerBlooqueoComodin(verde.get(numCasilla + mover));
+
+                    }else if (ficha.getColor().equals("Verde") && numCasilla + mover == 24) {
+                        rojo.get(numCasilla).quitarElemento(ficha);
+                        ganadores.addColor("Rojo");
+
+                    }else if (ficha.getColor().equals(colorCasa) && numCasilla >= 16 && numCasilla + mover < 24) {
+                        rojo.get(numCasilla).quitarElemento(ficha);
+                        rojo.get(numCasilla + mover).agregarUno(ficha);
+                        ponerBlooqueoComodin(rojo.get(numCasilla + mover));
+
+                    }else if(numCasilla + mover < 16){
+                        rojo.get(numCasilla).quitarElemento(ficha);
+                        rojo.get(numCasilla + mover).agregarUno(ficha);
+                        ponerBlooqueoComodin(rojo.get(numCasilla + mover));
+                    }
+                }
+                default -> {
+                    verde.get(numCasilla).quitarBloqueo();
+                    if (ficha.getColor().equals(colorCasa) && numCasilla + mover == 24 && numCasilla >= 16) {
+                        verde.get(numCasilla).quitarElemento(ficha);
+                        ganadores.addColor(colorCasa);
+
+                    } else if (numCasilla + mover == 16) {
+                        verde.get(numCasilla).quitarElemento(ficha);
+                        amarillo.get(16).agregarUno(ficha);
+                        ponerBlooqueoComodin(amarillo.get(16));
+
+                    }else if (!ficha.getColor().equals(colorCasa) && numCasilla == 16) {
+                        verde.get(numCasilla).quitarElemento(ficha);
+                        verde.get(mover-1).agregarUno(ficha);
+                        ponerBlooqueoComodin(verde.get(mover-1));
+
+                    }else if (numCasilla < 16 && numCasilla + mover > 16) {
+                        verde.get(numCasilla).quitarElemento(ficha);
+                        amarillo.get(numCasilla + mover - 17).agregarUno(ficha);
+                        ponerBlooqueoComodin(amarillo.get(numCasilla + mover - 17));
+
+                    }else if (ficha.getColor().equals("Amarillo") && numCasilla + mover > 16 && numCasilla + mover < 24) {
+                        verde.get(numCasilla).quitarElemento(ficha);
+                        amarillo.get(numCasilla + mover).agregarUno(ficha);
+                        ponerBlooqueoComodin(amarillo.get(numCasilla + mover));
+
+                    }else if (ficha.getColor().equals("Amarillo") && numCasilla + mover == 24) {
+                        verde.get(numCasilla).quitarElemento(ficha);
+                        ganadores.addColor("Amarillo");
+
+                    }else if (ficha.getColor().equals(colorCasa) && numCasilla >= 16 && numCasilla + mover < 24) {
+                        verde.get(numCasilla).quitarElemento(ficha);
+                        verde.get(numCasilla + mover).agregarUno(ficha);
+                        ponerBlooqueoComodin(verde.get(numCasilla + mover));
+
+                    }else if(numCasilla + mover < 16){
+                        verde.get(numCasilla).quitarElemento(ficha);
+                        verde.get(numCasilla + mover).agregarUno(ficha);
+                        ponerBlooqueoComodin(verde.get(numCasilla + mover));
+                    }
+                }
+            };
+        }
+    }
+    public void ponerBlooqueoComodin(Casilla ultCasilla) {
+        if (ultCasilla.getElementos().size() == 2) {
+
+            if (ultCasilla.getElementos().get(0) instanceof Ficha && ultCasilla.getElementos().get(1) instanceof Ficha
+                    && ((Ficha) ultCasilla.getElementos().get(0)).getColor().equals(((Ficha) ultCasilla.getElementos().get(1)).getColor())) {
+                ultCasilla.setBloqueado();
+
+            } else if (ultCasilla.getElementos().get(0) instanceof Ficha && ultCasilla.getElementos().get(1) instanceof Ficha
+                    && !((Ficha) ultCasilla.getElementos().get(0)).getColor().equals(((Ficha) ultCasilla.getElementos().get(1)).getColor())
+                    && !ultCasilla.isSeguro()) {
+                volverCarcel(((Ficha) ultCasilla.getElementos().get(0)).getColor());
+                ultCasilla.getElementos().remove(0);
+
+            } else if (ultCasilla.getElementos().get(0) instanceof Comodin && ultCasilla.getElementos().get(1) instanceof Ficha) {
+                ultCasilla.tomarComodin((Comodin) ultCasilla.getElementos().get(0), (Ficha) ultCasilla.getElementos().get(1));
+
+            }
+
+        }
+    }
+    public void mover(String colorCasa, Ficha ficha, int numCasilla, int mover) {
         Casilla casilla;
         Casilla ultCasilla = null;
         String ultimoColor = colorCasa;
@@ -155,24 +344,24 @@ public class Tablero {
                             amarillo.get(numCasilla).quitarBloqueo();
                         }
                         if (ficha.getColor().equals(mayusculaCasa) && numCasilla + 1 == 24) {
-                            casilla.quitarElemento(ficha);
+                            amarillo.get(numCasilla).quitarElemento(ficha);
                             ganadores.addColor(mayusculaCasa);
-                            numCasilla = 24;
+                            i = mover;
 
                         } else if (!ficha.getColor().equals(mayusculaCasa) && numCasilla + 1 == 17) {
-                            casilla.quitarElemento(ficha);
+                            amarillo.get(numCasilla).quitarElemento(ficha);
                             amarillo.get(0).agregarUno(ficha);
                             ultCasilla = amarillo.get(0);
                             numCasilla = 0;
 
                         } else if (numCasilla + 1 == 16) {
-                            casilla.quitarElemento(ficha);
+                            amarillo.get(numCasilla).quitarElemento(ficha);
                             azul.get(numCasilla + 1).agregarUno(ficha);
                             ultimoColor = "Azul";
                             ultCasilla = azul.get(numCasilla + 1);
                             numCasilla += 1;
                         } else {
-                            casilla.quitarElemento(ficha);
+                            amarillo.get(numCasilla).quitarElemento(ficha);
                             amarillo.get(numCasilla + 1).agregarUno(ficha);
                             ultCasilla = amarillo.get(numCasilla + 1);
                             numCasilla += 1;
@@ -184,25 +373,25 @@ public class Tablero {
                             azul.get(numCasilla).quitarBloqueo();
                         }
                         if (ficha.getColor().equals(mayusculaCasa) && numCasilla + 1 == 24) {
-                            casilla.quitarElemento(ficha);
+                            azul.get(numCasilla).quitarElemento(ficha);
                             ganadores.addColor(mayusculaCasa);
-                            numCasilla = 24;
+                            i = mover;
 
                         } else if (!ficha.getColor().equals(mayusculaCasa) && numCasilla + 1 == 17) {
-                            casilla.quitarElemento(ficha);
+                            azul.get(numCasilla).quitarElemento(ficha);
                             azul.get(0).agregarUno(ficha);
                             ultCasilla = azul.get(0);
                             numCasilla = 0;
 
                         } else if (numCasilla + 1 == 16) {
-                            casilla.quitarElemento(ficha);
+                            azul.get(numCasilla).quitarElemento(ficha);
                             rojo.get(numCasilla + 1).agregarUno(ficha);
                             ultimoColor = "Rojo";
                             ultCasilla = rojo.get(numCasilla + 1);
                             numCasilla += 1;
 
                         } else {
-                            casilla.quitarElemento(ficha);
+                            azul.get(numCasilla).quitarElemento(ficha);
                             azul.get(numCasilla + 1).agregarUno(ficha);
                             ultCasilla = azul.get(numCasilla + 1);
                             numCasilla += 1;
@@ -214,25 +403,26 @@ public class Tablero {
                             rojo.get(numCasilla).quitarBloqueo();
                         }
                         if (ficha.getColor().equals(mayusculaCasa) && numCasilla + 1 == 24) {
-                            casilla.quitarElemento(ficha);
+                            System.out.println("no nono");
+                            rojo.get(numCasilla).quitarElemento(ficha);
                             ganadores.addColor(mayusculaCasa);
-                            numCasilla = 24;
+                            i = mover;
 
                         } else if (!ficha.getColor().equals(mayusculaCasa) && numCasilla + 1 == 17) {
-                            casilla.quitarElemento(ficha);
+                            rojo.get(numCasilla).quitarElemento(ficha);
                             rojo.get(0).agregarUno(ficha);
                             ultCasilla = rojo.get(0);
                             numCasilla = 0;
 
                         } else if (numCasilla + 1 == 16) {
-                            casilla.quitarElemento(ficha);
+                            rojo.get(numCasilla).quitarElemento(ficha);
                             verde.get(numCasilla + 1).agregarUno(ficha);
                             ultimoColor = "Verde";
                             ultCasilla = verde.get(numCasilla + 1);
                             numCasilla += 1;
 
-                        } else {
-                            casilla.quitarElemento(ficha);
+                        }else {
+                            rojo.get(numCasilla).quitarElemento(ficha);
                             rojo.get(numCasilla + 1).agregarUno(ficha);
                             ultCasilla = rojo.get(numCasilla + 1);
                             numCasilla += 1;
@@ -244,25 +434,25 @@ public class Tablero {
                             verde.get(numCasilla).quitarBloqueo();
                         }
                         if (ficha.getColor().equals(mayusculaCasa) && numCasilla + 1 == 24) {
-                            casilla.quitarElemento(ficha);
+                            verde.get(numCasilla).quitarElemento(ficha);
                             ganadores.addColor(mayusculaCasa);
-                            numCasilla = 24;
+                            i = mover;
 
                         } else if (!ficha.getColor().equals(mayusculaCasa) && numCasilla + 1 == 17) {
-                            casilla.quitarElemento(ficha);
+                            verde.get(numCasilla).quitarElemento(ficha);
                             verde.get(0).agregarUno(ficha);
                             ultCasilla = verde.get(0);
                             numCasilla = 0;
 
                         } else if (numCasilla + 1 == 16) {
-                            casilla.quitarElemento(ficha);
+                            verde.get(numCasilla).quitarElemento(ficha);
                             amarillo.get(numCasilla + 1).agregarUno(ficha);
                             ultimoColor = "Amarillo";
                             ultCasilla = amarillo.get(numCasilla + 1);
                             numCasilla += 1;
 
                         } else {
-                            casilla.quitarElemento(ficha);
+                            verde.get(numCasilla).quitarElemento(ficha);
                             verde.get(numCasilla + 1).agregarUno(ficha);
                             ultCasilla = verde.get(numCasilla + 1);
                             numCasilla += 1;
