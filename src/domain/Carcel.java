@@ -32,7 +32,7 @@ public class Carcel {
     }
     public void setColormas(String color){
         switch (color) {
-            case "Amarillo" -> amarillo -= 1;
+            case "Amarillo" -> amarillo += 1;
             case "Azul" -> azul += 1;
             case "Rojo" -> rojo += 1;
             default -> verde += 1;

@@ -11,7 +11,7 @@ import java.awt.event.MouseListener;
 public class DadosGUI extends JPanel {
     private int valor1 = 1;
     private int valor2 = 1;
-
+    private OpcionFichaGUI opcionFichaGUI;
     private Parchis parchis;
     private MouseListener clic = new MouseListener() {
         @Override

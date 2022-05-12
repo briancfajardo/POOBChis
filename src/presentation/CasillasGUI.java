@@ -8,11 +8,17 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 
 public class CasillasGUI extends JPanel {
-    MouseListener clic = new MouseListener() {
+    private OpcionFichaGUI opcionFichaGUI;
+    private Point punto;
+    private MouseListener clic = new MouseListener() {
         @Override
         public void mouseClicked(MouseEvent e) {
+            punto=MouseInfo.getPointerInfo().getLocation();
+            int x=punto.x;
+            int y=punto.y;
+            opcionFichaGUI = new OpcionFichaGUI(parchis, x, y);
+            if(parchis.getCantidadCasilla(color, num) != 0){opcionFichaGUI.moverFicha(color, num);}
 
-            parchis.moverFicha(color, num);
         }
 
         @Override
@@ -58,14 +64,20 @@ public class CasillasGUI extends JPanel {
     }
     public void actualizar(){
         int aux = parchis.getCantidadCasilla(color, num);
+
         ficha.setCant(aux);
-        if (aux == 1){
-            //System.out.println(aux);
-            ficha.setColor(parchis.getColorFicha(color,num,0));
-        }else if(aux == 2){
-            ficha.setColor(parchis.getColorFicha(color,num,0));
-            ficha.setColor2(parchis.getColorFicha(color,num,1));
+        try{
+            if (aux == 1){
+                //System.out.println(aux);
+                ficha.setColor(parchis.getColorFicha(color,num,0));
+            }else if(aux == 2){
+                ficha.setColor(parchis.getColorFicha(color,num,0));
+                ficha.setColor2(parchis.getColorFicha(color,num,1));
+            }
+        }catch (Exception e){
+            System.out.println(num + " " + parchis.getCantidadCasilla(color, num));
         }
+
         //if(parchis.isBloqueado(color,num)){
         //    setBackground(new Color (192, 180, 179));
         //}
