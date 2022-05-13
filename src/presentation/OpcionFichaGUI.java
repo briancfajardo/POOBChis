@@ -2,12 +2,15 @@ package presentation;
 
 import domain.Parchis;
 
+import javax.sound.sampled.*;
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.File;
+import java.io.IOException;
 
 public class OpcionFichaGUI extends JFrame implements ActionListener {
     private Parchis parchis;
@@ -63,6 +66,19 @@ public class OpcionFichaGUI extends JFrame implements ActionListener {
         this.color = color;
         this.num = num;
     }
+    public void ReproducirSonido(String nombreSonido){
+        try {
+            //"src/audios/dados.wav";
+
+            AudioInputStream audioInputStream = AudioSystem.getAudioInputStream(new File(nombreSonido).getAbsoluteFile());
+            Clip clip = AudioSystem.getClip();
+            clip.open(audioInputStream);
+            clip.start();
+
+        } catch(UnsupportedAudioFileException | IOException | LineUnavailableException ex) {
+            System.out.println("Error al reproducir el sonido. " + ex);
+        }
+    }
 
     @Override
     public void actionPerformed(ActionEvent e) {
@@ -77,6 +93,7 @@ public class OpcionFichaGUI extends JFrame implements ActionListener {
 
         if (parchis.getValor3() > 0) {
             parchis.moverFicha(color, num);
+            ReproducirSonido("src/audios/fichas1.wav");
         }
 
         this.dispose();
