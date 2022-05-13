@@ -78,7 +78,6 @@ public class OpcionFichaGUI extends JFrame implements ActionListener {
         if (parchis.getValor3() > 0) {
             parchis.moverFicha(color, num);
         }
-
         this.dispose();
     }
 }
