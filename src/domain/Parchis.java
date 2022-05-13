@@ -29,15 +29,12 @@ public class Parchis {
     public void moverFicha(String color, int posFicha){
         if (!verificarTresPares(color, posFicha)){
             tablero.verificacion(color, posFicha, valor3);
+            reglaSalirCarcel();
             if (valor1 != valor2){
                 pares = 0;
                 if (mov1 && mov2){cambiarTurno();}
             } else{
                 pares +=1;
-                if (mov1 && mov2){
-                    mov1 = false;
-                    mov2 = false;
-                }
             }
         }
 
@@ -63,7 +60,7 @@ public class Parchis {
     }
 
     public boolean verificarTresPares(String color, int posFicha){
-        if (pares == 4){
+        if (pares == 5){
             tablero.getElementosCasilla(color, posFicha).remove(tablero.getElementosCasilla(color,posFicha).size()-1);
             if(turno == AMARILLO){
                 tablero.volverCarcel("Amarillo");
