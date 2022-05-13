@@ -14,6 +14,7 @@ public class Parchis {
     public int VERDE = 4;
     private int turno, cantJugadores = 4, sacoFicha, pares;
     private boolean mov1, mov2;
+    private int todasAtrapadas;
 
     public Parchis(){
         tablero = new Tablero();
@@ -28,8 +29,15 @@ public class Parchis {
     public void moverFicha(String color, int posFicha){
         if (!verificarTresPares(color, posFicha)){
             tablero.verificacion(color, posFicha, valor3);
-            if (mov1 && mov2){
-                cambiarTurno(color, posFicha);
+            if (valor1 != valor2){
+                pares = 0;
+                if (mov1 && mov2){cambiarTurno();}
+            } else{
+                pares +=1;
+                if (mov1 && mov2){
+                    mov1 = false;
+                    mov2 = false;
+                }
             }
         }
 
@@ -37,9 +45,8 @@ public class Parchis {
     }
 
 
-    public void cambiarTurno(String color, int posFicha){
+    public void cambiarTurno(){
         if(cantJugadores == 4){
-            if(valor1 != valor2){
                 if(turno == ROJO){
                     this.turno = VERDE;
                 } else if (turno == VERDE) {
@@ -49,19 +56,14 @@ public class Parchis {
                 }else {
                     this.turno = ROJO;
                 }
-                pares = 0;
-
-            }else {
-                pares += 1;
-
-            }
+            todasAtrapadas = 0;
             mov1 = false;
             mov2 = false;
         }
     }
 
     public boolean verificarTresPares(String color, int posFicha){
-        if (pares == 2){
+        if (pares == 4){
             tablero.getElementosCasilla(color, posFicha).remove(tablero.getElementosCasilla(color,posFicha).size()-1);
             if(turno == AMARILLO){
                 tablero.volverCarcel("Amarillo");
@@ -90,7 +92,29 @@ public class Parchis {
     public void tirarDado() {
         valor1 = dado1.tirarDado();
         valor2 = dado2.tirarDado();
-        reglaSalirCarcel();
+        switch (turno){
+            case 1:
+                if (tablero.getValorCarcel("Amarillo") == 4){todasAtrapadas += 1;}
+                break;
+            case 2:
+                if (tablero.getValorCarcel("Azul") == 4){todasAtrapadas += 1;}
+                break;
+            case 3:
+                if (tablero.getValorCarcel("Rojo") == 4){todasAtrapadas += 1;}
+                break;
+            case 4:
+                if (tablero.getValorCarcel("Verde") == 4){todasAtrapadas += 1;}
+                break;
+        }
+
+        if (todasAtrapadas == 3 && valor1 != 5 && valor2 != 5){
+            reglaSalirCarcel();
+            cambiarTurno();
+        }else{
+            reglaSalirCarcel();
+        }
+
+
     }
     public int getValor1(){
         return valor1;
@@ -134,6 +158,13 @@ public class Parchis {
                     tablero.salirCarcel("Rojo");
                     tablero.nuevaFicha("Rojo", 4, "Rojo");
                     sacoFicha = 1;
+                    if (valor1 == 5){
+                        setMov1(true);
+                    }else if (valor2 == 5){
+                        setMov2(true);
+                    }else if (valor1 + valor2 == 5){
+                        cambiarTurno();
+                    }
                 }
             }
         } else if (turno == AZUL) {
@@ -148,6 +179,13 @@ public class Parchis {
                     tablero.salirCarcel("Azul");
                     tablero.nuevaFicha("Azul", 4, "Azul");
                     sacoFicha = 1;
+                    if (valor1 == 5){
+                        setMov1(true);
+                    }else if (valor2 == 5){
+                        setMov2(true);
+                    }else if (valor1 + valor2 == 5){
+                        cambiarTurno();
+                    }
                 }
             }
         }else if (turno == AMARILLO) {
@@ -162,6 +200,13 @@ public class Parchis {
                     tablero.salirCarcel("Amarillo");
                     tablero.nuevaFicha("Amarillo", 4, "Amarillo");
                     sacoFicha = 1;
+                    if (valor1 == 5){
+                        setMov1(true);
+                    }else if (valor2 == 5){
+                        setMov2(true);
+                    }else if (valor1 + valor2 == 5){
+                        cambiarTurno();
+                    }
                 }
             }
         }else {
@@ -176,6 +221,13 @@ public class Parchis {
                     tablero.salirCarcel("Verde");
                     tablero.nuevaFicha("Verde", 4, "Verde");
                     sacoFicha = 1;
+                    if (valor1 == 5){
+                        setMov1(true);
+                    }else if (valor2 == 5){
+                        setMov2(true);
+                    }else if (valor1 + valor2 == 5){
+                        cambiarTurno();
+                    }
                 }
             }
         }
