@@ -20,7 +20,17 @@ public class DadosGUI extends JPanel {
     private MouseListener clic = new MouseListener() {
         @Override
         public void mouseClicked(MouseEvent e) {
-            if (!parchis.isMov1() && !parchis.isMov2()) {
+            if (parchis.isMov1() && parchis.isMov2() && parchis.getValor1() == parchis.getValor2()){
+                parchis.setMov1(false);
+                parchis.setMov2(false);
+                parchis.tirarDado();
+                valor1 = parchis.getValor1();
+                valor2 = parchis.getValor2();
+                ReproducirSonido();
+                repaint();
+            }
+
+            else if (!parchis.isMov1() && !parchis.isMov2()) {
                 parchis.tirarDado();
                 valor1 = parchis.getValor1();
                 valor2 = parchis.getValor2();
