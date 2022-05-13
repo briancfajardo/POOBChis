@@ -119,11 +119,12 @@ public class CasillasGUI extends JPanel {
     }
 
     public boolean contieneFichaColor (String colorTurno){
-        if (ficha.getColor().equals(colorTurno) || ficha.getColor2().equals(colorTurno)){
-            //System.out.println("yes");
-            return true;
+        if (ficha.getCant() == 1){
+            return ficha.getColor().equals(colorTurno);
+        }else if (ficha.getCant() == 2){
+            return ficha.getColor().equals(colorTurno) || ficha.getColor2().equals(colorTurno);
         }
-        //System.out.println("nel");
+
         return false;
     }
 

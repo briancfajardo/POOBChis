@@ -45,6 +45,7 @@ public class FichasGUI extends JFrame{
     public String getColor(){return color;}
 
     public String getColor2(){return color2;}
+    public int getCant(){return cant;}
 
     public void paint(Graphics g){
         super.paint(g);

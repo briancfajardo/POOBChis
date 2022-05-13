@@ -76,6 +76,7 @@ public class Parchis {
                 tablero.volverCarcel("Verde");
                 this.turno = AMARILLO;
             }
+            pares = 0;
             mov1 = false;
             mov2 = false;
             return true;
