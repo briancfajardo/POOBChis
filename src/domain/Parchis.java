@@ -29,7 +29,9 @@ public class Parchis {
     public void moverFicha(String color, int posFicha){
         if (!verificarTresPares(color, posFicha)){
             tablero.verificacion(color, posFicha, valor3);
-            reglaSalirCarcel();
+            if (!mov1 || !mov2){
+                reglaSalirCarcel();
+            }
             if (valor1 != valor2){
                 pares = 0;
                 if (mov1 && mov2){cambiarTurno();}
@@ -145,102 +147,66 @@ public class Parchis {
     }
 
     private void reglaSalirCarcel(){
-        if (turno == ROJO) {
-            if (valor1 == 5 || valor2 == 5 || valor2 + valor1 == 5) {
-                if (valor1 == 5 && valor2 == 5 && tablero.cantElementosSalida("Rojo") == 0 && tablero.getValorCarcel("Rojo") > 1) {
-                    tablero.salirCarcel("Rojo");
-                    tablero.salirCarcel("Rojo");
-                    tablero.nuevaFicha("Rojo", 4, "Rojo");
-                    tablero.nuevaFicha("Rojo", 4, "Rojo");
-                    sacoFicha = 2;
+
+        String colorCasa = null;
+        switch (turno){
+            case 1 -> colorCasa = "Amarillo";
+            case 2 -> colorCasa = "Azul";
+            case 3 -> colorCasa = "Rojo";
+            case 4 -> colorCasa = "Verde";
+        }
+        if (valor1 == 5 || valor2 == 5 || valor2 + valor1 == 5) {
+            if (valor1 == 5 && valor2 == 5 && tablero.cantElementosSalida(colorCasa) == 0 && tablero.getValorCarcel("Rojo") > 1) {
+                tablero.salirCarcel(colorCasa);
+                tablero.salirCarcel(colorCasa);
+                tablero.nuevaFicha(colorCasa, 4, colorCasa);
+                tablero.nuevaFicha(colorCasa, 4, colorCasa);
+                sacoFicha = 2;
+                setMov1(true);
+                setMov2(true);
+
+            } else if(tablero.cantElementosSalida(colorCasa) < 2 && tablero.getValorCarcel(colorCasa) > 0){
+                if (!mov1 && valor1 == 5){
+                    tablero.salirCarcel(colorCasa);
+                    tablero.nuevaFicha(colorCasa, 4, colorCasa);sacoFicha = 1;
                     setMov1(true);
-                    setMov2(true);
-                } else if(tablero.cantElementosSalida("Rojo") < 2 && tablero.getValorCarcel("Rojo") > 0){
-                    tablero.salirCarcel("Rojo");
-                    tablero.nuevaFicha("Rojo", 4, "Rojo");
+                }else if (!mov2 && valor2 == 5) {
+                    tablero.salirCarcel(colorCasa);
+                    tablero.nuevaFicha(colorCasa, 4, colorCasa);
                     sacoFicha = 1;
-                    if (valor1 == 5){
-                        setMov1(true);
-                    }else if (valor2 == 5){
-                        setMov2(true);
-                    }else if (valor1 + valor2 == 5){
-                        cambiarTurno();
-                    }
+                    setMov2(true);
+                } else if (!mov1 && !mov2 && valor1 + valor2 == 5) {
+                    tablero.salirCarcel(colorCasa);tablero.nuevaFicha(colorCasa, 4, colorCasa);
+                    sacoFicha = 1;
+                    cambiarTurno();
                 }
-            }
-        } else if (turno == AZUL) {
-            if (valor1 == 5 || valor2 == 5 || valor2 + valor1 == 5) {
-                if (valor1 == 5 && valor2 == 5 && tablero.cantElementosSalida("Azul") == 0 && tablero.getValorCarcel("Azul") > 1) {
-                    tablero.salirCarcel("Azul");
-                    tablero.salirCarcel("Azul");
-                    tablero.nuevaFicha("Azul", 4, "Azul");
-                    tablero.nuevaFicha("Azul", 4, "Azul");
-                    sacoFicha = 2;
-                    setMov1(true);
-                    setMov2(true);
-                } else if(tablero.cantElementosSalida("Azul") < 2 && tablero.getValorCarcel("Azul") > 0){
-                    tablero.salirCarcel("Azul");
-                    tablero.nuevaFicha("Azul", 4, "Azul");
-                    sacoFicha = 1;
-                    if (valor1 == 5){
-                        setMov1(true);
-                    }else if (valor2 == 5){
-                        setMov2(true);
-                    }else if (valor1 + valor2 == 5){
-                        cambiarTurno();
-                    }
+            } else if (tablero.isBloqueado(colorCasa, 4) && tablero.getValorCarcel(colorCasa) > 0){
+
+                if (!((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(0)).getColor().equals(colorCasa)){
+                    tablero.volverCarcel(((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(0)).getColor());
+                    tablero.getElementosCasilla(colorCasa, 4).remove(0);
+                    tablero.salirCarcel(colorCasa);
+                    tablero.nuevaFicha(colorCasa, 4, colorCasa);
+
+                }else if (!((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(1)).getColor().equals(colorCasa)) {
+                    tablero.volverCarcel(((Ficha) tablero.getElementosCasilla(colorCasa, 4).get(1)).getColor());
+                    tablero.getElementosCasilla(colorCasa, 4).remove(1);
+                    tablero.salirCarcel(colorCasa);
+                    tablero.nuevaFicha(colorCasa, 4, colorCasa);
                 }
-            }
-        }else if (turno == AMARILLO) {
-            if (valor1 == 5 || valor2 == 5 || valor2 + valor1 == 5) {
-                if (valor1 == 5 && valor2 == 5 && tablero.cantElementosSalida("Amarillo") == 0 && tablero.getValorCarcel("Amarillo") > 1) {
-                    tablero.salirCarcel("Amarillo");
-                    tablero.salirCarcel("Amarillo");
-                    tablero.nuevaFicha("Amarillo", 4, "Amarillo");
-                    tablero.nuevaFicha("Amarillo", 4, "Amarillo");
-                    sacoFicha = 2;
+
+                if (!mov1 && valor1 == 5){
                     setMov1(true);
+                }else if (!mov2 && valor2 == 5) {
                     setMov2(true);
-                } else if(tablero.cantElementosSalida("Amarillo") < 2 && tablero.getValorCarcel("Amarillo") > 0){
-                    tablero.salirCarcel("Amarillo");
-                    tablero.nuevaFicha("Amarillo", 4, "Amarillo");
-                    sacoFicha = 1;
-                    if (valor1 == 5){
-                        setMov1(true);
-                    }else if (valor2 == 5){
-                        setMov2(true);
-                    }else if (valor1 + valor2 == 5){
-                        cambiarTurno();
-                    }
-                }
-            }
-        }else {
-            if (valor1 == 5 || valor2 == 5 || valor2 + valor1 == 5) {
-                if (valor1 == 5 && valor2 == 5 && tablero.cantElementosSalida("Verde") == 0 && tablero.getValorCarcel("Verde") > 1) {
-                    tablero.salirCarcel("Verde");
-                    tablero.salirCarcel("Verde");
-                    tablero.nuevaFicha("Verde", 4, "Verde");
-                    tablero.nuevaFicha("Verde", 4, "Verde");
-                    sacoFicha = 2;
-                    setMov1(true);
-                    setMov2(true);
-                } else if(tablero.cantElementosSalida("Verde") < 2 && tablero.getValorCarcel("Verde") > 0){
-                    tablero.salirCarcel("Verde");
-                    tablero.nuevaFicha("Verde", 4, "Verde");
-                    sacoFicha = 1;
-                    if (valor1 == 5){
-                        setMov1(true);
-                    }else if (valor2 == 5){
-                        setMov2(true);
-                    }else if (valor1 + valor2 == 5){
-                        cambiarTurno();
-                    }
+                }else if (!mov1 && !mov2 && valor1 + valor2 == 5) {
+                    cambiarTurno();
                 }
             }
         }
-
-
     }
+
+
     public int getGanadores(String color){
         return tablero.getGanadores(color);
     }
