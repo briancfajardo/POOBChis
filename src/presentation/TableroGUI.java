@@ -25,6 +25,9 @@ public class TableroGUI extends JFrame {
     private ArrayList<CasillasGUI> casillaVerde= new ArrayList<>();
     private  JLabel turno;
     private GanadoresGUI win1;
+
+    private String turnoActual;
+
     public TableroGUI() {
         super("POOBChisGame");
         this.setContentPane(fondo);
@@ -40,11 +43,12 @@ public class TableroGUI extends JFrame {
             carcel4.actualizar();
             win1.actualizar();
             for(int i = 0; i<24;i++){
-                casillaAzul.get(i).actualizar();
-                casillaAmarilla.get(i).actualizar();
-                casillaRoja.get(i).actualizar();
-                casillaVerde.get(i).actualizar();
+                casillaAzul.get(i).actualizar(turnoActual);
+                casillaAmarilla.get(i).actualizar(turnoActual);
+                casillaRoja.get(i).actualizar(turnoActual);
+                casillaVerde.get(i).actualizar(turnoActual);
             }
+            //System.out.println(turnoActual);
         }
     }
     public void prepareElements() {
@@ -83,15 +87,19 @@ public class TableroGUI extends JFrame {
         if(parchis.getTurno(parchis.ROJO)){
             turno.setText("Turno del rojo");
             turno.setForeground(new Color(227, 128, 128));
+            turnoActual = "Rojo";
         } else if (parchis.getTurno(parchis.VERDE)) {
             turno.setText("Turno del verde");
             turno.setForeground(new Color(87, 234, 135));
+            turnoActual = "Verde";
         }else if (parchis.getTurno(parchis.AZUL)) {
             turno.setText("Turno del azul");
             turno.setForeground(new Color(56, 152, 248));
+            turnoActual = "Azul";
         }else if (parchis.getTurno(parchis.AMARILLO)) {
             turno.setText("Turno del amarillo");
             turno.setForeground(new Color(241, 206, 89));
+            turnoActual = "Amarillo";
         }
     }
     public void dados(){
@@ -352,6 +360,7 @@ public class TableroGUI extends JFrame {
         //grid.setConstraints(carcel4, constraints);
         add(carcel4,constraints);
     }
+
 
     public static void main (String[] args){
         TableroGUI u = new TableroGUI();

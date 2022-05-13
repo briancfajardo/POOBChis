@@ -26,9 +26,17 @@ public class Parchis {
         return tablero.getValorCarcel(color);
     }
     public void moverFicha(String color, int posFicha){
-        tablero.verificacion(color, posFicha, valor3);
-        cambiarTurno(color, posFicha);
+        if (!verificarTresPares(color, posFicha)){
+            tablero.verificacion(color, posFicha, valor3);
+            if (mov1 && mov2){
+                cambiarTurno(color, posFicha);
+            }
+        }
+
+        //System.out.println(pares);
     }
+
+
     public void cambiarTurno(String color, int posFicha){
         if(cantJugadores == 4){
             if(valor1 != valor2){
@@ -42,24 +50,37 @@ public class Parchis {
                     this.turno = ROJO;
                 }
                 pares = 0;
+
             }else {
                 pares += 1;
-                if (pares == 6){
-                    tablero.getElementosCasilla(color, posFicha).remove(tablero.getElementosCasilla(color,posFicha).size()-1);
-                    if(turno == AMARILLO){
-                        tablero.volverCarcel("Amarillo");
-                    } else if (turno == AZUL) {
-                        tablero.volverCarcel("Azul");
-                    } else if (turno == ROJO) {
-                        tablero.volverCarcel("Rojo");
-                    }else if (turno == VERDE) {
-                        tablero.volverCarcel("Verde");
-                    }
-                }
+
             }
             mov1 = false;
             mov2 = false;
         }
+    }
+
+    public boolean verificarTresPares(String color, int posFicha){
+        if (pares == 2){
+            tablero.getElementosCasilla(color, posFicha).remove(tablero.getElementosCasilla(color,posFicha).size()-1);
+            if(turno == AMARILLO){
+                tablero.volverCarcel("Amarillo");
+                this.turno = AZUL;
+            } else if (turno == AZUL) {
+                tablero.volverCarcel("Azul");
+                this.turno = ROJO;
+            } else if (turno == ROJO) {
+                tablero.volverCarcel("Rojo");
+                this.turno = VERDE;
+            }else if (turno == VERDE) {
+                tablero.volverCarcel("Verde");
+                this.turno = AMARILLO;
+            }
+            mov1 = false;
+            mov2 = false;
+            return true;
+        }
+        return false;
     }
     public boolean getTurno(int turnoP){
         return turnoP == turno;

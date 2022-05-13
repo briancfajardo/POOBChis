@@ -12,6 +12,8 @@ public class Tablero {
     private Ganadores ganadores = new Ganadores();
     private Carcel carcel;
     int movi1, movi2;
+
+
     public Tablero(){
         prepareTablero();
         carcel = new Carcel();
@@ -45,15 +47,19 @@ public class Tablero {
         switch (nombreCasa){
             case "Azul"->{
                 azul.get(numCasilla).setSeguro();
+                break;
             }
             case "Rojo"->{
                 rojo.get(numCasilla).setSeguro();
+                break;
             }
             case "Amarillo"->{
                 amarillo.get(numCasilla).setSeguro();
+                break;
             }
             default -> {
                 verde.get(numCasilla).setSeguro();
+                break;
             }
         }
     }

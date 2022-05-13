@@ -9,16 +9,21 @@ import java.awt.event.MouseListener;
 
 public class CasillasGUI extends JPanel {
     private OpcionFichaGUI opcionFichaGUI;
+    private boolean habilitado = true;
     private Point punto;
     private MouseListener clic = new MouseListener() {
         @Override
         public void mouseClicked(MouseEvent e) {
-            punto=MouseInfo.getPointerInfo().getLocation();
-            int x=punto.x;
-            int y=punto.y;
-            opcionFichaGUI = new OpcionFichaGUI(parchis, x, y);
-            if(parchis.getCantidadCasilla(color, num) != 0){opcionFichaGUI.moverFicha(color, num);}
+            if (habilitado){
+                punto=MouseInfo.getPointerInfo().getLocation();
+                int x=punto.x;
+                int y=punto.y;
+                opcionFichaGUI = new OpcionFichaGUI(parchis, x, y);
+                if(parchis.getCantidadCasilla(color, num) != 0){opcionFichaGUI.moverFicha(color, num);}
+            }
 
+            //contieneFichaColor(turno);
+            //System.out.println(turno);
         }
 
         @Override
@@ -50,6 +55,8 @@ public class CasillasGUI extends JPanel {
     private int num;
     private Parchis parchis;
     private String color;
+    //private String turno;
+
     public CasillasGUI(int num, String msg, Parchis parchis, String color){
         this.parchis = parchis;
         this.color = color;
@@ -61,11 +68,29 @@ public class CasillasGUI extends JPanel {
         ancho = getSize().width;
         ficha = new FichasGUI(color,0);
         this.num = num;
+        //turno = convertirStringTurno();
     }
-    public void actualizar(){
-        int aux = parchis.getCantidadCasilla(color, num);
 
+    //public String convertirStringTurno(){
+//
+    //    if (parchis.getTurno(parchis.ROJO)) {
+    //        return "Rojo";
+    //    }else if (parchis.getTurno(parchis.VERDE)) {
+    //        return "Verde";
+    //    }else if (parchis.getTurno(parchis.AZUL)) {
+    //        return "Azul";
+    //    }else if (parchis.getTurno(parchis.AMARILLO)) {
+    //        return "Amarillo";
+    //    }
+    //    return null;
+    //}
+
+    public void actualizar(String turno){
+        int aux = parchis.getCantidadCasilla(color, num);
         ficha.setCant(aux);
+
+        habilitado = contieneFichaColor(turno);
+
         try{
             if (aux == 1){
                 //System.out.println(aux);
@@ -92,6 +117,16 @@ public class CasillasGUI extends JPanel {
         }
 
     }
+
+    public boolean contieneFichaColor (String colorTurno){
+        if (ficha.getColor().equals(colorTurno) || ficha.getColor2().equals(colorTurno)){
+            //System.out.println("yes");
+            return true;
+        }
+        //System.out.println("nel");
+        return false;
+    }
+
     public void paint(Graphics g){
         super.paint(g);
         alto = getSize().height;

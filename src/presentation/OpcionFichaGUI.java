@@ -15,6 +15,7 @@ public class OpcionFichaGUI extends JFrame implements ActionListener {
     private JButton boton2;
     private String color;
     private int num, val1, val2;
+
     private int x, y;
 
     public OpcionFichaGUI(Parchis parchis, int x, int y) {
@@ -24,6 +25,7 @@ public class OpcionFichaGUI extends JFrame implements ActionListener {
         setTitle("Escoge la cantidad que quieres mover");
         prepareElements();
         prepareActions();
+
     }
 
     private void prepareElements() {
@@ -38,12 +40,16 @@ public class OpcionFichaGUI extends JFrame implements ActionListener {
 
         add(boton1);
         add(boton2);
-        System.out.println(parchis.isMov1());
-        System.out.println(parchis.isMov2());
-        if (parchis.isMov1()){
+        //System.out.println(parchis.isMov1());
+        //System.out.println(parchis.isMov2());
+
+        if (parchis.isMov1() && !parchis.isMov2()){
             boton1.setEnabled(false);
-        } else if (parchis.isMov2()) {
+        }else if (!parchis.isMov1() && parchis.isMov2()) {
             boton2.setEnabled(false);
+        }else if (parchis.isMov1() && parchis.isMov2()) {
+            boton2.setEnabled(false);
+            boton1.setEnabled(false);
         }
     }
 
@@ -68,9 +74,11 @@ public class OpcionFichaGUI extends JFrame implements ActionListener {
             parchis.setValor3(parchis.getValor2());
             parchis.setMov2(true);
         }
+
         if (parchis.getValor3() > 0) {
             parchis.moverFicha(color, num);
         }
+
         this.dispose();
     }
 }

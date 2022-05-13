@@ -42,6 +42,10 @@ public class FichasGUI extends JFrame{
         this.cant = cant;
     }
 
+    public String getColor(){return color;}
+
+    public String getColor2(){return color2;}
+
     public void paint(Graphics g){
         super.paint(g);
         Image img = new ImageIcon(getClass().getResource("/imagenes/CircleP10"+color+"Borde.png")).getImage();
