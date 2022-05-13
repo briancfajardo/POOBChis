@@ -94,7 +94,9 @@ public class Parchis {
         valor2 = dado2.tirarDado();
         switch (turno){
             case 1:
-                if (tablero.getValorCarcel("Amarillo") == 4){todasAtrapadas += 1;}
+                if (tablero.getValorCarcel("Amarillo") == 4){todasAtrapadas += 1;
+                valor1 = 5;
+                valor2 = 5;}
                 break;
             case 2:
                 if (tablero.getValorCarcel("Azul") == 4){todasAtrapadas += 1;}
@@ -154,6 +156,8 @@ public class Parchis {
                     tablero.nuevaFicha("Rojo", 4, "Rojo");
                     tablero.nuevaFicha("Rojo", 4, "Rojo");
                     sacoFicha = 2;
+                    setMov1(true);
+                    setMov2(true);
                 } else if(tablero.cantElementosSalida("Rojo") < 2 && tablero.getValorCarcel("Rojo") > 0){
                     tablero.salirCarcel("Rojo");
                     tablero.nuevaFicha("Rojo", 4, "Rojo");
@@ -175,6 +179,8 @@ public class Parchis {
                     tablero.nuevaFicha("Azul", 4, "Azul");
                     tablero.nuevaFicha("Azul", 4, "Azul");
                     sacoFicha = 2;
+                    setMov1(true);
+                    setMov2(true);
                 } else if(tablero.cantElementosSalida("Azul") < 2 && tablero.getValorCarcel("Azul") > 0){
                     tablero.salirCarcel("Azul");
                     tablero.nuevaFicha("Azul", 4, "Azul");
@@ -196,6 +202,8 @@ public class Parchis {
                     tablero.nuevaFicha("Amarillo", 4, "Amarillo");
                     tablero.nuevaFicha("Amarillo", 4, "Amarillo");
                     sacoFicha = 2;
+                    setMov1(true);
+                    setMov2(true);
                 } else if(tablero.cantElementosSalida("Amarillo") < 2 && tablero.getValorCarcel("Amarillo") > 0){
                     tablero.salirCarcel("Amarillo");
                     tablero.nuevaFicha("Amarillo", 4, "Amarillo");
@@ -217,6 +225,8 @@ public class Parchis {
                     tablero.nuevaFicha("Verde", 4, "Verde");
                     tablero.nuevaFicha("Verde", 4, "Verde");
                     sacoFicha = 2;
+                    setMov1(true);
+                    setMov2(true);
                 } else if(tablero.cantElementosSalida("Verde") < 2 && tablero.getValorCarcel("Verde") > 0){
                     tablero.salirCarcel("Verde");
                     tablero.nuevaFicha("Verde", 4, "Verde");

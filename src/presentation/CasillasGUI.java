@@ -15,11 +15,13 @@ public class CasillasGUI extends JPanel {
         @Override
         public void mouseClicked(MouseEvent e) {
             if (habilitado){
-                punto=MouseInfo.getPointerInfo().getLocation();
-                int x=punto.x;
-                int y=punto.y;
-                opcionFichaGUI = new OpcionFichaGUI(parchis, x, y);
-                if(parchis.getCantidadCasilla(color, num) != 0){opcionFichaGUI.moverFicha(color, num);}
+                if(!parchis.isMov1() || !parchis.isMov2()){
+                    punto=MouseInfo.getPointerInfo().getLocation();
+                    int x=punto.x;
+                    int y=punto.y;
+                    opcionFichaGUI = new OpcionFichaGUI(parchis, x, y);
+                    if(parchis.getCantidadCasilla(color, num) != 0){opcionFichaGUI.moverFicha(color, num);}
+                }
             }
 
             //contieneFichaColor(turno);
