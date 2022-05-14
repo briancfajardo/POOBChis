@@ -195,11 +195,14 @@ public class Parchis {
                     tablero.nuevaFicha(colorCasa, 4, colorCasa);
                 }
 
-                if (!mov1 && valor1 == 5){
+                if (!mov1 && valor1 == 5 && (!((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(1)).getColor().equals(colorCasa)
+                        || !((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(0)).getColor().equals(colorCasa))){
                     setMov1(true);
-                }else if (!mov2 && valor2 == 5) {
+                }else if (!mov2 && valor2 == 5 && (!((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(1)).getColor().equals(colorCasa)
+                        || !((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(0)).getColor().equals(colorCasa))) {
                     setMov2(true);
-                }else if (!mov1 && !mov2 && valor1 + valor2 == 5) {
+                }else if (!mov1 && !mov2 && valor1 + valor2 == 5 && (!((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(1)).getColor().equals(colorCasa)
+                        || !((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(0)).getColor().equals(colorCasa))) {
                     cambiarTurno();
                 }
             }
@@ -212,6 +215,9 @@ public class Parchis {
     }
     public boolean isBloqueado(String color, int pos){
         return  tablero.isBloqueado(color, pos);
+    }
+    public boolean isSeguro(String color, int pos){
+        return  tablero.isSeguro(color, pos);
     }
     public int getCantidadCasilla(String color, int pos){
         return  tablero.getElementosCasilla(color,pos).size();

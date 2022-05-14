@@ -71,6 +71,14 @@ public class Tablero {
             default -> verde.get(pos).isBloqueado();
         };
     }
+    public boolean isSeguro(String color, int pos){
+        return switch (color) {
+            case "Amarillo" -> amarillo.get(pos).isSeguro();
+            case "Azul" -> azul.get(pos).isSeguro();
+            case "Rojo" -> rojo.get(pos).isSeguro();
+            default -> verde.get(pos).isSeguro();
+        };
+    }
 
     public void nuevaFicha(String color, int pos, String colorf){
         switch (color) {

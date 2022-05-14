@@ -57,6 +57,8 @@ public class CasillasGUI extends JPanel {
     private int num;
     private Parchis parchis;
     private String color;
+    private boolean bloqueado;
+    private boolean seguro;
     //private String turno;
 
     public CasillasGUI(int num, String msg, Parchis parchis, String color){
@@ -70,6 +72,8 @@ public class CasillasGUI extends JPanel {
         ancho = getSize().width;
         ficha = new FichasGUI(color,0);
         this.num = num;
+        this.bloqueado = parchis.isBloqueado(color,num);
+        this.bloqueado = parchis.isSeguro(color,num);
         //turno = convertirStringTurno();
     }
 
@@ -92,7 +96,11 @@ public class CasillasGUI extends JPanel {
         ficha.setCant(aux);
 
         habilitado = contieneFichaColor(turno);
-
+        if(parchis.isSeguro(color,num)){
+            setBackground(new Color(192, 180, 179));
+        } else if (parchis.isBloqueado(color,num)) {
+            setBackground(new Color(216, 144, 225));
+        }
         try{
             if (aux == 1){
                 //System.out.println(aux);
