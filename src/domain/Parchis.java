@@ -146,6 +146,10 @@ public class Parchis {
         this.mov2 = mov2;
     }
 
+    public Tablero getTablero() {
+        return tablero;
+    }
+
     private void reglaSalirCarcel(){
 
         String colorCasa = null;

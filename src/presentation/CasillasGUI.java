@@ -73,7 +73,7 @@ public class CasillasGUI extends JPanel {
         ficha = new FichasGUI(color,0);
         this.num = num;
         this.bloqueado = parchis.isBloqueado(color,num);
-        this.bloqueado = parchis.isSeguro(color,num);
+        this.seguro = parchis.isSeguro(color,num);
         //turno = convertirStringTurno();
     }
 

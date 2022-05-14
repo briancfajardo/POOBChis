@@ -47,6 +47,7 @@ public class TableroGUI extends JFrame {
                 casillaAmarilla.get(i).actualizar(turnoActual);
                 casillaRoja.get(i).actualizar(turnoActual);
                 casillaVerde.get(i).actualizar(turnoActual);
+
             }
             //System.out.println(turnoActual);
         }

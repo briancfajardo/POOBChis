@@ -378,6 +378,7 @@ public class Tablero {
     public int getValorCarcel(String color){
         return carcel.getColor(color);
     }
+
     public boolean verficarBloqueo(String color, int inicio, int mover, String fichaColor){
         boolean cambio = false;
         for (int i = 0; i < mover; i++){
