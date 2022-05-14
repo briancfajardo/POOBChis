@@ -18,6 +18,11 @@ public class FichasGUI extends JFrame{
     public int CARCEL = 2;
     public int FINAL = 3;
     private int tipo;
+    private String clase1 = "Normal";
+    private String clase2 = "Normal";
+
+    private Image img;
+    private Image img2;
     public FichasGUI(String color, int cant){
         this.cant =cant;
         this.color = color;
@@ -46,6 +51,25 @@ public class FichasGUI extends JFrame{
 
     public String getColor2(){return color2;}
     public int getCant(){return cant;}
+
+    public void setClase1(String clase){
+        clase1 = clase;
+    }
+
+    public void setClase2(String clase){
+        clase2 = clase;
+    }
+
+    public String getClase1(){return clase1;}
+
+    public String getClase2(){return clase2;}
+
+    public void creadorImagenes(){
+        switch (clase1){
+            case "Normal"-> img = new ImageIcon(getClass().getResource("/imagenes/CircleP10"+color+"Borde.png")).getImage();
+            case "Cohete"-> img = new ImageIcon(getClass().getResource("/imagenes/CircleP10"+color+"Borde.png")).getImage();
+        }
+    }
 
     public void paint(Graphics g){
         super.paint(g);

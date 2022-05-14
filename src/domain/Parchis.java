@@ -2,6 +2,8 @@ package domain;
 
 import java.util.ArrayList;
 
+import java.io.*;
+
 public class Parchis {
     private Tablero tablero;
     private Carcel carceles;
@@ -273,5 +275,26 @@ public class Parchis {
     }
     public String getColorFicha(String color, int pos, int i){
         return  ((Ficha) tablero.getElementosCasilla(color,pos).get(i)).getColor();
+    }
+
+    /* Persistencia
+     */
+    public void guardar(String archivo) throws ParchisException, IOException {
+        if (archivo.equals("")) throw new ParchisException(ParchisException.GENERAL_EXCEPTION);
+        FileOutputStream outFile = new FileOutputStream(archivo);
+        ObjectOutputStream outObject = new ObjectOutputStream(outFile);
+        outObject.writeObject(this);
+        outObject.flush();
+        outObject.close();
+    }
+
+    public Parchis abrir(String archivo) throws ParchisException, IOException, ClassNotFoundException {
+        if (archivo.equals("")) throw new ParchisException(ParchisException.GENERAL_EXCEPTION);
+        FileInputStream inFile = new FileInputStream(archivo);
+        ObjectInputStream inObject = new ObjectInputStream(inFile);
+        Parchis nuevo = (Parchis)inObject.readObject();
+        //System.out.println(nuevo);
+        inObject.close();
+        return nuevo;
     }
 }
