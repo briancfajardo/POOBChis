@@ -96,10 +96,12 @@ public class CasillasGUI extends JPanel {
         ficha.setCant(aux);
 
         habilitado = contieneFichaColor(turno);
-        if(parchis.isSeguro(color,num)){
+        if(parchis.isSeguro(color,num) && num != 4){
             setBackground(new Color(192, 180, 179));
-        } else if (parchis.isBloqueado(color,num)) {
+        } else if (parchis.isBloqueado(color,num) && num != 4) {
             setBackground(new Color(216, 144, 225));
+        }else if(num != 4 && num >= 0 && num <16){
+            setBackground(new Color(237, 237, 237));
         }
         try{
             if (aux == 1){
