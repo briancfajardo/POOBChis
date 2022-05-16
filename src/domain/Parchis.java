@@ -20,6 +20,9 @@ public class Parchis {
     private boolean mov1, mov2;
     private int todasAtrapadas;
 
+    private boolean primeraTirada = false;
+    private boolean turnoPropio = true;
+
     public Parchis(){
         tablero = new Tablero();
         carceles = new Carcel();
@@ -30,12 +33,17 @@ public class Parchis {
     public int getCarcel(String color){
         return tablero.getValorCarcel(color);
     }
+
+    public boolean getPrimeraTirada(){
+        return primeraTirada;
+    }
     public void moverFicha(String color, int posFicha){
         if (!verificarTresPares(color, posFicha)){
             if (!mov1 || !mov2){
                 reglaSalirCarcel();
             }
             tablero.verificacion(color, posFicha, valor3, turnoString());
+
             if (valor1 != valor2){
                 pares = 0;
                 if (mov1 && mov2){cambiarTurno();}
@@ -97,7 +105,12 @@ public class Parchis {
             mov1 = false;
             mov2 = false;
         }
+        primeraTirada = false;
+        turnoPropio = false;
     }
+
+    public boolean isTurnoPropio(){return turnoPropio;}
+    public void setTurnoPropio(boolean nuevo){turnoPropio = nuevo;}
 
     public boolean verificarTresPares(String color, int posFicha){
         if (pares == 5){
@@ -129,23 +142,29 @@ public class Parchis {
     public void tirarDado() {
         valor1 = dado1.tirarDado();
         valor2 = dado2.tirarDado();
+        turnoPropio = true;
+
         switch (turno){
             case 1:
                 if (tablero.getValorCarcel("Amarillo") == 4){todasAtrapadas += 1;
                 valor1 = 5;
                 valor2 = 5;}
+                else{primeraTirada = true;}
                 break;
             case 2:
                 if (tablero.getValorCarcel("Azul") == 4){todasAtrapadas += 1;}
+                else{primeraTirada = true;}
                 break;
             case 3:
                 if (tablero.getValorCarcel("Rojo") == 4){todasAtrapadas += 1;
                     valor1 = 3;
                     valor2 = 2;
                 }
+                else{primeraTirada = true;}
                 break;
             case 4:
                 if (tablero.getValorCarcel("Verde") == 4){todasAtrapadas += 1;}
+                else{primeraTirada = true;}
                 break;
         }
         System.out.println("Rojo "+tablero.contarBloqueos("Rojo"));

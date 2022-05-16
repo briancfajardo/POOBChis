@@ -43,7 +43,6 @@ public class OpcionFichaGUI extends JFrame implements ActionListener {
         add(boton2);
         //System.out.println(parchis.isMov1());
         //System.out.println(parchis.isMov2());
-
         if (parchis.isMov1() && !parchis.isMov2()){
             boton1.setEnabled(false);
         }else if (!parchis.isMov1() && parchis.isMov2()) {

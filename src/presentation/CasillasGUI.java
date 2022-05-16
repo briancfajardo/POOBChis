@@ -14,7 +14,7 @@ public class CasillasGUI extends JPanel {
     private MouseListener clic = new MouseListener() {
         @Override
         public void mouseClicked(MouseEvent e) {
-            if (habilitado){
+            if (habilitado && parchis.isTurnoPropio()){
                 if(!parchis.isMov1() || !parchis.isMov2()){
                     punto=MouseInfo.getPointerInfo().getLocation();
                     int x=punto.x;

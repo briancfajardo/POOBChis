@@ -30,7 +30,7 @@ public class DadosGUI extends JPanel {
                 repaint();
             }
 
-            else if (!parchis.isMov1() && !parchis.isMov2()) {
+            else if (!parchis.isMov1() && !parchis.isMov2() && !parchis.getPrimeraTirada()) {
                 parchis.tirarDado();
                 valor1 = parchis.getValor1();
                 valor2 = parchis.getValor2();
