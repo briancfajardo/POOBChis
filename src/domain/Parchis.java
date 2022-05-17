@@ -7,11 +7,8 @@ import java.io.*;
 public class Parchis {
     private Tablero tablero;
     private Carcel carceles;
-    private Dado dado1;
-    private Dado dado2;
-    private int valor1;
-    private int valor2;
-    private int valor3;
+    private Dado dado1, dado2;
+    private int valor1, valor2, valor3;
     public int AMARILLO = 1;
     public int AZUL = 2;
     public int ROJO = 3;
@@ -53,6 +50,12 @@ public class Parchis {
         }
         //System.out.println(pares);
     }
+
+    public void moverGanancia(String color, int posFicha, int moverGanado){
+        tablero.setMataFicha(false);
+        tablero.setSacaFicha(false);
+        tablero.verificacion(color, posFicha, moverGanado, turnoString());
+    }
     private String turnoString(){
         return switch (turno){
             case 1 -> "Amarillo";
@@ -61,6 +64,7 @@ public class Parchis {
             default -> "Verde";
         };
     }
+
     public void quitarBloqueoPares(){
         String colorTurno;
         if (valor1 == valor2){
@@ -111,6 +115,10 @@ public class Parchis {
 
     public boolean isTurnoPropio(){return turnoPropio;}
     public void setTurnoPropio(boolean nuevo){turnoPropio = nuevo;}
+    public boolean isMataFicha(){return tablero.isMataFicha();}
+
+    public boolean isSacaFicha() {return tablero.isSacaFicha();}
+
 
     public boolean verificarTresPares(String color, int posFicha){
         if (pares == 5){
@@ -167,10 +175,10 @@ public class Parchis {
                 else{primeraTirada = true;}
                 break;
         }
-        System.out.println("Rojo "+tablero.contarBloqueos("Rojo"));
-        System.out.println("Verde "+tablero.contarBloqueos("Verde"));
-        System.out.println("Amarillo "+tablero.contarBloqueos("Amarillo"));
-        System.out.println("Azul "+tablero.contarBloqueos("Azul")+"\n");
+        //System.out.println("Rojo "+tablero.contarBloqueos("Rojo"));
+        //System.out.println("Verde "+tablero.contarBloqueos("Verde"));
+        //System.out.println("Amarillo "+tablero.contarBloqueos("Amarillo"));
+        //System.out.println("Azul "+tablero.contarBloqueos("Azul")+"\n");
         quitarBloqueoPares();
         if (todasAtrapadas == 3 && valor1 != 5 && valor2 != 5){
             reglaSalirCarcel();

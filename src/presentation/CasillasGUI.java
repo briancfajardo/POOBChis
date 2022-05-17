@@ -15,6 +15,20 @@ public class CasillasGUI extends JPanel {
         @Override
         public void mouseClicked(MouseEvent e) {
             if (habilitado && parchis.isTurnoPropio()){
+
+                if (parchis.isMataFicha()) {
+                    punto=MouseInfo.getPointerInfo().getLocation();
+                    int x=punto.x;
+                    int y=punto.y;
+                    parchis.moverGanancia(color,num, 20);
+
+                }else if (parchis.isSacaFicha()){
+                    punto=MouseInfo.getPointerInfo().getLocation();
+                    int x=punto.x;
+                    int y=punto.y;
+                    parchis.moverGanancia(color,num, 10);
+                }
+
                 if(!parchis.isMov1() || !parchis.isMov2()){
                     punto=MouseInfo.getPointerInfo().getLocation();
                     int x=punto.x;
@@ -22,6 +36,8 @@ public class CasillasGUI extends JPanel {
                     opcionFichaGUI = new OpcionFichaGUI(parchis, x, y);
                     if(parchis.getCantidadCasilla(color, num) != 0){opcionFichaGUI.moverFicha(color, num);}
                 }
+
+
             }
 
             //contieneFichaColor(turno);

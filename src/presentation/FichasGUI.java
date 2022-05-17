@@ -5,6 +5,7 @@ import javax.swing.border.EmptyBorder;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 public class FichasGUI extends JFrame{
     protected JPanel contentPane;
@@ -18,15 +19,22 @@ public class FichasGUI extends JFrame{
     public int CARCEL = 2;
     public int FINAL = 3;
     private int tipo;
-    private String clase1 = "Normal";
-    private String clase2 = "Normal";
 
-    private Image img;
-    private Image img2;
+    private ElementoGUI elemento1 = new ElementoGUI("Borde");
+    private ElementoGUI elemento2 = new ElementoGUI("Borde");
+
     public FichasGUI(String color, int cant){
         this.cant =cant;
         this.color = color;
         this.color2 = color;
+    }
+
+    public void setClase1(String clase){
+        elemento1.cambiarTipo(clase);
+    }
+
+    public void setClase2(String clase){
+        elemento1.cambiarTipo(clase);
     }
 
     public void setXY(int numX, int numY){
@@ -52,29 +60,12 @@ public class FichasGUI extends JFrame{
     public String getColor2(){return color2;}
     public int getCant(){return cant;}
 
-    public void setClase1(String clase){
-        clase1 = clase;
-    }
-
-    public void setClase2(String clase){
-        clase2 = clase;
-    }
-
-    public String getClase1(){return clase1;}
-
-    public String getClase2(){return clase2;}
-
-    public void creadorImagenes(){
-        switch (clase1){
-            case "Normal"-> img = new ImageIcon(getClass().getResource("/imagenes/CircleP10"+color+"Borde.png")).getImage();
-            case "Cohete"-> img = new ImageIcon(getClass().getResource("/imagenes/CircleP10"+color+"Borde.png")).getImage();
-        }
-    }
 
     public void paint(Graphics g){
         super.paint(g);
-        Image img = new ImageIcon(getClass().getResource("/imagenes/CircleP10"+color+"Borde.png")).getImage();
-        Image img2 = new ImageIcon(getClass().getResource("/imagenes/CircleP10"+color2+"Borde.png")).getImage();
+        Image img = elemento1.creadorImagen(color);
+        Image img2 = elemento2.creadorImagen(color2);
+
 
         if (cant == 1 && tipo != CARCEL && tipo != FINAL){
             g.drawImage(img,(x/2)-5,(y/2)-5,this);
