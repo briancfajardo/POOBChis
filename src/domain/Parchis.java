@@ -56,6 +56,7 @@ public class Parchis {
         tablero.setMataFicha(false);
         tablero.setSacaFicha(false);
         tablero.verificacion(color, posFicha, moverGanado, turnoString());
+        if(!isMataFicha() && !isSacaFicha() && valor2 != valor1 && mov1 && mov2){cambiarTurno();}
     }
     private String turnoString(){
         return switch (turno){
@@ -182,7 +183,7 @@ public class Parchis {
         //System.out.println("Amarillo "+tablero.contarBloqueos("Amarillo"));
         //System.out.println("Azul "+tablero.contarBloqueos("Azul")+"\n");
         quitarBloqueoPares();
-        if (todasAtrapadas == 3 && valor1 != 5 && valor2 != 5){
+        if (todasAtrapadas == 3 && valor1 != 5 && valor2 != 5 && !isMataFicha() && !isSacaFicha()){
             reglaSalirCarcel();
             cambiarTurno();
         }else{

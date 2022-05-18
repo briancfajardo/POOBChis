@@ -56,7 +56,9 @@ public class TableroGUI extends JFrame {
             if(casillaRoja.get(i).isHabilitado()){contHabilitados += 1;}
             if(casillaAmarilla.get(i).isHabilitado()){contHabilitados += 1;}
         }
-        if(contHabilitados == 0 && parchis.getCarcel(turnoActual) != 4 && parchis.getValor1() != parchis.getValor2()){
+        if(contHabilitados == 0 && parchis.getCarcel(turnoActual) != 4
+                && parchis.getValor1() != parchis.getValor2()
+                && !parchis.isMataFicha() && !parchis.isSacaFicha()){
             parchis.cambiarTurno();
         }
     }

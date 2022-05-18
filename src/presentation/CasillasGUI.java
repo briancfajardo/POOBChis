@@ -139,17 +139,21 @@ public class CasillasGUI extends JPanel {
 
     public boolean contieneFichaColor (String colorTurno){
         if (ficha.getCant() == 1){
-            if (!parchis.getTablero().verificarBloqueo(color, num, parchis.getValor1(), colorTurno) && !parchis.isMov1()){
+            if (!parchis.getTablero().verificarBloqueo(color, num, parchis.getValor1(), colorTurno)
+                    && (!parchis.isMov1() || parchis.isSacaFicha() || parchis.isMataFicha())){
                 return ficha.getColor().equals(colorTurno);
             }
-            if (!parchis.getTablero().verificarBloqueo(color, num, parchis.getValor2(), colorTurno) && !parchis.isMov2()){
+            if (!parchis.getTablero().verificarBloqueo(color, num, parchis.getValor2(), colorTurno)
+                    && (!parchis.isMov2() || parchis.isSacaFicha() || parchis.isMataFicha())){
                 return ficha.getColor().equals(colorTurno);
             }
         }else if (ficha.getCant() == 2){
-            if (!parchis.getTablero().verificarBloqueo(color, num, parchis.getValor1(), colorTurno) && !parchis.isMov1()){
+            if (!parchis.getTablero().verificarBloqueo(color, num, parchis.getValor1(), colorTurno)
+                    && (!parchis.isMov1() || parchis.isSacaFicha() || parchis.isMataFicha())){
                 return ficha.getColor().equals(colorTurno) || ficha.getColor2().equals(colorTurno);
             }
-            if (!parchis.getTablero().verificarBloqueo(color, num, parchis.getValor2(), colorTurno) && !parchis.isMov2()){
+            if (!parchis.getTablero().verificarBloqueo(color, num, parchis.getValor2(), colorTurno)
+                    && (!parchis.isMov2() || parchis.isSacaFicha() || parchis.isMataFicha())){
                 return ficha.getColor().equals(colorTurno) || ficha.getColor2().equals(colorTurno);
             }
             //if (!parchis.getTablero().verificarBloqueo(color, num, parchis.getValor2(), colorTurno) && ficha.getColor().equals(colorTurno) && ficha.getColor2().equals(colorTurno)
