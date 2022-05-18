@@ -14,10 +14,10 @@ public class TableroGUI extends JFrame {
     private Parchis parchis;
     private int dado1;
     private int dado2;
-    private CarcelGUI carcel1;
-    private CarcelGUI carcel2;
-    private CarcelGUI carcel3;
-    private CarcelGUI carcel4;
+    private CarcelGUI carcelAzul;
+    private CarcelGUI carcelAmarilla;
+    private CarcelGUI carcelRoja;
+    private CarcelGUI carcelVerde;
     private boolean terminar = false;
     private ArrayList<CasillasGUI> casillaAzul= new ArrayList<>();
     private ArrayList<CasillasGUI> casillaAmarilla= new ArrayList<>();
@@ -38,21 +38,27 @@ public class TableroGUI extends JFrame {
     public Parchis getParchis(){return parchis;}
     public void juego(){
         //while (!terminar){
-            mensajeTurno();
-            carcel1.actualizar();
-            carcel2.actualizar();
-            carcel3.actualizar();
-            carcel4.actualizar();
-            win1.actualizar();
-            for(int i = 0; i<24;i++){
-                casillaAzul.get(i).actualizar(turnoActual);
-                casillaAmarilla.get(i).actualizar(turnoActual);
-                casillaRoja.get(i).actualizar(turnoActual);
-                casillaVerde.get(i).actualizar(turnoActual);
+        int contHabilitados = 0;
+        mensajeTurno();
+        carcelAzul.actualizar();
+        carcelAmarilla.actualizar();
+        carcelRoja.actualizar();
+        carcelVerde.actualizar();
+        win1.actualizar();
+        for(int i = 0; i<24;i++){
+            casillaAzul.get(i).actualizar(turnoActual);
+            casillaAmarilla.get(i).actualizar(turnoActual);
+            casillaRoja.get(i).actualizar(turnoActual);
+            casillaVerde.get(i).actualizar(turnoActual);
 
-            }
-            //System.out.println(turnoActual);
-        //}
+            if(casillaAzul.get(i).isHabilitado()){contHabilitados += 1;}
+            if(casillaVerde.get(i).isHabilitado()){contHabilitados += 1;}
+            if(casillaRoja.get(i).isHabilitado()){contHabilitados += 1;}
+            if(casillaAmarilla.get(i).isHabilitado()){contHabilitados += 1;}
+        }
+        if(contHabilitados == 0 && parchis.getCarcel(turnoActual) != 4 && parchis.getValor1() != parchis.getValor2()){
+            parchis.cambiarTurno();
+        }
     }
 
     public String getTurnoActual() {
@@ -316,11 +322,11 @@ public class TableroGUI extends JFrame {
         constraints.fill = GridBagConstraints.BOTH;
         //GridLayout grid = new GridLayout();
         //Primera carcel
-        carcel1 = new CarcelGUI(new Color(23, 88, 151), new Color(31, 143, 254),"Azul", parchis);
+        carcelAzul = new CarcelGUI(new Color(23, 88, 151), new Color(31, 143, 254),"Azul", parchis);
         constraints.gridwidth = 8;
         constraints.gridheight = 8;
         //grid.setConstraints(carcel1, constraints);
-        add(carcel1,constraints);
+        add(carcelAzul,constraints);
         //JPanel carcel1 = makebutton("Carcel");
         //carcel1.setBackground(new Color(31, 143, 254));
         //grid.addLayoutComponent("Carcel",new CarcelGUI(new Color(23, 88, 151)));
@@ -335,9 +341,9 @@ public class TableroGUI extends JFrame {
         constraints.gridheight = 8;
         //JPanel carcel2 = makebutton("Carcel");
         //carcel2.setBackground(new Color(248, 197, 27));
-        carcel2 = new CarcelGUI(new Color(151, 120, 17), new Color(248, 197, 27),"Amarillo",parchis);
+        carcelAmarilla = new CarcelGUI(new Color(151, 120, 17), new Color(248, 197, 27),"Amarillo",parchis);
         //grid.setConstraints(carcel2, constraints);
-        add(carcel2,constraints);
+        add(carcelAmarilla,constraints);
 
         //Centro
         constraints.gridx = 8;
@@ -355,9 +361,9 @@ public class TableroGUI extends JFrame {
         constraints.gridheight = 8;
         //JPanel carcel3 = makebutton("Carcel");
         //carcel3.setBackground(new Color(232, 73, 55));
-        carcel3 = new CarcelGUI(new Color(144, 47, 36), new Color(232, 73, 55),"Rojo",parchis);
+        carcelRoja = new CarcelGUI(new Color(144, 47, 36), new Color(232, 73, 55),"Rojo",parchis);
         //grid.setConstraints(carcel3, constraints);
-        add(carcel3,constraints);
+        add(carcelRoja,constraints);
 
         //Cuarta carcel
         constraints.gridx = 14;
@@ -366,9 +372,9 @@ public class TableroGUI extends JFrame {
         constraints.gridheight = 8;
         //JPanel carcel4 = makebutton("Carcel");
         //carcel4.setBackground(new Color(33, 202, 88));
-        carcel4 = new CarcelGUI(new Color(22, 119, 52), new Color(33, 202, 88),"Verde",parchis);
+        carcelVerde = new CarcelGUI(new Color(22, 119, 52), new Color(33, 202, 88),"Verde",parchis);
         //grid.setConstraints(carcel4, constraints);
-        add(carcel4,constraints);
+        add(carcelVerde,constraints);
     }
 
 

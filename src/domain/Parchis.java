@@ -43,13 +43,13 @@ public class Parchis {
 
             if (valor1 != valor2){
                 pares = 0;
-                if (mov1 && mov2){cambiarTurno();}
+                if (mov1 && mov2 && !isMataFicha() && !isSacaFicha()){cambiarTurno();}
             } else{
                 pares +=1;
             }
         }
-        System.out.println(tablero.isMataFicha());
-        System.out.println(tablero.isSacaFicha());
+        //System.out.println(tablero.isMataFicha());
+        //System.out.println(tablero.isSacaFicha());
     }
 
     public void moverGanancia(String color, int posFicha, int moverGanado){
@@ -109,9 +109,10 @@ public class Parchis {
             todasAtrapadas = 0;
             mov1 = false;
             mov2 = false;
+            primeraTirada = false;
+            turnoPropio = false;
         }
-        primeraTirada = false;
-        turnoPropio = false;
+
     }
 
     public boolean isTurnoPropio(){return turnoPropio;}

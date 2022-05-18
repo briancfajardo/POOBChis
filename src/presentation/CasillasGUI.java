@@ -15,23 +15,16 @@ public class CasillasGUI extends JPanel {
         @Override
         public void mouseClicked(MouseEvent e) {
             actualizar(tablero.getTurnoActual());
+            System.out.println(habilitado + " " + parchis.isTurnoPropio());
             if (habilitado && parchis.isTurnoPropio()){
 
                 if (parchis.isMataFicha()) {
-                    punto=MouseInfo.getPointerInfo().getLocation();
-                    int x=punto.x;
-                    int y=punto.y;
                     parchis.moverGanancia(color,num, 20);
 //
                 }else if (parchis.isSacaFicha()){
-                    punto=MouseInfo.getPointerInfo().getLocation();
-                    int x=punto.x;
-                    int y=punto.y;
                     parchis.moverGanancia(color,num, 10);
                 }
-
-
-                if(!parchis.isMov1() || !parchis.isMov2()){
+                else if(!parchis.isMov1() || !parchis.isMov2()){
                     punto=MouseInfo.getPointerInfo().getLocation();
                     int x=punto.x;
                     int y=punto.y;
@@ -101,6 +94,10 @@ public class CasillasGUI extends JPanel {
         //turno = convertirStringTurno();
     }
 
+    public boolean isHabilitado() {
+        return habilitado;
+    }
+
     public void actualizar(String turno){
         int aux = parchis.getCantidadCasilla(color, num);
         ficha.setCant(aux);
@@ -142,11 +139,24 @@ public class CasillasGUI extends JPanel {
 
     public boolean contieneFichaColor (String colorTurno){
         if (ficha.getCant() == 1){
-            return ficha.getColor().equals(colorTurno);
+            if (!parchis.getTablero().verificarBloqueo(color, num, parchis.getValor1(), colorTurno) && !parchis.isMov1()){
+                return ficha.getColor().equals(colorTurno);
+            }
+            if (!parchis.getTablero().verificarBloqueo(color, num, parchis.getValor2(), colorTurno) && !parchis.isMov2()){
+                return ficha.getColor().equals(colorTurno);
+            }
         }else if (ficha.getCant() == 2){
-            return ficha.getColor().equals(colorTurno) || ficha.getColor2().equals(colorTurno);
+            if (!parchis.getTablero().verificarBloqueo(color, num, parchis.getValor1(), colorTurno) && !parchis.isMov1()){
+                return ficha.getColor().equals(colorTurno) || ficha.getColor2().equals(colorTurno);
+            }
+            if (!parchis.getTablero().verificarBloqueo(color, num, parchis.getValor2(), colorTurno) && !parchis.isMov2()){
+                return ficha.getColor().equals(colorTurno) || ficha.getColor2().equals(colorTurno);
+            }
+            //if (!parchis.getTablero().verificarBloqueo(color, num, parchis.getValor2(), colorTurno) && ficha.getColor().equals(colorTurno) && ficha.getColor2().equals(colorTurno)
+            //&& parchis.isMov1() && parchis.isMov2()){
+            //    return true;
+            //}
         }
-
         return false;
     }
 
