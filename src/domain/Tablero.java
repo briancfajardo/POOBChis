@@ -322,8 +322,8 @@ public class Tablero {
                     if(amarillo.get(numCasilla).isBloqueado()){
                         eliminarBloqueada(((Ficha)amarillo.get(numCasilla).getElementos().get(1)).getColor() ,colorCasa, numCasilla);
                         eliminarBloqueada(((Ficha)amarillo.get(numCasilla).getElementos().get(0)).getColor() ,colorCasa, numCasilla);
+                        amarillo.get(numCasilla).quitarBloqueo();
                     }
-                    amarillo.get(numCasilla).quitarBloqueo();
                     if (ficha.getColor().equals(colorCasa) && numCasilla + mover == 24 && numCasilla >= 16) {
                         amarillo.get(numCasilla).quitarElemento(ficha);
                         ganadores.addColor(colorCasa);
@@ -440,7 +440,7 @@ public class Tablero {
 
                     }else if (ficha.getColor().equals("Verde") && numCasilla + mover == 24) {
                         rojo.get(numCasilla).quitarElemento(ficha);
-                        ganadores.addColor("Rojo");
+                        ganadores.addColor("Verde");
                         sacaFicha = true;
 
                     }else if (numCasilla < 16 && numCasilla + mover > 16) {

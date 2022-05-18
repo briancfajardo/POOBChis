@@ -14,6 +14,7 @@ public class CasillasGUI extends JPanel {
     private MouseListener clic = new MouseListener() {
         @Override
         public void mouseClicked(MouseEvent e) {
+            actualizar(tablero.getTurnoActual());
             if (habilitado && parchis.isTurnoPropio()){
 
                 if (parchis.isMataFicha()) {
@@ -21,7 +22,7 @@ public class CasillasGUI extends JPanel {
                     int x=punto.x;
                     int y=punto.y;
                     parchis.moverGanancia(color,num, 20);
-
+//
                 }else if (parchis.isSacaFicha()){
                     punto=MouseInfo.getPointerInfo().getLocation();
                     int x=punto.x;
@@ -29,17 +30,22 @@ public class CasillasGUI extends JPanel {
                     parchis.moverGanancia(color,num, 10);
                 }
 
+
                 if(!parchis.isMov1() || !parchis.isMov2()){
                     punto=MouseInfo.getPointerInfo().getLocation();
                     int x=punto.x;
                     int y=punto.y;
-                    opcionFichaGUI = new OpcionFichaGUI(parchis, x, y);
-                    if(parchis.getCantidadCasilla(color, num) != 0){opcionFichaGUI.moverFicha(color, num);}
+                    opcionFichaGUI = new OpcionFichaGUI(tablero, x, y);
+
+                    if(parchis.getCantidadCasilla(color, num) != 0){
+                        opcionFichaGUI.moverFicha(color, num);
+                    }
                 }
 
 
-            }
 
+            }
+            tablero.juego();
             //contieneFichaColor(turno);
             //System.out.println(turno);
         }
@@ -75,10 +81,12 @@ public class CasillasGUI extends JPanel {
     private String color;
     private boolean bloqueado;
     private boolean seguro;
+    private TableroGUI tablero;
     //private String turno;
 
-    public CasillasGUI(int num, String msg, Parchis parchis, String color){
-        this.parchis = parchis;
+    public CasillasGUI(int num, String msg, TableroGUI tablero, String color){
+        parchis = tablero.getParchis();
+        this.tablero = tablero;
         this.color = color;
         setBorder(BorderFactory.createEtchedBorder());
         addMouseListener(clic);
@@ -92,20 +100,6 @@ public class CasillasGUI extends JPanel {
         this.seguro = parchis.isSeguro(color,num);
         //turno = convertirStringTurno();
     }
-
-    //public String convertirStringTurno(){
-//
-    //    if (parchis.getTurno(parchis.ROJO)) {
-    //        return "Rojo";
-    //    }else if (parchis.getTurno(parchis.VERDE)) {
-    //        return "Verde";
-    //    }else if (parchis.getTurno(parchis.AZUL)) {
-    //        return "Azul";
-    //    }else if (parchis.getTurno(parchis.AMARILLO)) {
-    //        return "Amarillo";
-    //    }
-    //    return null;
-    //}
 
     public void actualizar(String turno){
         int aux = parchis.getCantidadCasilla(color, num);

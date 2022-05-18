@@ -34,8 +34,10 @@ public class TableroGUI extends JFrame {
         parchis = new Parchis();
         prepareElements();
     }
+
+    public Parchis getParchis(){return parchis;}
     public void juego(){
-        while (!terminar){
+        //while (!terminar){
             mensajeTurno();
             carcel1.actualizar();
             carcel2.actualizar();
@@ -50,8 +52,13 @@ public class TableroGUI extends JFrame {
 
             }
             //System.out.println(turnoActual);
-        }
+        //}
     }
+
+    public String getTurnoActual() {
+        return turnoActual;
+    }
+
     public void prepareElements() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );
         setFont(new Font("SansSerif", Font.PLAIN, 14));
@@ -109,7 +116,7 @@ public class TableroGUI extends JFrame {
         constraints.gridheight = 4;
         constraints.gridy = 3;
         constraints.fill = GridBagConstraints.BOTH;
-        DadosGUI dado = new DadosGUI(parchis);
+        DadosGUI dado = new DadosGUI(this);
         dado1 = dado.getValor1();
         dado2 = dado.getValor2();
         add(dado,constraints);
@@ -122,7 +129,7 @@ public class TableroGUI extends JFrame {
             constraints.gridwidth = 2;
             constraints.gridheight = 1;
             constraints.fill = GridBagConstraints.BOTH;
-            CasillasGUI casilla = new CasillasGUI(i,"       ", parchis, "Azul");
+            CasillasGUI casilla = new CasillasGUI(i,"       ", this, "Azul");
             casilla.setTipo(casilla.ANCHA);
             add(casilla,constraints);
             if(i == 4){
@@ -137,7 +144,7 @@ public class TableroGUI extends JFrame {
             constraints.gridwidth = 1;
             constraints.gridheight = 2;
             constraints.fill = GridBagConstraints.BOTH;
-            CasillasGUI casilla = new CasillasGUI(15-i,"<html><br><br><html>", parchis, "Azul");
+            CasillasGUI casilla = new CasillasGUI(15-i,"<html><br><br><html>", this, "Azul");
             casilla.setTipo(casilla.ALTA);
             add(casilla,constraints);
             if(i == 4){
@@ -152,7 +159,7 @@ public class TableroGUI extends JFrame {
             constraints.gridwidth = 2;
             constraints.gridheight = 1;
             constraints.fill = GridBagConstraints.BOTH;
-            CasillasGUI casilla = new CasillasGUI(i+16,"       ", parchis,"Azul");
+            CasillasGUI casilla = new CasillasGUI(i+16,"       ", this,"Azul");
             casilla.setTipo(casilla.ANCHA);
             add(casilla,constraints);
             if(i == 0){
@@ -166,32 +173,34 @@ public class TableroGUI extends JFrame {
     public void casillasAmarillas(){
         //tramo 1
         for (int i = 0; i < 8; i++){
+            constraints.gridx = 21-i;
+            constraints.gridy = 8;
+            constraints.gridwidth = 1;
+            constraints.gridheight = 2;
+            constraints.fill = GridBagConstraints.BOTH;
+            CasillasGUI casilla = new CasillasGUI(i,"<html><br><br><html>", this, "Amarillo");
+            casilla.setTipo(casilla.ALTA);
+            add(casilla,constraints);
+            if(i == 4){
+                casilla.setBackground(new Color(249, 198, 27));
+            }casillaAmarilla.add(casilla);
+        }
+
+        //tramo 2
+        for (int i = 0; i < 8; i++){
             constraints.gridx = 12;
             constraints.gridy = i;
             constraints.gridwidth = 2;
             constraints.gridheight = 1;
             constraints.fill = GridBagConstraints.BOTH;
-            CasillasGUI casilla = new CasillasGUI(15-i,"       ", parchis, "Amarillo");
+            CasillasGUI casilla = new CasillasGUI(15-i,"       ", this, "Amarillo");
             casilla.setTipo(casilla.ANCHA);
             add(casilla,constraints);
             if(i == 4){
                 casilla.setBackground(new Color (192, 180, 179));
             }casillaAmarilla.add(casilla);
         }
-        //tramo 2
-        for (int i = 0; i < 8; i++){
-            constraints.gridx = 14+i;
-            constraints.gridy = 8;
-            constraints.gridwidth = 1;
-            constraints.gridheight = 2;
-            constraints.fill = GridBagConstraints.BOTH;
-            CasillasGUI casilla = new CasillasGUI(7-i,"<html><br><br><html>", parchis, "Amarillo");
-            casilla.setTipo(casilla.ALTA);
-            add(casilla,constraints);
-            if(i == 3){
-                casilla.setBackground(new Color(249, 198, 27));
-            }casillaAmarilla.add(casilla);
-        }
+
         //tramo 3
         for (int i = 0; i < 8; i++){
             constraints.gridx = 14+i;
@@ -199,7 +208,7 @@ public class TableroGUI extends JFrame {
             constraints.gridwidth = 1;
             constraints.gridheight = 2;
             constraints.fill = GridBagConstraints.BOTH;
-            CasillasGUI casilla = new CasillasGUI(23-i,"<html><br><br><html>", parchis, "Amarillo");
+            CasillasGUI casilla = new CasillasGUI(23-i,"<html><br><br><html>", this, "Amarillo");
             casilla.setTipo(casilla.ALTA);
             add(casilla,constraints);
             if(i == 7){
@@ -217,7 +226,7 @@ public class TableroGUI extends JFrame {
             constraints.gridwidth = 1;
             constraints.gridheight = 2;
             constraints.fill = GridBagConstraints.BOTH;
-            CasillasGUI casilla = new CasillasGUI(i,"<html><br><br><html>", parchis, "Rojo");
+            CasillasGUI casilla = new CasillasGUI(i,"<html><br><br><html>", this, "Rojo");
             casilla.setTipo(casilla.ALTA);
             add(casilla,constraints);
             if(i == 4){
@@ -231,7 +240,7 @@ public class TableroGUI extends JFrame {
             constraints.gridwidth = 2;
             constraints.gridheight = 1;
             constraints.fill = GridBagConstraints.BOTH;
-            CasillasGUI casilla = new CasillasGUI(i+8,"       ", parchis, "Rojo");
+            CasillasGUI casilla = new CasillasGUI(i+8,"       ", this, "Rojo");
             casilla.setTipo(casilla.ANCHA);
             add(casilla,constraints);
             if(i == 3){
@@ -246,7 +255,7 @@ public class TableroGUI extends JFrame {
             constraints.gridwidth = 1;
             constraints.gridheight = 2;
             constraints.fill = GridBagConstraints.BOTH;
-            CasillasGUI casilla = new CasillasGUI(16+i,"<html><br><br><html>", parchis, "Rojo");
+            CasillasGUI casilla = new CasillasGUI(16+i,"<html><br><br><html>", this, "Rojo");
             casilla.setTipo(casilla.ALTA);
             add(casilla,constraints);
             if(i == 0){
@@ -264,7 +273,7 @@ public class TableroGUI extends JFrame {
             constraints.gridwidth = 1;
             constraints.gridheight = 2;
             constraints.fill = GridBagConstraints.BOTH;
-            CasillasGUI casilla = new CasillasGUI(8+i,"<html><br><br><html>", parchis, "Verde");
+            CasillasGUI casilla = new CasillasGUI(8+i,"<html><br><br><html>", this, "Verde");
             casilla.setTipo(casilla.ALTA);
             add(casilla,constraints);
             if(i == 3){
@@ -278,7 +287,7 @@ public class TableroGUI extends JFrame {
             constraints.gridwidth = 2;
             constraints.gridheight = 1;
             constraints.fill = GridBagConstraints.BOTH;
-            CasillasGUI casilla = new CasillasGUI(i,"       ", parchis, "Verde");
+            CasillasGUI casilla = new CasillasGUI(i,"       ", this, "Verde");
             casilla.setTipo(casilla.ANCHA);
             add(casilla,constraints);
             if(i == 4){
@@ -292,7 +301,7 @@ public class TableroGUI extends JFrame {
             constraints.gridwidth = 2;
             constraints.gridheight = 1;
             constraints.fill = GridBagConstraints.BOTH;
-            CasillasGUI casilla = new CasillasGUI(23-i,"       ", parchis, "Verde");
+            CasillasGUI casilla = new CasillasGUI(23-i,"       ", this, "Verde");
             casilla.setTipo(casilla.ANCHA);
             add(casilla,constraints);
             if(i == 7){

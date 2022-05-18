@@ -18,9 +18,11 @@ public class OpcionFichaGUI extends JFrame implements ActionListener {
     private int num, val1, val2;
 
     private int x, y;
+    private TableroGUI tablero;
 
-    public OpcionFichaGUI(Parchis parchis, int x, int y) {
-        this.parchis = parchis;
+    public OpcionFichaGUI(TableroGUI tablero, int x, int y) {
+        this.tablero = tablero;
+        parchis = tablero.getParchis();
         this.x = x;
         this.y = y;
         setTitle("Escoge la cantidad que quieres mover");
@@ -92,6 +94,8 @@ public class OpcionFichaGUI extends JFrame implements ActionListener {
             parchis.moverFicha(color, num);
             ReproducirSonido("src/audios/fichas1.wav");
         }
+
+        tablero.juego();
         this.dispose();
     }
 }

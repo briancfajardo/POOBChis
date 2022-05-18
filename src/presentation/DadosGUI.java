@@ -17,6 +17,7 @@ public class DadosGUI extends JPanel {
     private int valor2 = 1;
     private OpcionFichaGUI opcionFichaGUI;
     private Parchis parchis;
+    private TableroGUI tablero;
     private MouseListener clic = new MouseListener() {
         @Override
         public void mouseClicked(MouseEvent e) {
@@ -41,6 +42,8 @@ public class DadosGUI extends JPanel {
                 setEnabled(false);
             }
 
+            tablero.juego();
+
         }
 
         @Override
@@ -63,9 +66,11 @@ public class DadosGUI extends JPanel {
 
         }
     };
-    public DadosGUI(Parchis parchis){
-        this.parchis = parchis;
+    public DadosGUI(TableroGUI tablero){
+        parchis = tablero.getParchis();
+        this.tablero = tablero;
         prepareElements();
+
     }
     public int getValor1(){
         return valor1;
