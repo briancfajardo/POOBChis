@@ -19,9 +19,17 @@ public class Parchis {
 
     private boolean primeraTirada = false;
     private boolean turnoPropio;
+    private ArrayList<String> tipoAmarillo = new ArrayList<>();
+    private ArrayList<String> tipoAzul = new ArrayList<>();
+    private ArrayList<String> tipoVerde = new ArrayList<>();
+    private ArrayList<String> tipoRojo = new ArrayList<>();
 
-    public Parchis(){
-        tablero = new Tablero();
+    public Parchis(ArrayList<String> tipoAmarillo, ArrayList<String> tipoAzul, ArrayList<String> tipoVerde, ArrayList<String> tipoRojo){
+        this.tipoAmarillo = tipoAmarillo;
+        this.tipoAzul = tipoAzul;
+        this.tipoRojo = tipoRojo;
+        this.tipoVerde = tipoVerde;
+        tablero = new Tablero(tipoAmarillo, tipoAzul, tipoVerde, tipoRojo);
         carceles = new Carcel();
         dado1 = new Dado();
         dado2 = new Dado();
@@ -50,6 +58,22 @@ public class Parchis {
         }
         //System.out.println(tablero.isMataFicha());
         //System.out.println(tablero.isSacaFicha());
+    }
+
+    public ArrayList<String> getTipoAmarillo() {
+        return tipoAmarillo;
+    }
+
+    public ArrayList<String> getTipoAzul() {
+        return tipoAzul;
+    }
+
+    public ArrayList<String> getTipoRojo() {
+        return tipoRojo;
+    }
+
+    public ArrayList<String> getTipoVerde() {
+        return tipoVerde;
     }
 
     public void moverGanancia(String color, int posFicha, int moverGanado){

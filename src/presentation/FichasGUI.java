@@ -20,13 +20,20 @@ public class FichasGUI extends JFrame{
     public int FINAL = 3;
     private int tipo;
 
-    private ElementoGUI elemento1 = new ElementoGUI("Borde");
-    private ElementoGUI elemento2 = new ElementoGUI("Borde");
+    private ElementoGUI elemento1;
+    private ElementoGUI elemento2;
+    private ElementoGUI elemento3;
+    private ElementoGUI elemento4;
 
-    public FichasGUI(String color, int cant){
+    public FichasGUI(String color, int cant, String tipo1, String tipo2, String tipo3, String tipo4){
         this.cant =cant;
         this.color = color;
         this.color2 = color;
+        elemento1 = new ElementoGUI(tipo1);
+        elemento2 = new ElementoGUI(tipo2);
+        elemento3 = new ElementoGUI(tipo3);
+        elemento4 = new ElementoGUI(tipo4);
+
     }
 
     public void setClase1(String clase){

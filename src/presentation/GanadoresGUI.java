@@ -6,6 +6,7 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.util.ArrayList;
 
 public class GanadoresGUI extends JPanel {
     private FichasGUI fichasRojo;
@@ -15,22 +16,38 @@ public class GanadoresGUI extends JPanel {
     private int alto;
     private int ancho;
     private Parchis parchis;
+
+    private ArrayList<String> tipoAmarillo = new ArrayList<>();
+    private ArrayList<String> tipoAzul = new ArrayList<>();
+    private ArrayList<String> tipoVerde = new ArrayList<>();
+    private ArrayList<String> tipoRojo = new ArrayList<>();
+
     public GanadoresGUI(Parchis parchis){
         setBorder(BorderFactory.createEtchedBorder());
         setVisible(true);
-        fichasRojo = new FichasGUI("Rojo" ,0);
+        this.parchis = parchis;
+
+        inicializarTipos();
+
+        fichasRojo = new FichasGUI("Rojo" ,0, tipoRojo.get(0), tipoRojo.get(1), tipoRojo.get(2), tipoRojo.get(3));
         fichasRojo.setTipo(fichasRojo.FINAL);
 
-        fichasVerde = new FichasGUI("Verde" ,0);
+        fichasVerde = new FichasGUI("Verde" ,0, tipoVerde.get(0), tipoVerde.get(1), tipoVerde.get(2), tipoVerde.get(3));
         fichasVerde.setTipo(fichasVerde.FINAL);
 
-        fichasAzul = new FichasGUI("Azul" ,0);
+        fichasAzul = new FichasGUI("Azul" ,0,tipoAzul.get(0), tipoAzul.get(1), tipoAzul.get(2), tipoAzul.get(3));
         fichasAzul.setTipo(fichasAzul.FINAL);
 
-        fichasAmarillo = new FichasGUI("Amarillo" ,0);
+        fichasAmarillo = new FichasGUI("Amarillo" ,0,tipoAmarillo.get(0), tipoAmarillo.get(1), tipoAmarillo.get(2), tipoAmarillo.get(3));
         fichasAmarillo.setTipo(fichasAmarillo.FINAL);
+    }
 
-        this.parchis = parchis;
+    public void inicializarTipos(){
+        tipoAmarillo = parchis.getTipoAmarillo();
+        tipoAzul = parchis.getTipoAzul();
+        tipoRojo = parchis.getTipoRojo();
+        tipoVerde = parchis.getTipoVerde();
+
     }
     public void actualizar(){
 

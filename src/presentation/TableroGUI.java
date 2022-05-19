@@ -25,17 +25,47 @@ public class TableroGUI extends JFrame {
     private ArrayList<CasillasGUI> casillaVerde= new ArrayList<>();
     private  JLabel turno;
     private GanadoresGUI win1;
+    private ArrayList<String> tipoAmarillo = new ArrayList<>();
+    private ArrayList<String> tipoAzul = new ArrayList<>();
+    private ArrayList<String> tipoVerde = new ArrayList<>();
+    private ArrayList<String> tipoRojo = new ArrayList<>();
 
     private String turnoActual;
 
     public TableroGUI() {
         super("POOBChisGame");
         this.setContentPane(fondo);
-        parchis = new Parchis();
+        inicializarTipos();
+        parchis = new Parchis(tipoAmarillo, tipoAzul, tipoVerde, tipoRojo);
         prepareElements();
     }
 
     public Parchis getParchis(){return parchis;}
+
+    public void inicializarTipos(){
+        tipoAmarillo.add("Borde");
+        tipoAmarillo.add("Borde");
+        tipoAmarillo.add("Borde");
+        tipoAmarillo.add("Borde");
+
+        tipoAzul.add("Borde");
+        tipoAzul.add("Borde");
+        tipoAzul.add("Borde");
+        tipoAzul.add("Borde");
+
+        tipoVerde.add("Borde");
+        tipoVerde.add("Borde");
+        tipoVerde.add("Borde");
+        tipoVerde.add("Borde");
+
+        tipoRojo.add("Borde");
+        tipoRojo.add("Borde");
+        tipoRojo.add("Borde");
+        tipoRojo.add("Borde");
+
+
+
+    }
     public void juego(){
         //while (!terminar){
         int contHabilitados = 0;
@@ -352,7 +382,7 @@ public class TableroGUI extends JFrame {
         constraints.gridwidth = 6;
         constraints.gridheight = 6;
         constraints.gridy = 8;
-        win1 = new GanadoresGUI( parchis);
+        win1 = new GanadoresGUI(parchis);
         //grid.setConstraints(win1, constraints);
         add(win1,constraints);
 

@@ -13,6 +13,11 @@ public class Tablero {
     private HashMap<String, ArrayList<Integer>> bloqueadasRojas = new HashMap<>();
     private HashMap<String, ArrayList<Integer>> bloqueadasVerdes = new HashMap<>();
 
+    private ArrayList<String> tipoAmarillo = new ArrayList<>();
+    private ArrayList<String> tipoAzul = new ArrayList<>();
+    private ArrayList<String> tipoVerde = new ArrayList<>();
+    private ArrayList<String> tipoRojo = new ArrayList<>();
+
     private Ganadores ganadores = new Ganadores();
     private Carcel carcel;
     int movi1, movi2;
@@ -20,7 +25,11 @@ public class Tablero {
     private boolean mataFicha = false;
     private boolean sacaFicha = false;
 
-    public Tablero(){
+    public Tablero(ArrayList<String> tipoAmarillo, ArrayList<String> tipoAzul, ArrayList<String> tipoVerde, ArrayList<String> tipoRojo){
+        this.tipoAmarillo = tipoAmarillo;
+        this.tipoAzul = tipoAzul;
+        this.tipoVerde = tipoVerde;
+        this.tipoRojo = tipoRojo;
         prepareTablero();
         carcel = new Carcel();
         prepareBloqueos();
@@ -788,16 +797,16 @@ public class Tablero {
 
 
 
-    public static void main(String arg[]){
-        Tablero u = new Tablero();
-        u.verde.get(13).agregarUno(new Ficha("Amarillo"));
-        u.verde.get(15).agregarUno(new Ficha("Azul"));
-        u.verde.get(14).agregarUno(new Ficha("Azul"));
-
-        Ficha f2 = (Ficha) u.verde.get(14).getElementos().get(0);
-        u.moverFicha("Verde", f2, 14, 1);
-        Ficha f = (Ficha) u.verde.get(13).getElementos().get(0);
-        u.moverFicha("Verde", f, 13, 2);
+    //public static void main(String arg[]){
+    //    Tablero u = new Tablero();
+    //    u.verde.get(13).agregarUno(new Ficha("Amarillo"));
+    //    u.verde.get(15).agregarUno(new Ficha("Azul"));
+    //    u.verde.get(14).agregarUno(new Ficha("Azul"));
+//
+    //    Ficha f2 = (Ficha) u.verde.get(14).getElementos().get(0);
+    //    u.moverFicha("Verde", f2, 14, 1);
+    //    Ficha f = (Ficha) u.verde.get(13).getElementos().get(0);
+    //    u.moverFicha("Verde", f, 13, 2);
 
         //System.out.println(u.verde.get(13));
         //System.out.println("_________");
@@ -810,5 +819,5 @@ public class Tablero {
         //System.out.println(u.ganadores);
 
 
-    }
+
 }

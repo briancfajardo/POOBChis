@@ -75,6 +75,9 @@ public class CasillasGUI extends JPanel {
     private boolean bloqueado;
     private boolean seguro;
     private TableroGUI tablero;
+    private String tipo1;
+    private String tipo2;
+
     //private String turno;
 
     public CasillasGUI(int num, String msg, TableroGUI tablero, String color){
@@ -87,11 +90,19 @@ public class CasillasGUI extends JPanel {
         add(new JLabel(msg));
         alto = getSize().height;
         ancho = getSize().width;
-        ficha = new FichasGUI(color,0);
+        ficha = new FichasGUI(color,0, "Borde", "Borde", "Borde", "Borde");
         this.num = num;
         this.bloqueado = parchis.isBloqueado(color,num);
         this.seguro = parchis.isSeguro(color,num);
         //turno = convertirStringTurno();
+    }
+
+    public void setTipo1(String tipo){
+        tipo1 = tipo;
+    }
+
+    public void setTipo2(String tipo){
+        tipo2 = tipo;
     }
 
     public boolean isHabilitado() {
