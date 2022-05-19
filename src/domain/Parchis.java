@@ -18,7 +18,7 @@ public class Parchis {
     private int todasAtrapadas;
 
     private boolean primeraTirada = false;
-    private boolean turnoPropio = true;
+    private boolean turnoPropio;
 
     public Parchis(){
         tablero = new Tablero();
@@ -35,7 +35,7 @@ public class Parchis {
         return primeraTirada;
     }
     public void moverFicha(String color, int posFicha){
-        //System.out.println("mov1: " + mov1 + "   mov2: " + mov2);
+        //System.out.println("mov1: " + mov1 + "   mov2: " + mov2+ "   mata: " + isMataFicha() + "   saca: " + isSacaFicha());
         if (!verificarTresPares(color, posFicha)){
 
             tablero.verificacion(color, posFicha, valor3, turnoString());
@@ -43,7 +43,7 @@ public class Parchis {
 
             if (valor1 != valor2){
                 pares = 0;
-                if (mov1 && mov2 && !isMataFicha() && !isSacaFicha()){cambiarTurno();}
+                if (!isMataFicha() && !isSacaFicha() && mov1 && mov2){cambiarTurno();}
             } else{
                 pares +=1;
             }
@@ -71,7 +71,6 @@ public class Parchis {
         String colorTurno;
         if (valor1 == valor2){
             colorTurno = turnoString();
-
             if (tablero.contarBloqueos(colorTurno) > 0 && tablero.contarBloqueos(colorTurno) <= 2){
                 int colorCasa = tablero.posBloqueos(colorTurno).get(0).get(0);
                 int posFicha = tablero.posBloqueos(colorTurno).get(0).get(1);
@@ -80,15 +79,19 @@ public class Parchis {
                     case 1 -> {
                         tablero.verificacion("Amarillo",posFicha,valor1, colorTurno);
                         mov1 = true;
+                        pares += 1;
                     }case 2 -> {
                         tablero.verificacion("Azul",posFicha,valor1, colorTurno);
                         mov1 = true;
+                        pares += 1;
                     }case 3 -> {
                         tablero.verificacion("Rojo",posFicha,valor1, colorTurno);
                         mov1 = true;
+                        pares += 1;
                     }default -> {
                         tablero.verificacion("Verde",posFicha,valor1, colorTurno);
                         mov1 = true;
+                        pares += 1;
                     }
                 }
             }
@@ -124,24 +127,24 @@ public class Parchis {
 
 
     public boolean verificarTresPares(String color, int posFicha){
-        if (pares == 5){
+        if (pares >= 4){
             tablero.getElementosCasilla(color, posFicha).remove(tablero.getElementosCasilla(color,posFicha).size()-1);
             if(turno == AMARILLO){
                 tablero.volverCarcel("Amarillo");
-                this.turno = AZUL;
             } else if (turno == AZUL) {
                 tablero.volverCarcel("Azul");
-                this.turno = ROJO;
             } else if (turno == ROJO) {
                 tablero.volverCarcel("Rojo");
-                this.turno = VERDE;
             }else if (turno == VERDE) {
                 tablero.volverCarcel("Verde");
-                this.turno = AMARILLO;
             }
+            tablero.setMataFicha(false);
+            cambiarTurno();
             pares = 0;
-            mov1 = false;
-            mov2 = false;
+            //pares = 0;
+            //mov1 = false;
+            //mov2 = false;
+            //primeraTirada = false;
             return true;
         }
         return false;
@@ -151,8 +154,10 @@ public class Parchis {
     }
 
     public void tirarDado() {
-        valor1 = dado1.tirarDado();
-        valor2 = dado2.tirarDado();
+        //valor1 = dado1.tirarDado();
+        //valor2 = dado2.tirarDado();
+        valor1 = 3;
+        valor2 = 3;
         turnoPropio = true;
 
         switch (turno){
@@ -168,8 +173,8 @@ public class Parchis {
                 break;
             case 3:
                 if (tablero.getValorCarcel("Rojo") == 4){todasAtrapadas += 1;
-                    valor1 = 3;
-                    valor2 = 2;
+                    valor1 = 5;
+                    valor2 = 3;
                 }
                 else{primeraTirada = true;}
                 break;
@@ -178,6 +183,11 @@ public class Parchis {
                 else{primeraTirada = true;}
                 break;
         }
+
+        System.out.println("todasAtrapadas:" + todasAtrapadas +
+                "   valor1 :" + valor1 + "   valor2 :" + valor2 +
+                "   m :" + !isMataFicha() + "   s :" + !isSacaFicha());
+
         //System.out.println("Rojo "+tablero.contarBloqueos("Rojo"));
         //System.out.println("Verde "+tablero.contarBloqueos("Verde"));
         //System.out.println("Amarillo "+tablero.contarBloqueos("Amarillo"));
@@ -243,7 +253,31 @@ public class Parchis {
                 setMov1(true);
                 setMov2(true);
 
-            } else if(tablero.cantElementosSalida(colorCasa) < 2 && tablero.getValorCarcel(colorCasa) > 0){
+            } else if (valor1 == 5 && valor2 == 5 && !mov1 && !mov2 && tablero.cantElementosSalida(colorCasa) == 1 && tablero.getValorCarcel(colorCasa) > 1) {
+                tablero.volverCarcel(((Ficha) tablero.getElementosCasilla(colorCasa, 4).get(0)).getColor());
+                tablero.getElementosCasilla(colorCasa, 4).remove(0);
+                tablero.salirCarcel(colorCasa);
+                tablero.salirCarcel(colorCasa);
+                tablero.nuevaFicha(colorCasa, 4, colorCasa);
+                tablero.nuevaFicha(colorCasa, 4, colorCasa);
+                sacoFicha = 2;
+                setMov1(true);
+                setMov2(true);
+
+            }else if (valor1 == 5 && valor2 == 5 && !mov1 && !mov2 && tablero.cantElementosSalida(colorCasa) == 2 && tablero.getValorCarcel(colorCasa) > 1) {
+                tablero.volverCarcel(((Ficha) tablero.getElementosCasilla(colorCasa, 4).get(0)).getColor());
+                tablero.getElementosCasilla(colorCasa, 4).remove(0);
+                tablero.volverCarcel(((Ficha) tablero.getElementosCasilla(colorCasa, 4).get(0)).getColor());
+                tablero.getElementosCasilla(colorCasa, 4).remove(0);
+                tablero.salirCarcel(colorCasa);
+                tablero.salirCarcel(colorCasa);
+                tablero.nuevaFicha(colorCasa, 4, colorCasa);
+                tablero.nuevaFicha(colorCasa, 4, colorCasa);
+                sacoFicha = 2;
+                setMov1(true);
+                setMov2(true);
+
+            }else if(tablero.cantElementosSalida(colorCasa) < 2 && tablero.getValorCarcel(colorCasa) > 0){
                 if (!mov1 && valor1 == 5){
                     tablero.salirCarcel(colorCasa);
                     tablero.nuevaFicha(colorCasa, 4, colorCasa);sacoFicha = 1;

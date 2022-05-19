@@ -78,14 +78,27 @@ public class Tablero {
             amarillo.put(i, new Casilla());
             azul.put(i, new Casilla());
         }
+
+        //rojo.get(7).agregarUno(new Ficha("Verde"));
+        //rojo.get(7).agregarUno(new Ficha("Rojo"));
+        //rojo.get(7).setBloqueado();
         rojo.get(4).setSeguro();
         rojo.get(11).setSeguro();
         rojo.get(16).setSeguro();
 
+        //verde.get(0).agregarUno(new Ficha("Amarillo"));
+        //verde.get(0).agregarUno(new Ficha("Amarillo"));
+        //verde.get(0).setBloqueado();
+        verde.get(4).setSeguro();
         verde.get(4).setSeguro();
         verde.get(11).setSeguro();
         verde.get(16).setSeguro();
 
+        //amarillo.get(4).agregarUno(new Ficha("Verde"));
+        //amarillo.get(4).agregarUno(new Ficha("Rojo"));
+        //amarillo.get(0).agregarUno(new Ficha("Rojo"));
+        //amarillo.get(0).agregarUno(new Ficha("Rojo"));
+        //amarillo.get(0).setBloqueado();
         amarillo.get(4).setSeguro();
         amarillo.get(11).setSeguro();
         amarillo.get(16).setSeguro();

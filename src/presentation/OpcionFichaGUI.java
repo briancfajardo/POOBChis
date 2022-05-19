@@ -90,7 +90,7 @@ public class OpcionFichaGUI extends JFrame implements ActionListener {
             parchis.setMov2(true);
         }
 
-        if (parchis.getValor3() > 0) {
+        if (parchis.getValor3() > 0 && !parchis.isMataFicha() && !parchis.isSacaFicha()) {
             parchis.moverFicha(color, num);
             ReproducirSonido("src/audios/fichas1.wav");
         }
