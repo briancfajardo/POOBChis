@@ -8,8 +8,8 @@ import java.util.ArrayList;
 
 public class TableroGUI extends JFrame {
 
-    GridBagLayout grid = new GridBagLayout();
-    GridBagConstraints constraints = new GridBagConstraints();
+    private GridBagLayout grid = new GridBagLayout();
+    private GridBagConstraints constraints = new GridBagConstraints();
     private TableroGUI.Fondo fondo = new TableroGUI.Fondo();
     private Parchis parchis;
     private int dado1;
@@ -32,7 +32,7 @@ public class TableroGUI extends JFrame {
 
     private String turnoActual;
 
-    public TableroGUI() {
+    public TableroGUI(ArrayList<String> tipoAmarillo, ArrayList<String> tipoAzul, ArrayList<String> tipoVerde, ArrayList<String> tipoRojo) {
         super("POOBChisGame");
         this.setContentPane(fondo);
         inicializarTipos();
@@ -411,8 +411,8 @@ public class TableroGUI extends JFrame {
 
 
     public static void main (String[] args){
-        TableroGUI u = new TableroGUI();
-        u.juego();
+        //TableroGUI u = new TableroGUI();
+        //u.juego();
     }
 
 

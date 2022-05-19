@@ -178,17 +178,18 @@ public class Parchis {
     }
 
     public void tirarDado() {
-        //valor1 = dado1.tirarDado();
-        //valor2 = dado2.tirarDado();
-        valor1 = 3;
-        valor2 = 3;
+        valor1 = dado1.tirarDado();
+        valor2 = dado2.tirarDado();
+        //valor1 = 3;
+        //valor2 = 3;
         turnoPropio = true;
 
         switch (turno){
             case 1:
                 if (tablero.getValorCarcel("Amarillo") == 4){todasAtrapadas += 1;
-                valor1 = 5;
-                valor2 = 5;}
+                //valor1 = 5;
+                //valor2 = 5;
+                }
                 else{primeraTirada = true;}
                 break;
             case 2:
@@ -197,8 +198,8 @@ public class Parchis {
                 break;
             case 3:
                 if (tablero.getValorCarcel("Rojo") == 4){todasAtrapadas += 1;
-                    valor1 = 5;
-                    valor2 = 3;
+                    //valor1 = 5;
+                    //valor2 = 3;
                 }
                 else{primeraTirada = true;}
                 break;
@@ -208,9 +209,9 @@ public class Parchis {
                 break;
         }
 
-        System.out.println("todasAtrapadas:" + todasAtrapadas +
-                "   valor1 :" + valor1 + "   valor2 :" + valor2 +
-                "   m :" + !isMataFicha() + "   s :" + !isSacaFicha());
+        //System.out.println("todasAtrapadas:" + todasAtrapadas +
+        //        "   valor1 :" + valor1 + "   valor2 :" + valor2 +
+        //        "   m :" + !isMataFicha() + "   s :" + !isSacaFicha());
 
         //System.out.println("Rojo "+tablero.contarBloqueos("Rojo"));
         //System.out.println("Verde "+tablero.contarBloqueos("Verde"));

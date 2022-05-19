@@ -124,7 +124,6 @@ public class Tablero {
             }
             case "Rojo"->{
                 rojo.get(numCasilla).setSeguro();
-                break;
             }
             case "Amarillo"->{
                 amarillo.get(numCasilla).setSeguro();
