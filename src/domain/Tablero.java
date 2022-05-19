@@ -80,7 +80,7 @@ public class Tablero {
         }
 
         //rojo.get(7).agregarUno(new Ficha("Verde"));
-        //rojo.get(7).agregarUno(new Ficha("Rojo"));
+        rojo.get(7).agregarUno(new Ingeniera("Rojo"));
         //rojo.get(7).setBloqueado();
         rojo.get(4).setSeguro();
         rojo.get(11).setSeguro();
@@ -112,7 +112,6 @@ public class Tablero {
         switch (nombreCasa){
             case "Azul"->{
                 azul.get(numCasilla).setSeguro();
-                break;
             }
             case "Rojo"->{
                 rojo.get(numCasilla).setSeguro();
@@ -120,11 +119,9 @@ public class Tablero {
             }
             case "Amarillo"->{
                 amarillo.get(numCasilla).setSeguro();
-                break;
             }
             default -> {
                 verde.get(numCasilla).setSeguro();
-                break;
             }
         }
     }
@@ -327,6 +324,12 @@ public class Tablero {
             }
         }
     }
+
+    public void usarPoder(Ficha ficha, String colorCasa, int numCasilla){
+        if (ficha instanceof Ingeniera){
+            ponerSeguro(numCasilla, colorCasa);
+        }
+    }
     public void moverFicha(String colorCasa, Ficha ficha, int numCasilla, int mover){
         if (!verificarBloqueo(colorCasa, numCasilla, mover, ficha.getColor())){
             this.movi1 = mover;
@@ -346,23 +349,28 @@ public class Tablero {
                         amarillo.get(numCasilla).quitarElemento(ficha);
                         azul.get(16).agregarUno(ficha);
                         ponerBloqueoComodin(azul.get(16), "Azul", 16);
+                        usarPoder(ficha,  "Azul",16);
                     //Caso 20
                     } else if (!ficha.getColor().equals(colorCasa) && numCasilla == 16) {
                         amarillo.get(numCasilla).quitarElemento(ficha);
                         if(mover == 20 && !ficha.getColor().equals("Azul")){
                             azul.get(2).agregarUno(ficha);
                             ponerBloqueoComodin(azul.get(2), "Azul", 2);
+                            usarPoder(ficha,  "Azul",2);
                         }else if (mover == 20 && ficha.getColor().equals("Azul")) {
                             azul.get(19).agregarUno(ficha);
                             ponerBloqueoComodin(azul.get(19), "Azul", 19);
+                            usarPoder(ficha,  "Azul",19);
                         }else {
                             amarillo.get(mover-1).agregarUno(ficha);
                             ponerBloqueoComodin(amarillo.get(mover-1), "Amarillo", mover-1);
+                            usarPoder(ficha,  "Amarillo", mover-1);
                         }
                     } else if (ficha.getColor().equals("Azul") && numCasilla + mover > 16 && numCasilla + mover < 24) {
                         amarillo.get(numCasilla).quitarElemento(ficha);
                         azul.get(numCasilla + mover).agregarUno(ficha);
                         ponerBloqueoComodin(azul.get(numCasilla + mover), "Azul", numCasilla + mover);
+                        usarPoder(ficha,  "Azul", numCasilla + mover);
 
                     }else if (ficha.getColor().equals("Azul") && numCasilla + mover == 24) {
                         amarillo.get(numCasilla).quitarElemento(ficha);
@@ -375,27 +383,33 @@ public class Tablero {
                             if(numCasilla == 13){
                                 rojo.get(16).agregarUno(ficha);
                                 ponerBloqueoComodin(rojo.get(16), "Rojo", 16);
+                                usarPoder(ficha,  "Rojo", 16);
                             } else if (ficha.getColor().equals("Rojo")) {
                                 rojo.get(numCasilla + 3).agregarUno(ficha);
                                 ponerBloqueoComodin(rojo.get(numCasilla + 3), "Rojo", numCasilla + 3);
+                                usarPoder(ficha,  "Rojo", numCasilla + 3);
                             } else {
                                 rojo.get(6-(20-numCasilla)).agregarUno(ficha);
                                 ponerBloqueoComodin(rojo.get(6-(20-numCasilla)), "Rojo", 6-(20-numCasilla));
+                                usarPoder(ficha,  "Rojo", 6-(20-numCasilla));
                             }
                         }else {
                             azul.get((numCasilla + mover) - 17).agregarUno(ficha);
                             ponerBloqueoComodin(azul.get((numCasilla + mover) - 17), "Azul", (numCasilla + mover) - 17 );
+                            usarPoder(ficha,  "Azul", (numCasilla + mover) - 17 );
                         }
 
                     }else if (ficha.getColor().equals(colorCasa) && numCasilla >= 16 && numCasilla + mover < 24) {
                         amarillo.get(numCasilla).quitarElemento(ficha);
                         amarillo.get(numCasilla + mover).agregarUno(ficha);
                         ponerBloqueoComodin(amarillo.get(numCasilla + mover), "Amarillo", numCasilla + mover);
+                        usarPoder(ficha,  "Amarillo", numCasilla + mover);
 
                     }else if(numCasilla + mover < 16) {
                         amarillo.get(numCasilla).quitarElemento(ficha);
                         amarillo.get(numCasilla + mover).agregarUno(ficha);
                         ponerBloqueoComodin(amarillo.get(numCasilla + mover), "Amarillo", numCasilla + mover);
+                        usarPoder(ficha,  "Amarillo", numCasilla + mover);
                     }
                 }
                 case "Azul" -> {
@@ -413,24 +427,29 @@ public class Tablero {
                         azul.get(numCasilla).quitarElemento(ficha);
                         rojo.get(16).agregarUno(ficha);
                         ponerBloqueoComodin(rojo.get(16), "Rojo", 16);
+                        usarPoder(ficha,  "Rojo", 16);
 
                     }else if (!ficha.getColor().equals(colorCasa) && numCasilla == 16) {
                         azul.get(numCasilla).quitarElemento(ficha);
                         if(mover == 20 && !ficha.getColor().equals("Rojo")){
                             rojo.get(2).agregarUno(ficha);
                             ponerBloqueoComodin(rojo.get(2), "Rojo", 2);
+                            usarPoder(ficha,  "Rojo", 2);
                         } else if (mover == 20 && ficha.getColor().equals("Rojo")) {
                             rojo.get(19).agregarUno(ficha);
                             ponerBloqueoComodin(rojo.get(19), "Rojo", 19);
+                            usarPoder(ficha,  "Rojo", 19);
                         } else {
                             azul.get(mover-1).agregarUno(ficha);
                             ponerBloqueoComodin(azul.get(mover-1), "Azul",mover-1);
+                            usarPoder(ficha,  "Azul",mover-1);
                         }
 
                     }else if (ficha.getColor().equals("Rojo") && numCasilla + mover > 16 && numCasilla + mover < 24) {
                         azul.get(numCasilla).quitarElemento(ficha);
                         rojo.get(numCasilla + mover).agregarUno(ficha);
                         ponerBloqueoComodin(rojo.get(numCasilla + mover), "Rojo", numCasilla + mover);
+                        usarPoder(ficha,  "Rojo", numCasilla + mover);
 
                     }else if (ficha.getColor().equals("Rojo") && numCasilla + mover == 24) {
                         azul.get(numCasilla).quitarElemento(ficha);
@@ -443,27 +462,33 @@ public class Tablero {
                             if(numCasilla == 13){
                                 verde.get(16).agregarUno(ficha);
                                 ponerBloqueoComodin(verde.get(16), "Verde", 16);
+                                usarPoder(ficha,  "Verde", 16);
                             }else if (ficha.getColor().equals("Verde")) {
                                 verde.get(numCasilla + 3).agregarUno(ficha);
                                 ponerBloqueoComodin(verde.get(numCasilla + 3), "Verde", numCasilla + 3);
+                                usarPoder(ficha,  "Verde", numCasilla + 3);
                             }else {
                                 verde.get(6-(20-numCasilla)).agregarUno(ficha);
                                 ponerBloqueoComodin(verde.get(6-(20-numCasilla)), "Verde", 6-(20-numCasilla));
+                                usarPoder(ficha,  "Verde", 6-(20-numCasilla));
                             }
                         }else {
                             rojo.get(numCasilla + mover - 17).agregarUno(ficha);
                             ponerBloqueoComodin(rojo.get(numCasilla + mover - 17), "Rojo", (numCasilla + mover) - 17);
+                            usarPoder(ficha,  "Rojo", (numCasilla + mover) - 17);
                         }
 
                     }else if (ficha.getColor().equals(colorCasa) && numCasilla >= 16 && numCasilla + mover < 24) {
                         azul.get(numCasilla).quitarElemento(ficha);
                         azul.get(numCasilla + mover).agregarUno(ficha);
                         ponerBloqueoComodin(azul.get(numCasilla + mover), "Azul", numCasilla + mover);
+                        usarPoder(ficha,  "Azul", numCasilla + mover);
 
                     }else if(numCasilla + mover < 16){
                         azul.get(numCasilla).quitarElemento(ficha);
                         azul.get(numCasilla + mover).agregarUno(ficha);
                         ponerBloqueoComodin(azul.get(numCasilla + mover), "Azul", numCasilla + mover);
+                        usarPoder(ficha,  "Azul", numCasilla + mover);
                     }
                 }
                 case "Rojo" -> {
@@ -481,24 +506,29 @@ public class Tablero {
                         rojo.get(numCasilla).quitarElemento(ficha);
                         verde.get(16).agregarUno(ficha);
                         ponerBloqueoComodin(verde.get(16), "Verde", 16);
+                        usarPoder(ficha,  "Verde", 16);
 
                     }else if (!ficha.getColor().equals(colorCasa) && numCasilla == 16) {
                         rojo.get(numCasilla).quitarElemento(ficha);
                         if(mover == 20 && !ficha.getColor().equals("Verde")){
                             verde.get(2).agregarUno(ficha);
                             ponerBloqueoComodin(verde.get(2), "Verde", 2);
+                            usarPoder(ficha,  "Verde", 2);
                         }else if (mover == 20 && ficha.getColor().equals("Verde")) {
                             verde.get(19).agregarUno(ficha);
                             ponerBloqueoComodin(verde.get(19), "Verde", 19);
+                            usarPoder(ficha,  "Verde", 19);
                         }else {
                             rojo.get(mover-1).agregarUno(ficha);
                             ponerBloqueoComodin(rojo.get(mover-1), "Rojo",mover-1);
+                            usarPoder(ficha,  "Rojo",mover-1);
                         }
 
                     }else if (ficha.getColor().equals("Verde") && numCasilla + mover > 16 && numCasilla + mover < 24) {
                         rojo.get(numCasilla).quitarElemento(ficha);
                         verde.get(numCasilla + mover).agregarUno(ficha);
                         ponerBloqueoComodin(verde.get(numCasilla + mover), "Verde", numCasilla + mover);
+                        usarPoder(ficha,  "Verde", numCasilla + mover);
 
                     }else if (ficha.getColor().equals("Verde") && numCasilla + mover == 24) {
                         rojo.get(numCasilla).quitarElemento(ficha);
@@ -511,27 +541,33 @@ public class Tablero {
                             if(numCasilla == 13){
                                 amarillo.get(16).agregarUno(ficha);
                                 ponerBloqueoComodin(amarillo.get(16), "Amarillo", 16);
+                                usarPoder(ficha,  "Amarillo", 16);
                             }else if (ficha.getColor().equals("Amarillo")) {
                                 amarillo.get(numCasilla + 3).agregarUno(ficha);
                                 ponerBloqueoComodin(amarillo.get(numCasilla + 3), "Amarillo", numCasilla + 3);
+                                usarPoder(ficha,  "Amarillo", numCasilla + 3);
                             }else {
                                 amarillo.get(6-(20-numCasilla)).agregarUno(ficha);
                                 ponerBloqueoComodin(amarillo.get(6-(20-numCasilla)), "Amarillo", 6-(20-numCasilla));
+                                usarPoder(ficha,  "Amarillo", 6-(20-numCasilla));
                             }
                         }else {
                             verde.get(numCasilla + mover - 17).agregarUno(ficha);
                             ponerBloqueoComodin(verde.get(numCasilla + mover - 17), "Verde", (numCasilla + mover) - 17);
+                            usarPoder(ficha,  "Verde", (numCasilla + mover) - 17);
                         }
 
                     }else if (ficha.getColor().equals(colorCasa) && numCasilla >= 16 && numCasilla + mover < 24) {
                         rojo.get(numCasilla).quitarElemento(ficha);
                         rojo.get(numCasilla + mover).agregarUno(ficha);
                         ponerBloqueoComodin(rojo.get(numCasilla + mover), "Rojo", numCasilla + mover);
+                        usarPoder(ficha,  "Rojo", numCasilla + mover);
 
                     }else if(numCasilla + mover < 16){
                         rojo.get(numCasilla).quitarElemento(ficha);
                         rojo.get(numCasilla + mover).agregarUno(ficha);
                         ponerBloqueoComodin(rojo.get(numCasilla + mover), "Rojo", numCasilla + mover);
+                        usarPoder(ficha,  "Rojo", numCasilla + mover);
                     }
                 }
                 default -> {
@@ -549,24 +585,29 @@ public class Tablero {
                         verde.get(numCasilla).quitarElemento(ficha);
                         amarillo.get(16).agregarUno(ficha);
                         ponerBloqueoComodin(amarillo.get(16), "Amarillo", 16);
+                        usarPoder(ficha,  "Amarillo", 16);
 
                     }else if (!ficha.getColor().equals(colorCasa) && numCasilla == 16) {
                         verde.get(numCasilla).quitarElemento(ficha);
                         if(mover == 20 && !ficha.getColor().equals("Amarillo")){
                             amarillo.get(2).agregarUno(ficha);
                             ponerBloqueoComodin(amarillo.get(2), "Amarillo", 2);
+                            usarPoder(ficha,  "Amarillo", 2);
                         }else if (mover == 20 && ficha.getColor().equals("Amarillo")) {
                             amarillo.get(19).agregarUno(ficha);
                             ponerBloqueoComodin(amarillo.get(19), "Amarillo", 19);
+                            usarPoder(ficha,  "Amarillo", 19);
                         }else {
                             verde.get(mover-1).agregarUno(ficha);
                             ponerBloqueoComodin(verde.get(mover-1), "Verde",mover-1);
+                            usarPoder(ficha,  "Verde",mover-1);
                         }
 
                     }else if (ficha.getColor().equals("Amarillo") && numCasilla + mover > 16 && numCasilla + mover < 24) {
                         verde.get(numCasilla).quitarElemento(ficha);
                         amarillo.get(numCasilla + mover).agregarUno(ficha);
                         ponerBloqueoComodin(amarillo.get(numCasilla + mover), "Amarillo", numCasilla + mover);
+                        usarPoder(ficha,  "Amarillo", numCasilla + mover);
 
                     }else if (ficha.getColor().equals("Amarillo") && numCasilla + mover == 24) {
                         verde.get(numCasilla).quitarElemento(ficha);
@@ -579,27 +620,33 @@ public class Tablero {
                             if(numCasilla == 13){
                                 azul.get(16).agregarUno(ficha);
                                 ponerBloqueoComodin(azul.get(16), "Azul", 16);
+                                usarPoder(ficha,  "Azul", 16);
                             }else if (ficha.getColor().equals("Azul")) {
                                 azul.get(numCasilla + 3).agregarUno(ficha);
                                 ponerBloqueoComodin(azul.get(numCasilla + 3), "Azul", numCasilla + 3);
+                                usarPoder(ficha,  "Azul", numCasilla + 3);
                             }else {
                                 azul.get(6-(20-numCasilla)).agregarUno(ficha);
                                 ponerBloqueoComodin(azul.get(6-(20-numCasilla)), "Azul", 6-(20-numCasilla));
+                                usarPoder(ficha,  "Azul", 6-(20-numCasilla));
                             }
                         }else {
                             amarillo.get(numCasilla + mover - 17).agregarUno(ficha);
                             ponerBloqueoComodin(amarillo.get(numCasilla + mover - 17), "Amarillo", (numCasilla + mover) - 17);
+                            usarPoder(ficha,  "Amarillo", (numCasilla + mover) - 17);
                         }
 
                     }else if (ficha.getColor().equals(colorCasa) && numCasilla >= 16 && numCasilla + mover < 24) {
                         verde.get(numCasilla).quitarElemento(ficha);
                         verde.get(numCasilla + mover).agregarUno(ficha);
                         ponerBloqueoComodin(verde.get(numCasilla + mover), "Verde", numCasilla + mover);
+                        usarPoder(ficha,  "Verde", numCasilla + mover);
 
                     }else if(numCasilla + mover < 16){
                         verde.get(numCasilla).quitarElemento(ficha);
                         verde.get(numCasilla + mover).agregarUno(ficha);
                         ponerBloqueoComodin(verde.get(numCasilla + mover), "Verde", numCasilla + mover);
+                        usarPoder(ficha,  "Verde", numCasilla + mover);
                     }
                 }
             }
