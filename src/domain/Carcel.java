@@ -41,6 +41,7 @@ public class Carcel {
                 case "Ventajosa" -> azul.add(new Ventajosa("Azul"));
             }
 
+
             switch (Trojo.get(i)){
                 case "Borde" -> rojo.add(new Ficha("Rojo"));
                 case "Ingeniera" -> rojo.add(new Ingeniera("Rojo"));
