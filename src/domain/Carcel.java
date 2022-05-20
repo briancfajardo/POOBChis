@@ -101,6 +101,23 @@ public class Carcel {
         }
         return aux;
     }
+
+    public ArrayList<Ficha> getRojo() {
+        return rojo;
+    }
+
+    public ArrayList<Ficha> getAmarillo() {
+        return amarillo;
+    }
+
+    public ArrayList<Ficha> getAzul() {
+        return azul;
+    }
+
+    public ArrayList<Ficha> getVerde() {
+        return verde;
+    }
+
     public void meterCarcel(String color, Ficha ficha){
         switch (color) {
             case "Amarillo" -> amarillo.add(ficha);

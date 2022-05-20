@@ -1,6 +1,5 @@
 package presentation;
 
-import domain.Ficha;
 import domain.Parchis;
 
 import javax.swing.*;
@@ -27,93 +26,45 @@ public class CarcelGUI extends JPanel {
         this.parchis = parchis;
         this.color = color;
         this.cant = parchis.getCarcel(col);
-        inicializarTipos();
+        actualizarTipos();
         setBorder(BorderFactory.createEtchedBorder());
         setBackground(color2);
         setVisible(true);
         fichas = new FichasGUI(col ,cant, tipo1, tipo2, tipo3, tipo4);
-        actualizar();
+        //actualizar();
         fichas.setRolFicha(fichas.CARCEL);
     }
 
-    private void inicializarTipos(){
-        switch (col){
-            case "Amarillo" -> {
-                tipo1 = parchis.getTipoAmarillo().get(0);
-                tipo2 = parchis.getTipoAmarillo().get(1);
-                tipo3 = parchis.getTipoAmarillo().get(2);
-                tipo4 = parchis.getTipoAmarillo().get(3);
-            }
-            case "Azul" -> {
-                tipo1 = parchis.getTipoAzul().get(0);
-                tipo2 = parchis.getTipoAzul().get(1);
-                tipo3 = parchis.getTipoAzul().get(2);
-                tipo4 = parchis.getTipoAzul().get(3);
-
-            }
-            case "Verde" -> {
-                tipo1 = parchis.getTipoVerde().get(0);
-                tipo2 = parchis.getTipoVerde().get(1);
-                tipo3 = parchis.getTipoVerde().get(2);
-                tipo4 = parchis.getTipoVerde().get(3);
-
-            }
-            default -> {
-                tipo1 = parchis.getTipoRojo().get(0);
-                tipo2 = parchis.getTipoRojo().get(1);
-                tipo3 = parchis.getTipoRojo().get(2);
-                tipo4 = parchis.getTipoRojo().get(3);
-            }
+    public void actualizarTipos(){
+        if(parchis.getTipo(col).size() == 4){
+            tipo1 = parchis.getTipo(col).get(0);
+            tipo2 = parchis.getTipo(col).get(1);
+            tipo3 = parchis.getTipo(col).get(2);
+            tipo4 = parchis.getTipo(col).get(3);
+        } else if (parchis.getTipo(col).size() == 3){
+            tipo1 = parchis.getTipo(col).get(0);
+            tipo2 = parchis.getTipo(col).get(1);
+            tipo3 = parchis.getTipo(col).get(2);
+        }else if (parchis.getTipo(col).size() == 2){
+            tipo1 = parchis.getTipo(col).get(0);
+            tipo2 = parchis.getTipo(col).get(1);
+        }else if (parchis.getTipo(col).size() == 1){
+            tipo1 = parchis.getTipo(col).get(0);
         }
+
+    }
+    public void actualizarFichas(){
+        fichas.setClase1(tipo1);
+        fichas.setClase2(tipo2);
+        fichas.setClase3(tipo3);
+        fichas.setClase4(tipo4);
     }
     public void actualizar(){
         cant = parchis.getCarcel(col);
+        actualizarTipos();
+        actualizarFichas();
         fichas.setCant(cant);
         repaint();
-    }
-
-    public void agregarACarcel(){
-        int i = 0;
-        for (Ficha ficha: parchis.getTablero().getCarcel().getFichas(col)) {
-            if (i < 4) {
-                switch (i) {
-                    case 0 -> {
-                        String clase = String.valueOf(ficha.getClass()).replace("class domain.", "");
-                        if (clase.equals("Ficha")) {
-                            clase = "Borde";
-                        }
-                        tipo1 = clase;
-                        fichas.setClase1(tipo1);
-                    }
-                    case 1 -> {
-                        String clase = String.valueOf(ficha.getClass()).replace("class domain.", "");
-                        if (clase.equals("Ficha")) {
-                            clase = "Borde";
-                        }
-                        tipo2 = clase;
-                        fichas.setClase1(tipo2);
-                    }
-                    case 2 -> {
-                        String clase = String.valueOf(ficha.getClass()).replace("class domain.", "");
-                        if (clase.equals("Ficha")) {
-                            clase = "Borde";
-                        }
-                        tipo3 = clase;
-                        fichas.setClase1(tipo3);
-                    }
-                    case 3 -> {
-                        String clase = String.valueOf(ficha.getClass()).replace("class domain.", "");
-                        if (clase.equals("Ficha")) {
-                            clase = "Borde";
-                        }
-                        tipo4 = clase;
-                        fichas.setClase1(tipo4);
-                    }
-                }
-                i++;
-            }
-        }
-
     }
 
     public void paint(Graphics g){

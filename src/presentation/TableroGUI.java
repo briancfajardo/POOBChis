@@ -82,11 +82,14 @@ public class TableroGUI extends JFrame {
             casillaRoja.get(i).actualizar(turnoActual);
             casillaVerde.get(i).actualizar(turnoActual);
 
+        }
+        for (int i = 0; i<24; i++){
             if(casillaAzul.get(i).isHabilitado()){contHabilitados += 1;}
             if(casillaVerde.get(i).isHabilitado()){contHabilitados += 1;}
             if(casillaRoja.get(i).isHabilitado()){contHabilitados += 1;}
             if(casillaAmarilla.get(i).isHabilitado()){contHabilitados += 1;}
         }
+        System.out.println("ContHabilitados: "+ contHabilitados);
         if(contHabilitados == 0 && parchis.getCarcel(turnoActual) != 4
                 && parchis.getValor1() != parchis.getValor2()
                 && !parchis.isMataFicha() && !parchis.isSacaFicha()){

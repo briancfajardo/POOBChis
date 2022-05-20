@@ -41,7 +41,8 @@ public class Parchis {
         return primeraTirada;
     }
     public void moverFicha(String color, int posFicha){
-        //System.out.println("mov1: " + mov1 + "   mov2: " + mov2+ "   mata: " + isMataFicha() + "   saca: " + isSacaFicha());
+        //System.out.println("mov1: " + mov1 + "   mov2: " + mov2+ "   mata: " + isMataFicha() + "   saca: " + isSacaFicha()+ "  No ver par: "
+        //        + !verificarTresPares(color, posFicha));
         if (!verificarTresPares(color, posFicha)){
 
             tablero.verificacion(color, posFicha, valor3, turnoString());
@@ -58,20 +59,63 @@ public class Parchis {
         //System.out.println(tablero.isSacaFicha());
     }
 
+    //public ArrayList<String> getTipoAmarillo() {
+    //    return tipoAmarillo;
+    //}
+//
+    //public ArrayList<String> getTipoAzul() {
+    //    return tipoAzul;
+    //}
+//
+    //public ArrayList<String> getTipoRojo() {
+    //    return tipoRojo;
+    //}
+
+    //public ArrayList<String> getTipoVerde() {
+    //    return tipoVerde;
+    //}
+
+    public ArrayList<String> getTipo(String color){
+        ArrayList<Ficha> aux;
+        switch (color){
+            case "Amarillo" -> aux = tablero.getCarcel("Amarillo");
+            case "Azul" -> aux = tablero.getCarcel("Azul");
+            case "Rojo" -> aux = tablero.getCarcel("Rojo");
+            default -> aux = tablero.getCarcel("Verde");
+        }
+
+        ArrayList<String> aux2 = new ArrayList<>();
+        for (Ficha f : aux){
+            if (f instanceof Ingeniera){
+                aux2.add("Ingeniera");
+            } else if (f instanceof Cohete) {
+                aux2.add("Cohete");
+            } else if (f instanceof Aspiradora) {
+                aux2.add("Aspiradora");
+            } else if (f instanceof Saltarina) {
+                aux2.add("Saltarina");
+            }else if (f instanceof  Ventajosa){
+                aux2.add("Ventajosa");
+            }else {
+                aux2.add("Borde");
+            }
+        }
+        return aux2;
+    }
+
     public ArrayList<String> getTipoAmarillo() {
         return tipoAmarillo;
     }
 
+    public ArrayList<String> getTipoVerde() {
+        return tipoVerde;
+    }
     public ArrayList<String> getTipoAzul() {
         return tipoAzul;
     }
 
     public ArrayList<String> getTipoRojo() {
         return tipoRojo;
-    }
-
-    public ArrayList<String> getTipoVerde() {
-        return tipoVerde;
     }
 
     public void moverGanancia(String color, int posFicha, int moverGanado){
@@ -160,6 +204,7 @@ public class Parchis {
                 tablero.volverCarcel("Verde", (Ficha) tablero.getElementosCasilla(color,posFicha).get(tablero.getElementosCasilla(color,posFicha).size()-1));
             }
             tablero.getElementosCasilla(color, posFicha).remove(tablero.getElementosCasilla(color,posFicha).size()-1);
+            if(tablero.getCasilla(color,posFicha).isBloqueado())tablero.getCasilla(color,posFicha).quitarBloqueo();
             tablero.setMataFicha(false);
             cambiarTurno();
             pares = 0;
@@ -173,6 +218,14 @@ public class Parchis {
     }
     public boolean getTurno(int turnoP){
         return turnoP == turno;
+    }
+    public String obtenerTurno(){
+        return switch (turno){
+            case 1 -> "Amarillo";
+            case 2 ->"Azul";
+            case 3 ->"Rojo";
+            default -> "Verde";
+        };
     }
 
     public void tirarDado() {

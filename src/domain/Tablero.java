@@ -284,7 +284,14 @@ public class Tablero {
             }
         }
     }
-
+    public ArrayList<Ficha> getCarcel(String color){
+        return switch (color){
+            case "Amarillo" -> carcel.getAmarillo();
+            case "Azul"-> carcel.getAzul();
+            case "Rojo"-> carcel.getRojo();
+            default -> carcel.getVerde();
+        };
+    }
     public int contarBloqueos(String colorFicha){
         int cont = 0;
         cont += bloqueadasAmarillas.get(colorFicha).size()-1;

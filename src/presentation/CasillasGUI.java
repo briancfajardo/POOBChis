@@ -14,8 +14,9 @@ public class CasillasGUI extends JPanel {
     private MouseListener clic = new MouseListener() {
         @Override
         public void mouseClicked(MouseEvent e) {
-            actualizar(tablero.getTurnoActual());
-            //System.out.println(habilitado + " " + parchis.isTurnoPropio());
+            actualizar(parchis.obtenerTurno());
+            System.out.println(habilitado + " " + parchis.isTurnoPropio()+"  "+(!parchis.isMov1() || !parchis.isMov2())
+                    +"  "+ parchis.obtenerTurno());
             if (habilitado && parchis.isTurnoPropio()){
 
                 if (parchis.isMataFicha()) {
@@ -29,8 +30,9 @@ public class CasillasGUI extends JPanel {
                     int x=punto.x;
                     int y=punto.y;
                     opcionFichaGUI = new OpcionFichaGUI(tablero, x, y);
-
+                    System.out.println(parchis.getCantidadCasilla(color, num));
                     if(parchis.getCantidadCasilla(color, num) != 0){
+
                         opcionFichaGUI.moverFicha(color, num);
                     }
                 }
@@ -114,6 +116,7 @@ public class CasillasGUI extends JPanel {
         ficha.setCant(aux);
 
         habilitado = contieneFichaColor(turno);
+        System.out.println("Está habilitado: "+ habilitado);
         if(parchis.isSeguro(color,num) && num != 4){
             setBackground(new Color(192, 180, 179));
         } else if (parchis.isBloqueado(color,num) && num != 4) {
@@ -170,6 +173,7 @@ public class CasillasGUI extends JPanel {
         //System.out.println("mataFicha: " + parchis.isMataFicha() + "   sacaFicha: " + parchis.isSacaFicha());
         //System.out.println("Bloqueo:"+!parchis.getTablero().verificarBloqueo(color, num, 20, colorTurno) + "   color: " + color + "   numero: " + num);
         if (ficha.getCant() == 1){
+            System.out.println("--------------------");
             if (parchis.isMataFicha() && !parchis.getTablero().verificarBloqueo(color, num, 20, colorTurno)) {
                 return ficha.getColor().equals(colorTurno);
             }else if (parchis.isMataFicha()){

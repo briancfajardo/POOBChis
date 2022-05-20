@@ -11,6 +11,7 @@ public class Dado {
     }
     public int tirarDado() {
         valor = random.nextInt(6)+1;
+        valor = 5;
         return valor;
     }
 }
