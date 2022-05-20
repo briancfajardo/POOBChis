@@ -97,7 +97,7 @@ public class TableroGUI extends JFrame {
         return turnoActual;
     }
 
-    public void prepareElements() {
+    private void prepareElements() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );
         setFont(new Font("SansSerif", Font.PLAIN, 14));
         setLayout(grid);
@@ -107,7 +107,7 @@ public class TableroGUI extends JFrame {
 
         setVisible(true);
     }
-    public void tab() {
+    private void tab() {
         constraints.fill = GridBagConstraints.BOTH;
         carcel();
         casillasAzules();

@@ -322,13 +322,13 @@ public class Tablero {
     public void eliminarBloqueada(String colorFicha, String colorCasa, int pos){
         switch (colorCasa){
             case "Amarillo"->{
-                bloqueadasAmarillas.get(colorFicha).remove(new Integer(pos));
+                bloqueadasAmarillas.get(colorFicha).remove(Integer.valueOf(pos));
             }case "Azul"->{
-                bloqueadasAzules.get(colorFicha).remove(new Integer(pos));
+                bloqueadasAzules.get(colorFicha).remove(Integer.valueOf(pos));
             }case "Rojo"->{
-                bloqueadasRojas.get(colorFicha).remove(new Integer(pos));
+                bloqueadasRojas.get(colorFicha).remove(Integer.valueOf(pos));
             }default -> {
-                bloqueadasVerdes.get(colorFicha).remove(new Integer(pos));
+                bloqueadasVerdes.get(colorFicha).remove(Integer.valueOf(pos));
             }
         }
     }
