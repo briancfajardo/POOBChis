@@ -89,7 +89,7 @@ public class Parchis {
         };
     }
 
-    public void quitarBloqueoPares(){
+    private void quitarBloqueoPares(){
         String colorTurno;
         if (valor1 == valor2){
             colorTurno = turnoString();
@@ -148,7 +148,7 @@ public class Parchis {
     public boolean isSacaFicha() {return tablero.isSacaFicha();}
 
 
-    public boolean verificarTresPares(String color, int posFicha){
+    private boolean verificarTresPares(String color, int posFicha){
         if (pares >= 4){
             if(turno == AMARILLO){
                 tablero.volverCarcel("Amarillo", (Ficha) tablero.getElementosCasilla(color,posFicha).get(tablero.getElementosCasilla(color,posFicha).size()-1));
@@ -257,7 +257,7 @@ public class Parchis {
         return tablero;
     }
 
-    public void reglaSalirCarcel(){
+    private void reglaSalirCarcel(){
 
         String colorCasa = null;
         switch (turno){
@@ -304,7 +304,6 @@ public class Parchis {
                     sacoFicha = 1;
                     setMov2(true);
                 } else if (!mov1 && !mov2 && valor1 + valor2 == 5) {
-                    tablero.salirCarcel(colorCasa);
                     tablero.nuevaFicha(colorCasa, 4, tablero.salirCarcel(colorCasa));
                     sacoFicha = 1;
                     cambiarTurno();

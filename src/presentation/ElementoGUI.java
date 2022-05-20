@@ -5,8 +5,8 @@ import java.awt.*;
 
 public class ElementoGUI {
 
-    protected Image imagen;
-    protected String color;
+    private Image imagen;
+    private String color;
     protected String tipo;
 
     public ElementoGUI(String tipo){
@@ -17,7 +17,7 @@ public class ElementoGUI {
         this.tipo = tipo;
     }
 
-    protected Image creadorImagen(String color){
+    public Image creadorImagen(String color){
         this.color = color;
         if (color.equals("noTiene")){
             imagen = new ImageIcon(getClass().getResource("/imagenes/Comodin"+tipo+".png")).getImage();

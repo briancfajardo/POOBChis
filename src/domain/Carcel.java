@@ -70,6 +70,15 @@ public class Carcel {
         };
     }
 
+    public ArrayList<Ficha> getFichas(String color){
+        return switch (color) {
+            case "Amarillo" -> amarillo;
+            case "Azul" -> azul;
+            case "Rojo" -> rojo;
+            default -> verde;
+        };
+    }
+
     public Ficha sacarCarcel(String color){
         Ficha aux;
         switch (color) {

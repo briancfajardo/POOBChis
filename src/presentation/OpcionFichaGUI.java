@@ -15,7 +15,7 @@ public class OpcionFichaGUI extends JFrame implements ActionListener {
     private JButton boton1;
     private JButton boton2;
     private String color;
-    private int num, val1, val2;
+    private int num;
 
     private int x, y;
     private TableroGUI tablero;
@@ -65,7 +65,7 @@ public class OpcionFichaGUI extends JFrame implements ActionListener {
         this.color = color;
         this.num = num;
     }
-    public void ReproducirSonido(String nombreSonido){
+    private void ReproducirSonido(String nombreSonido){
         try {
             //"src/audios/dados.wav";
 

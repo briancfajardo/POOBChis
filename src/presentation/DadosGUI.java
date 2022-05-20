@@ -79,7 +79,7 @@ public class DadosGUI extends JPanel {
     public int getValor2(){
         return valor2;
     }
-    public void prepareElements(){
+    private void prepareElements(){
         setPreferredSize(new Dimension((96*2)+10,96));
         //setBorder(BorderFactory.createEtchedBorder());
         setOpaque(false);
@@ -87,7 +87,7 @@ public class DadosGUI extends JPanel {
         setVisible(true);
     }
 
-    public void ReproducirSonido(){
+    private void ReproducirSonido(){
         try {
             //URL url = getClass().getResource("/audios/dados.wav");
             //File audio = new File("wav2.wav");

@@ -42,12 +42,12 @@ public class ConfigInicialGUI extends JFrame {
         setVisible(true);
 
     }
-    public void conf() {
+    private void conf() {
         constraints.fill = GridBagConstraints.BOTH;
         tituloConfig();
         numJugadores();
     }
-    public void tituloConfig(){
+    private void tituloConfig(){
         constraints.gridx = 0;
         constraints.gridwidth = 8;
         constraints.gridheight = 3;
@@ -60,7 +60,7 @@ public class ConfigInicialGUI extends JFrame {
         turno.setForeground(new Color(248, 197, 27));
         add(turno, constraints);
     }
-    public void numJugadores(){
+    private void numJugadores(){
         constraints.gridx = 0;
         constraints.gridwidth = 3;
         constraints.gridheight = 3;
@@ -90,7 +90,7 @@ public class ConfigInicialGUI extends JFrame {
         cuatroJugadores.setCursor(new Cursor(Cursor.HAND_CURSOR));
         cuatroJugadores.addActionListener(e -> {
             jugadores = 4;
-            FormatoJugador formato1 = new FormatoJugador(4);
+            eleccionJugadorConfig jugador = new eleccionJugadorConfig();
             dispose();
         });
         //opcionFichas();

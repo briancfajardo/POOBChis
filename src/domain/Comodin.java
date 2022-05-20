@@ -1,12 +1,10 @@
 package domain;
 
-public class Comodin extends Elemento{
+public abstract class Comodin extends Elemento{
 
     public Comodin(){
 
     }
 
-    public void mostrarPoder(){
-
-    }
+    public abstract void mostrarPoder();
 }

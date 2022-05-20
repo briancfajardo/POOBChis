@@ -18,6 +18,7 @@ public class TableroGUI extends JFrame {
     private CarcelGUI carcelAmarilla;
     private CarcelGUI carcelRoja;
     private CarcelGUI carcelVerde;
+
     private boolean terminar = false;
     private ArrayList<CasillasGUI> casillaAzul= new ArrayList<>();
     private ArrayList<CasillasGUI> casillaAmarilla= new ArrayList<>();
@@ -42,7 +43,7 @@ public class TableroGUI extends JFrame {
 
     public Parchis getParchis(){return parchis;}
 
-    public void inicializarTipos(){
+    private void inicializarTipos(){
         tipoAmarillo.add("Borde");
         tipoAmarillo.add("Borde");
         tipoAmarillo.add("Borde");
@@ -117,7 +118,7 @@ public class TableroGUI extends JFrame {
         dados();
         tituloTurno();
     }
-    public void tituloTurno(){
+    private void tituloTurno(){
         constraints.gridx = 22;
         constraints.gridwidth = 8;
         constraints.gridheight = 3;
@@ -129,7 +130,7 @@ public class TableroGUI extends JFrame {
         mensajeTurno();
         add(turno, constraints);
     }
-    public void mensajeTurno(){
+    private void mensajeTurno(){
         if(parchis.getTurno(parchis.ROJO)){
             turno.setText("Turno del rojo");
             turno.setForeground(new Color(227, 128, 128));
@@ -148,7 +149,7 @@ public class TableroGUI extends JFrame {
             turnoActual = "Amarillo";
         }
     }
-    public void dados(){
+    private void dados(){
         constraints.gridx = 22;
         constraints.gridwidth = 8;
         constraints.gridheight = 4;
@@ -159,7 +160,7 @@ public class TableroGUI extends JFrame {
         dado2 = dado.getValor2();
         add(dado,constraints);
     }
-    public void casillasAzules(){
+    private void casillasAzules(){
         //tramo 1
         for (int i = 0; i < 8; i++){
             constraints.gridx = 8;
@@ -208,7 +209,7 @@ public class TableroGUI extends JFrame {
             casillaAzul.add(casilla);
         }
     }
-    public void casillasAmarillas(){
+    private void casillasAmarillas(){
         //tramo 1
         for (int i = 0; i < 8; i++){
             constraints.gridx = 21-i;
@@ -256,7 +257,7 @@ public class TableroGUI extends JFrame {
             }casillaAmarilla.add(casilla);
         }
     }
-    public void casillasRojas(){
+    private void casillasRojas(){
         //tramo 1
         for (int i = 0; i < 8; i++){
             constraints.gridx = i;
@@ -303,7 +304,7 @@ public class TableroGUI extends JFrame {
             }casillaRoja.add(casilla);
         }
     }
-    public void casillasVerdes(){
+    private void casillasVerdes(){
         //tramo 1
         for (int i = 0; i < 8; i++){
             constraints.gridx = 14+i;
@@ -350,7 +351,7 @@ public class TableroGUI extends JFrame {
         }
     }
 
-    public void carcel(){
+    private void carcel(){
         constraints.fill = GridBagConstraints.BOTH;
         //GridLayout grid = new GridLayout();
         //Primera carcel

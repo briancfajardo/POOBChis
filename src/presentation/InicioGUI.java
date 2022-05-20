@@ -29,7 +29,7 @@ public class InicioGUI extends JFrame {
      */
     public InicioGUI(){
         this.setContentPane(fondo);
-        setTitle("Kalah");
+        setTitle("POOBChis");
         prepareElements();
         prepareActions();
         setVisible(true);

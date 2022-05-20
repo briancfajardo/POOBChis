@@ -116,6 +116,10 @@ public class Tablero {
         azul.get(16).setSeguro();
     }
 
+    public Carcel getCarcel(){
+        return carcel;
+    }
+
     private void ponerSeguro(int numCasilla, String nombreCasa){
         switch (nombreCasa){
             case "Azul"->{
@@ -153,7 +157,7 @@ public class Tablero {
         switch (color) {
             case "Amarillo" -> {
                 agregarFicha(amarillo.get(pos), ficha);
-                tipoAmarillo.remove(0);
+                //tipoAmarillo.remove(0);
                 if(amarillo.get(pos).getElementos().size() == 2){amarillo.get(pos).setBloqueado();
                     agregarBloqueada(color, color, pos);
                     agregarBloqueada(color, color, pos);
@@ -161,7 +165,7 @@ public class Tablero {
             }
             case "Azul" -> {
                 agregarFicha(azul.get(pos),ficha);
-                tipoAzul.remove(0);
+                //tipoAzul.remove(0);
                 if(azul.get(pos).getElementos().size() == 2){azul.get(pos).setBloqueado();
                     agregarBloqueada(color, color, pos);
                     agregarBloqueada(color, color, pos);
@@ -169,7 +173,7 @@ public class Tablero {
             }
             case "Rojo" -> {
                 agregarFicha(rojo.get(pos),ficha);
-                tipoRojo.remove(0);
+                //tipoRojo.remove(0);
                 if(rojo.get(pos).getElementos().size() == 2){rojo.get(pos).setBloqueado();
                     agregarBloqueada(color, color, pos);
                     agregarBloqueada(color, color, pos);
@@ -177,7 +181,7 @@ public class Tablero {
             }
             default -> {
                 agregarFicha(verde.get(pos), ficha);
-                tipoVerde.remove(0);
+                //tipoVerde.remove(0);
                 if(verde.get(pos).getElementos().size() == 2){verde.get(pos).setBloqueado();
                     agregarBloqueada(color, color, pos);
                     agregarBloqueada(color, color, pos);
