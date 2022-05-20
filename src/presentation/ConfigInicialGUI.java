@@ -90,7 +90,7 @@ public class ConfigInicialGUI extends JFrame {
         cuatroJugadores.setCursor(new Cursor(Cursor.HAND_CURSOR));
         cuatroJugadores.addActionListener(e -> {
             jugadores = 4;
-            FormatoJugador formato1 = new FormatoJugador(4);
+            eleccionJugadorConfig jugador = new eleccionJugadorConfig();
             dispose();
         });
         //opcionFichas();

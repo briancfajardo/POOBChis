@@ -1,12 +1,10 @@
 package presentation;
 
+import domain.Ficha;
 import domain.Parchis;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
-import java.util.ArrayList;
 
 public class CarcelGUI extends JPanel {
     private int x = 100;
@@ -34,7 +32,8 @@ public class CarcelGUI extends JPanel {
         setBackground(color2);
         setVisible(true);
         fichas = new FichasGUI(col ,cant, tipo1, tipo2, tipo3, tipo4);
-        fichas.setTipo(fichas.CARCEL);
+        actualizar();
+        fichas.setRolFicha(fichas.CARCEL);
     }
 
     public void inicializarTipos(){
@@ -71,6 +70,50 @@ public class CarcelGUI extends JPanel {
         cant = parchis.getCarcel(col);
         fichas.setCant(cant);
         repaint();
+    }
+
+    public void agregarCarcel(){
+        int i = 0;
+        for (Ficha ficha: parchis.getTablero().getCarcel().getFichas(col)) {
+            if (i < 4) {
+                switch (i) {
+                    case 0 -> {
+                        String clase = String.valueOf(ficha.getClass()).replace("class domain.", "");
+                        if (clase.equals("Ficha")) {
+                            clase = "Borde";
+                        }
+                        tipo1 = clase;
+                        fichas.setClase1(tipo1);
+                    }
+                    case 1 -> {
+                        String clase = String.valueOf(ficha.getClass()).replace("class domain.", "");
+                        if (clase.equals("Ficha")) {
+                            clase = "Borde";
+                        }
+                        tipo2 = clase;
+                        fichas.setClase1(tipo2);
+                    }
+                    case 2 -> {
+                        String clase = String.valueOf(ficha.getClass()).replace("class domain.", "");
+                        if (clase.equals("Ficha")) {
+                            clase = "Borde";
+                        }
+                        tipo3 = clase;
+                        fichas.setClase1(tipo3);
+                    }
+                    case 3 -> {
+                        String clase = String.valueOf(ficha.getClass()).replace("class domain.", "");
+                        if (clase.equals("Ficha")) {
+                            clase = "Borde";
+                        }
+                        tipo4 = clase;
+                        fichas.setClase1(tipo4);
+                    }
+                }
+                i++;
+            }
+        }
+
     }
 
     public void paint(Graphics g){

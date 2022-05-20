@@ -4,8 +4,6 @@ import domain.Parchis;
 
 import javax.swing.*;
 import java.awt.*;
-import java.awt.event.MouseEvent;
-import java.awt.event.MouseListener;
 import java.util.ArrayList;
 
 public class GanadoresGUI extends JPanel {
@@ -30,16 +28,16 @@ public class GanadoresGUI extends JPanel {
         inicializarTipos();
 
         fichasRojo = new FichasGUI("Rojo" ,0, tipoRojo.get(0), tipoRojo.get(1), tipoRojo.get(2), tipoRojo.get(3));
-        fichasRojo.setTipo(fichasRojo.FINAL);
+        fichasRojo.setRolFicha(fichasRojo.FINAL);
 
         fichasVerde = new FichasGUI("Verde" ,0, tipoVerde.get(0), tipoVerde.get(1), tipoVerde.get(2), tipoVerde.get(3));
-        fichasVerde.setTipo(fichasVerde.FINAL);
+        fichasVerde.setRolFicha(fichasVerde.FINAL);
 
         fichasAzul = new FichasGUI("Azul" ,0,tipoAzul.get(0), tipoAzul.get(1), tipoAzul.get(2), tipoAzul.get(3));
-        fichasAzul.setTipo(fichasAzul.FINAL);
+        fichasAzul.setRolFicha(fichasAzul.FINAL);
 
         fichasAmarillo = new FichasGUI("Amarillo" ,0,tipoAmarillo.get(0), tipoAmarillo.get(1), tipoAmarillo.get(2), tipoAmarillo.get(3));
-        fichasAmarillo.setTipo(fichasAmarillo.FINAL);
+        fichasAmarillo.setRolFicha(fichasAmarillo.FINAL);
     }
 
     public void inicializarTipos(){

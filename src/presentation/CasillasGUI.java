@@ -125,9 +125,27 @@ public class CasillasGUI extends JPanel {
             if (aux == 1){
                 //System.out.println(aux);
                 ficha.setColor(parchis.getColorFicha(color,num,0));
+                String clase = String.valueOf(parchis.getTablero().getElementosCasilla(color,num).get(0).getClass()).replace("class domain.", "");
+                if (clase.equals("Ficha")){
+                    clase = "Borde";
+                }
+                ficha.setClase1(clase);
+
             }else if(aux == 2){
                 ficha.setColor(parchis.getColorFicha(color,num,0));
                 ficha.setColor2(parchis.getColorFicha(color,num,1));
+
+                String clase = String.valueOf(parchis.getTablero().getElementosCasilla(color,num).get(0).getClass()).replace("class domain.", "");
+                if (clase.equals("Ficha")){
+                    clase = "Borde";
+                }
+                ficha.setClase1(clase);
+
+                String clase2 = String.valueOf(parchis.getTablero().getElementosCasilla(color,num).get(1).getClass()).replace("class domain.", "");
+                if (clase2.equals("Ficha")){
+                    clase2 = "Borde";
+                }
+                ficha.setClase2(clase2);
             }
         }catch (Exception e){
             System.out.println(num + " " + parchis.getCantidadCasilla(color, num));
@@ -141,9 +159,9 @@ public class CasillasGUI extends JPanel {
     public void setTipo(int tipo){
         this.tipo = tipo;
         if(tipo == ANCHA){
-            ficha.setTipo(ficha.ANCHA);
+            ficha.setRolFicha(ficha.ANCHA);
         }else {
-            ficha.setTipo(ficha.ALTA);
+            ficha.setRolFicha(ficha.ALTA);
         }
 
     }

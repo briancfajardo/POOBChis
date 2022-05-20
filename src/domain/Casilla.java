@@ -2,7 +2,7 @@ package domain;
 
 import java.util.ArrayList;
 
-public class Casilla extends  Elemento{
+public class Casilla{
     private ArrayList<Elemento> elementos;
     private boolean bloqueado = false;
 
