@@ -13,6 +13,15 @@ public class FormatoJugador extends JFrame {
     private ArrayList<String> tipoAmarillo = new ArrayList<>();
     private ArrayList<String> tipoAzul = new ArrayList<>();
     private String[] fichasPosibles = {"Borde", "Ingeniera", "Cohete", "Aspiradora", "Saltarina", "Ventajosa"};
+
+    private String nombreRojo;
+    private String nombreAmarillo;
+    private String nombreAzul;
+    private String nombreVerde;
+
+    private JTextField textfield1, textfield2, textfield3, textfield4;
+
+
     public FormatoJugador(int num){
         super("Formato del jugador");
         this.num = num;
@@ -34,14 +43,18 @@ public class FormatoJugador extends JFrame {
         contenedor.add(seleccionFichas, BorderLayout.CENTER);
 
         if(num == 4){
-            JTextField textfield1= new JTextField("Rojo");
+            textfield1= new JTextField("Rojo");
             textfield1.setBounds(120,10,150,20);
-            JTextField textfield2 = new JTextField("Verde");
+
+            textfield2 = new JTextField("Verde");
             textfield2.setBounds(120,10,150,20);
-            JTextField textfield3 = new JTextField("Amarillo");
+
+            textfield3 = new JTextField("Amarillo");
             textfield3.setBounds(120,10,150,20);
-            JTextField textfield4 = new JTextField("Azul");
+
+            textfield4 = new JTextField("Azul");
             textfield4.setBounds(120,10,150,20);
+
 
             seleccionFichas.add(textfield1);
             seleccionFichas.add(textfield2);
@@ -67,9 +80,12 @@ public class FormatoJugador extends JFrame {
             seleccionFichas.add(opcionFichas("Verde"));
             seleccionFichas.add(opcionFichas("Amarillo"));
             seleccionFichas.add(opcionFichas("Azul"));
+
+            nombreRojo = textfield1.getText();
+            crearBotonAceptar();
         }
-        crearBotonAceptar();
         setVisible(true);
+
 
     }
 
@@ -78,6 +94,15 @@ public class FormatoJugador extends JFrame {
         aceptar.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+
+                nombreRojo = textfield1.getText();
+                nombreVerde = textfield2.getText();
+                nombreAmarillo = textfield3.getText();
+                nombreAzul = textfield4.getText();
+
+                //System.out.println("rojo: " + nombreRojo + ", amarillo:" + nombreAmarillo + ", azul:" +
+                //     nombreAzul + ", verde:" + nombreVerde);
+
                 TableroGUI nuevaPartida = new TableroGUI(tipoAmarillo, tipoAzul, tipoVerde, tipoRojo);
                 nuevaPartida.setVisible(true);
                 nuevaPartida.setResizable(false);
