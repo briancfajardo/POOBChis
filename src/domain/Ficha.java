@@ -8,7 +8,7 @@ public class Ficha extends Elemento{
         this.color = color;
     }
 
-
+    public void usarPoder(Tablero tablero, String colorCasa ,int numCasilla){}
     public String getColor(){
         return color;
     }

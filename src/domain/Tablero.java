@@ -31,7 +31,7 @@ public class Tablero {
         this.tipoVerde = tipoVerde;
         this.tipoRojo = tipoRojo;
         prepareTablero();
-        carcel = new Carcel();
+        carcel = new Carcel(tipoAmarillo, tipoAzul, tipoVerde, tipoRojo);
         prepareBloqueos();
     }
     private void prepareBloqueos(){
@@ -150,39 +150,45 @@ public class Tablero {
         };
     }
 
-    public void nuevaFicha(String color, int pos, String colorf){
+    public void nuevaFicha(String color, int pos, Ficha ficha){
         switch (color) {
             case "Amarillo" -> {
-                amarillo.get(pos).agregarUno(new Ficha(colorf));
+                agregarFicha(amarillo.get(pos), ficha);
+                tipoAmarillo.remove(0);
                 if(amarillo.get(pos).getElementos().size() == 2){amarillo.get(pos).setBloqueado();
-                    agregarBloqueada(colorf, color, pos);
-                    agregarBloqueada(colorf, color, pos);
+                    agregarBloqueada(color, color, pos);
+                    agregarBloqueada(color, color, pos);
                 }
             }
             case "Azul" -> {
-                azul.get(pos).agregarUno(new Ficha(colorf));
+                agregarFicha(azul.get(pos),ficha);
+                tipoAzul.remove(0);
                 if(azul.get(pos).getElementos().size() == 2){azul.get(pos).setBloqueado();
-                    agregarBloqueada(colorf, color, pos);
-                    agregarBloqueada(colorf, color, pos);
+                    agregarBloqueada(color, color, pos);
+                    agregarBloqueada(color, color, pos);
                 }
             }
             case "Rojo" -> {
-                rojo.get(pos).agregarUno(new Ficha(colorf));
+                agregarFicha(rojo.get(pos),ficha);
+                tipoRojo.remove(0);
                 if(rojo.get(pos).getElementos().size() == 2){rojo.get(pos).setBloqueado();
-                    agregarBloqueada(colorf, color, pos);
-                    agregarBloqueada(colorf, color, pos);
+                    agregarBloqueada(color, color, pos);
+                    agregarBloqueada(color, color, pos);
                 }
             }
             default -> {
-                verde.get(pos).agregarUno(new Ficha(colorf));
+                agregarFicha(verde.get(pos), ficha);
+                tipoVerde.remove(0);
                 if(verde.get(pos).getElementos().size() == 2){verde.get(pos).setBloqueado();
-                    agregarBloqueada(colorf, color, pos);
-                    agregarBloqueada(colorf, color, pos);
+                    agregarBloqueada(color, color, pos);
+                    agregarBloqueada(color, color, pos);
                 }
             }
         }
     }
-
+    private void agregarFicha(Casilla casilla, Ficha ficha){
+        casilla.agregarUno(ficha);
+    }
     //private int indiceBloqueos(ArrayList<Integer> arrayList){
     //    for (int i = 1 ; i < arrayList.size(); i ++){
     //        arrayList
@@ -334,9 +340,7 @@ public class Tablero {
     }
 
     public void usarPoder(Ficha ficha, String colorCasa, int numCasilla){
-        if (ficha instanceof Ingeniera){
-            ponerSeguro(numCasilla, colorCasa);
-        }
+        ficha.usarPoder(this, colorCasa, numCasilla);
     }
     public void moverFicha(String colorCasa, Ficha ficha, int numCasilla, int mover){
         if (!verificarBloqueo(colorCasa, numCasilla, mover, ficha.getColor())){
@@ -676,7 +680,7 @@ public class Tablero {
             } else if (ultCasilla.getElementos().get(0) instanceof Ficha && ultCasilla.getElementos().get(1) instanceof Ficha
                     && !((Ficha) ultCasilla.getElementos().get(0)).getColor().equals(((Ficha) ultCasilla.getElementos().get(1)).getColor())
                     && !ultCasilla.isSeguro()) {
-                volverCarcel(((Ficha) ultCasilla.getElementos().get(0)).getColor());
+                volverCarcel(((Ficha) ultCasilla.getElementos().get(0)).getColor(), (Ficha) ultCasilla.getElementos().get(0));
                 ultCasilla.getElementos().remove(0);
 
             } else if (ultCasilla.getElementos().get(0) instanceof Ficha && ultCasilla.getElementos().get(1) instanceof Ficha && ultCasilla.isSeguro()) {
@@ -691,13 +695,13 @@ public class Tablero {
         }
     }
 
-    public void volverCarcel(String color){
-        carcel.setColormas(color);
+    public void volverCarcel(String color, Ficha ficha){
+        carcel.meterCarcel(color, ficha);
         mataFicha = true;
     }
-    public void salirCarcel(String color){
-        carcel.setColor(color);
+    public Ficha salirCarcel(String color){
         movi1 = 5;
+        return carcel.sacarCarcel(color);
     }
     public int getValorCarcel(String color){
         return carcel.getColor(color);
@@ -781,7 +785,14 @@ public class Tablero {
         }
         return false;
     }
-
+    public Casilla getCasilla(String colorCasa, int numCasilla){
+        return switch (colorCasa){
+            case "Amarillo"-> amarillo.get(numCasilla);
+            case "Azul"-> azul.get(numCasilla);
+            case "Rojo"-> rojo.get(numCasilla);
+            default -> verde.get(numCasilla);
+        };
+    }
     public int cantElementosSalida(String color){
         return switch (color){
             case "Amarillo" -> amarillo.get(4).getElementos().size();
