@@ -14,8 +14,9 @@ public class FormatoJugador extends JFrame {
     private ArrayList<String> tipoAzul = new ArrayList<>();
     private String[] fichasPosibles = {"Borde", "Ingeniera", "Cohete", "Aspiradora", "Saltarina", "Ventajosa"};
     public FormatoJugador(int num){
+        super("Formato del jugador");
         this.num = num;
-        setLayout(new GridLayout(5,7));
+        //setLayout(new BorderLayout());
 
         prepareElements();
 
@@ -23,6 +24,15 @@ public class FormatoJugador extends JFrame {
     private void prepareElements(){
         setSize(800,300);
         setLocationRelativeTo(null);
+
+        Container contenedor  = getContentPane();
+        contenedor.setLayout(new BorderLayout(5,5));
+
+        JPanel seleccionFichas = new JPanel();
+        seleccionFichas.setLayout(new GridLayout(5,7));
+
+        contenedor.add(seleccionFichas, BorderLayout.CENTER);
+
         if(num == 4){
             JTextField textfield1= new JTextField("Rojo");
             textfield1.setBounds(120,10,150,20);
@@ -33,40 +43,54 @@ public class FormatoJugador extends JFrame {
             JTextField textfield4 = new JTextField("Azul");
             textfield4.setBounds(120,10,150,20);
 
+            seleccionFichas.add(textfield1);
+            seleccionFichas.add(textfield2);
+            seleccionFichas.add(textfield3);
+            seleccionFichas.add(textfield4);
 
-            add(textfield1);
-            add(textfield2);
-            add(textfield3);
-            add(textfield4);
+            seleccionFichas.add(opcionFichas("Rojo"));
+            seleccionFichas.add(opcionFichas("Verde"));
+            seleccionFichas.add(opcionFichas("Amarillo"));
+            seleccionFichas.add(opcionFichas("Azul"));
 
-            add(opcionFichas("Rojo"));
-            add(opcionFichas("Verde"));
-            add(opcionFichas("Amarillo"));
-            add(opcionFichas("Azul"));
+            seleccionFichas.add(opcionFichas("Rojo"));
+            seleccionFichas.add(opcionFichas("Verde"));
+            seleccionFichas.add(opcionFichas("Amarillo"));
+            seleccionFichas.add(opcionFichas("Azul"));
 
+            seleccionFichas.add(opcionFichas("Rojo"));
+            seleccionFichas.add(opcionFichas("Verde"));
+            seleccionFichas.add(opcionFichas("Amarillo"));
+            seleccionFichas.add(opcionFichas("Azul"));
 
-            add(opcionFichas("Rojo"));
-            add(opcionFichas("Verde"));
-            add(opcionFichas("Amarillo"));
-            add(opcionFichas("Azul"));
-
-
-            add(opcionFichas("Rojo"));
-            add(opcionFichas("Verde"));
-            add(opcionFichas("Amarillo"));
-            add(opcionFichas("Azul"));
-
-
-            add(opcionFichas("Rojo"));
-            add(opcionFichas("Verde"));
-            add(opcionFichas("Amarillo"));
-            add(opcionFichas("Azul"));
-
+            seleccionFichas.add(opcionFichas("Rojo"));
+            seleccionFichas.add(opcionFichas("Verde"));
+            seleccionFichas.add(opcionFichas("Amarillo"));
+            seleccionFichas.add(opcionFichas("Azul"));
         }
-
+        crearBotonAceptar();
         setVisible(true);
 
     }
+
+    public void crearBotonAceptar(){
+        Button aceptar = new Button("Aceptar");
+        aceptar.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                TableroGUI nuevaPartida = new TableroGUI(tipoAmarillo, tipoAzul, tipoVerde, tipoRojo);
+                nuevaPartida.setVisible(true);
+                nuevaPartida.setResizable(false);
+                nuevaPartida.setLocationRelativeTo(null);
+                dispose();
+
+            }
+        });
+
+        getContentPane().add(aceptar, BorderLayout.SOUTH);
+    }
+
+
     private JTextField campoTexto(String color){
         JTextField textfield = new JTextField(color);
         textfield.setBounds(120,10,150,20);
