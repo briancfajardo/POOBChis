@@ -89,7 +89,7 @@ public class FormatoJugador extends JFrame {
 
     }
 
-    public void crearBotonAceptar(){
+    private void crearBotonAceptar(){
         Button aceptar = new Button("Aceptar");
         aceptar.addActionListener(new ActionListener() {
             @Override
