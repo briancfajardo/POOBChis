@@ -47,6 +47,7 @@ public class ConfigInicialGUI extends JFrame {
         tituloConfig();
         numJugadores();
     }
+
     private void tituloConfig(){
         constraints.gridx = 0;
         constraints.gridwidth = 8;
