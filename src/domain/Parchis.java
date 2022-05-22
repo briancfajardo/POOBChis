@@ -12,7 +12,7 @@ public class Parchis {
     public int AZUL = 2;
     public int ROJO = 3;
     public int VERDE = 4;
-    private int turno, cantJugadores = 4, sacoFicha, pares;
+    private int turno, cantJugadores, sacoFicha, pares;
     private boolean mov1, mov2;
     private int todasAtrapadas;
 
@@ -23,7 +23,8 @@ public class Parchis {
     private ArrayList<String> tipoVerde;
     private ArrayList<String> tipoRojo;
 
-    public Parchis(ArrayList<String> tipoAmarillo, ArrayList<String> tipoAzul, ArrayList<String> tipoVerde, ArrayList<String> tipoRojo){
+    public Parchis(ArrayList<String> tipoAmarillo, ArrayList<String> tipoAzul, ArrayList<String> tipoVerde, ArrayList<String> tipoRojo, int cantJugadores){
+        this.cantJugadores = cantJugadores;
         this.tipoAmarillo = tipoAmarillo;
         this.tipoAzul = tipoAzul;
         this.tipoRojo = tipoRojo;
@@ -167,15 +168,26 @@ public class Parchis {
 
     public void cambiarTurno(){
         if(cantJugadores == 4){
-                if(turno == ROJO){
-                    this.turno = VERDE;
-                } else if (turno == VERDE) {
-                    this.turno = AMARILLO;
-                } else if (turno == AMARILLO) {
-                    this.turno = AZUL;
-                }else {
-                    this.turno = ROJO;
-                }
+            if(turno == ROJO){
+                this.turno = VERDE;
+            } else if (turno == VERDE) {
+                this.turno = AMARILLO;
+            } else if (turno == AMARILLO) {
+                this.turno = AZUL;
+            }else {
+                this.turno = ROJO;
+            }
+            todasAtrapadas = 0;
+            mov1 = false;
+            mov2 = false;
+            primeraTirada = false;
+            turnoPropio = false;
+        }else if(cantJugadores == 2){
+            if(turno == ROJO){
+                this.turno = AMARILLO;
+            } else {
+                this.turno = ROJO;
+            }
             todasAtrapadas = 0;
             mov1 = false;
             mov2 = false;

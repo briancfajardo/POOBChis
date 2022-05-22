@@ -37,7 +37,7 @@ public class TableroGUI extends JFrame {
         super("POOBChisGame");
         this.setContentPane(fondo);
         inicializarTipos();
-        parchis = new Parchis(tipoAmarillo, tipoAzul, tipoVerde, tipoRojo);
+        parchis = new Parchis(tipoAmarillo, tipoAzul, tipoVerde, tipoRojo, 2);
         prepareElements();
     }
 
