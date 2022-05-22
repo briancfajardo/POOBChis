@@ -1,13 +1,19 @@
 package domain;
 
 import java.io.Serializable;
-
+/**
+ * Clase Ventajosa que representa una ficha de tipo saltarina del juego POOBChis
+ */
 public class Ventajosa extends Ficha implements Serializable {
     private int turnoJugador;
     private Parchis parchis;
 
     private Tablero tablero;
-
+    /**
+     * Constructor de la clase Ventajosa la cual se crea con un color que representa a que casa corresponde,
+     * además hace uso del constructor de su padre Ficha
+     * @param color casa a la que corresponde la ficha Ventajosa
+     */
     public Ventajosa(String color) {
         super(color);
     }

@@ -4,6 +4,9 @@ import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+/**
+ * Clase Tablero que contiene todas las casillas del juego POOBChis
+ */
 public class Tablero implements Serializable {
     private HashMap<Integer, Casilla> rojo = new HashMap<>();
     private HashMap<Integer, Casilla> verde= new HashMap<>();
@@ -26,6 +29,13 @@ public class Tablero implements Serializable {
     private boolean mataFicha = false;
     private boolean sacaFicha = false;
 
+    /**
+     * Constructor de la clase Tablero que inicializa las fichas con los tipos correspondientes que le llegan por parámetro
+     * @param tipoAmarillo tipo de fichas Amarillas
+     * @param tipoAzul tipo de fichas Azules
+     * @param tipoVerde tipo de fichas Verdes
+     * @param tipoRojo tipo de fichas Rojas
+     */
     public Tablero(ArrayList<String> tipoAmarillo, ArrayList<String> tipoAzul, ArrayList<String> tipoVerde, ArrayList<String> tipoRojo){
         this.tipoAmarillo = tipoAmarillo;
         this.tipoAzul = tipoAzul;
@@ -35,6 +45,10 @@ public class Tablero implements Serializable {
         carcel = new Carcel(tipoAmarillo, tipoAzul, tipoVerde, tipoRojo);
         prepareBloqueos();
     }
+
+    /**
+     * Método que inicializa arreglos correspondientes a los bloqueos de cada color de fichas
+     */
     private void prepareBloqueos(){
         bloqueadasAmarillas.put("Amarillo",new ArrayList<>());
         bloqueadasAmarillas.put("Azul",new ArrayList<>());
@@ -81,6 +95,9 @@ public class Tablero implements Serializable {
         }
     }
 
+    /**
+     * Método que pone las casillas iniciales y adicionalmente pone los seguros correspondientes
+     */
     private void prepareTablero(){
         for(int i = 0; i<24;i++) {
             rojo.put(i, new Casilla());
@@ -117,26 +134,48 @@ public class Tablero implements Serializable {
         azul.get(16).setSeguro();
     }
 
+    /**
+     * Método que retorna el objeto cárcel
+     * @return retorna el objeto tipo Cárcel
+     */
     public Carcel getCarcel(){
         return carcel;
     }
 
+    /**
+     * Método que retorna el HashMap de casillas Amarillas
+     * @return HashMap de casillas amarillas
+     */
     public HashMap<Integer, Casilla> getAmarillo() {
         return amarillo;
     }
-
+    /**
+     * Método que retorna el HashMap de casillas Azules
+     * @return HashMap de casillas Azules
+     */
     public HashMap<Integer, Casilla> getAzul() {
         return azul;
     }
-
+    /**
+     * Método que retorna el HashMap de casillas Rojas
+     * @return HashMap de casillas Rojas
+     */
     public HashMap<Integer, Casilla> getRojo() {
         return rojo;
     }
-
+    /**
+     * Método que retorna el HashMap de casillas Verdes
+     * @return HashMap de casillas Verdes
+     */
     public HashMap<Integer, Casilla> getVerde() {
         return verde;
     }
 
+    /**
+     * Método para poner un seguro a partir del color y posición de la casilla
+     * @param numCasilla posición de la casilla a la que se le quiere asignar el atributo de seguro
+     * @param nombreCasa color de la casa donde se encuentra a casilla que se le quiere adicionar el atributo seguro
+     */
     private void ponerSeguro(int numCasilla, String nombreCasa){
         switch (nombreCasa){
             case "Azul"->{
@@ -153,6 +192,13 @@ public class Tablero implements Serializable {
             }
         }
     }
+
+    /**
+     * Método que retorna si una casilla está bloqueada o no
+     * @param color color de la casa donde se encuentra a casilla que se le quiere conocer
+     * @param pos posición de la casilla que se quiere averiguar si está bloqueada
+     * @return booleano que dice si una casilla está bloqueada o no
+     */
     public boolean isBloqueado(String color, int pos){
         return switch (color) {
             case "Amarillo" -> amarillo.get(pos).isBloqueado();
@@ -161,6 +207,12 @@ public class Tablero implements Serializable {
             default -> verde.get(pos).isBloqueado();
         };
     }
+    /**
+     * Método que retorna si una casilla es segura o no
+     * @param color color de la casa donde se encuentra a casilla que se le quiere conocer
+     * @param pos posición de la casilla que se quiere averiguar si es segura
+     * @return booleano que dice si una casilla es segura o no
+     */
     public boolean isSeguro(String color, int pos){
         return switch (color) {
             case "Amarillo" -> amarillo.get(pos).isSeguro();
@@ -170,6 +222,12 @@ public class Tablero implements Serializable {
         };
     }
 
+    /**
+     * Método que agrega una ficha en una posición específica y crea bloqueos si es necesario
+     * @param color color de la casa donde se quiere agregar la ficha
+     * @param pos casilla donde se quiere agregar la ficha
+     * @param ficha Objeto ficha que se agregará a la casilla
+     */
     public void nuevaFicha(String color, int pos, Ficha ficha){
         switch (color) {
             case "Amarillo" -> {
@@ -206,6 +264,12 @@ public class Tablero implements Serializable {
             }
         }
     }
+
+    /**
+     * Método que agrega una ficha en una casilla específica
+     * @param casilla casilla donde se quiere agregar la ficha
+     * @param ficha ficha que quieres ser agregada
+     */
     private void agregarFicha(Casilla casilla, Ficha ficha){
         casilla.agregarUno(ficha);
     }
@@ -215,6 +279,12 @@ public class Tablero implements Serializable {
     //    }
     //}
 
+    /**
+     * Método que retorna un arreglo de elementos con los objetos contenidos en una casilla especificada a través de su color y posición
+     * @param color color de la casilla a inspeccionar
+     * @param pos posición de la casilla a inspeccionar
+     * @return arreglo de elementos que contiene la casilla
+     */
     public ArrayList<Elemento> getElementosCasilla(String color, int pos){
         return switch (color) {
             case "Amarillo" -> amarillo.get(pos).getElementos();
@@ -239,18 +309,13 @@ public class Tablero implements Serializable {
     //    }
     //}
 
-    public int getMovi1() {
-        return movi1;
-    }
-    public void setMovi1(int movi1) {
-        this.movi1 = movi1;
-    }
-    public int getMovi2() {
-        return movi2;
-    }
-    public void setMovi2(int movi2) {
-        this.movi2 = movi2;
-    }
+    /**
+     * Método que verifica si se puede mover una ficha a una casilla específica
+     * @param colorCasa color de la casilla donde se encuentra la ficha
+     * @param posFicha posición de la casilla donde se encuentra la ficha
+     * @param mover cantidad de casillas que se desea mover
+     * @param colorTurno color del turno en el momento de intentar mover la ficha
+     */
 
     public void verificacion(String colorCasa, int posFicha, int mover, String colorTurno){
         switch (colorCasa) {
@@ -301,6 +366,12 @@ public class Tablero implements Serializable {
             }
         }
     }
+
+    /**
+     * Método que retorna un arreglo de fichas que están en la cárcel de un color específico
+     * @param color color de la cárcel de donde se desean conocer sus fichas
+     * @return Arreglo de fichas que están en la cárcel de un color específico
+     */
     public ArrayList<Ficha> getCarcel(String color){
         return switch (color){
             case "Amarillo" -> carcel.getAmarillo();
@@ -309,6 +380,12 @@ public class Tablero implements Serializable {
             default -> carcel.getVerde();
         };
     }
+
+    /**
+     * Método que cuenta los bloqueos existentes en el tablero
+     * @param colorFicha color de las fichas de las cuales se quieren saber sus bloqueos
+     * @return suma de bloqueos de un color de ficha específica
+     */
     public int contarBloqueos(String colorFicha){
         int cont = 0;
         cont += bloqueadasAmarillas.get(colorFicha).size()-1;
@@ -316,12 +393,14 @@ public class Tablero implements Serializable {
         cont += bloqueadasRojas.get(colorFicha).size()-1;
         cont += bloqueadasVerdes.get(colorFicha).size()-1;
 
-        //System.out.println(bloqueadasAmarillas.get(colorFicha));
-        //System.out.println(bloqueadasAzules.get(colorFicha));
-        //System.out.println(bloqueadasRojas.get(colorFicha));
-        //System.out.println(bloqueadasVerdes.get(colorFicha));
         return cont;
     }
+
+    /**
+     * Método que retorna un arreglo bidimensional las posiciones de los bloqueos existentes
+     * @param colorFicha color de las fichas de las cuales se desean conocer los bloqueos
+     * @return Arreglo bidimensional de enteros
+     */
     public ArrayList<ArrayList<Integer>> posBloqueos(String colorFicha){
         ArrayList<ArrayList<Integer>> posiciones = new ArrayList<>();
         if(bloqueadasAmarillas.get(colorFicha).size() > 1){
@@ -339,6 +418,12 @@ public class Tablero implements Serializable {
         return posiciones;
     }
 
+    /**
+     * Método que agrega el color de una ficha a los arreglos de bloqueados a partir de su color y posición
+     * @param colorFicha color de la ficha
+     * @param colorCasa color de la casa donde se encuentra
+     * @param pos posición de la casilla donde sea desea agregar el color del bloqueado
+     */
     public void agregarBloqueada(String colorFicha, String colorCasa, int pos){
         switch (colorCasa){
             case "Amarillo"->{
@@ -352,6 +437,13 @@ public class Tablero implements Serializable {
             }
         }
     }
+
+    /**
+     * Método que elimina un color de los arreglos de bloqueados
+     * @param colorFicha color de la ficha a eliminar
+     * @param colorCasa color de la casa de donde se desea eliminar
+     * @param pos posición de la casilla donde se encuentra el color de la ficha a eliminar
+     */
     public void eliminarBloqueada(String colorFicha, String colorCasa, int pos){
         switch (colorCasa){
             case "Amarillo"->{
@@ -366,9 +458,23 @@ public class Tablero implements Serializable {
         }
     }
 
+    /**
+     * Método que usa el poder de una ficha
+     * @param ficha ficha la cual usará su poder
+     * @param colorCasa color de la casa donde se encuentra la ficha
+     * @param numCasilla numero de la casilla donde está la ficha
+     */
     public void usarPoder(Ficha ficha, String colorCasa, int numCasilla){
         ficha.usarPoder(this, colorCasa, numCasilla, null);
     }
+
+    /**
+     * Método que mueve una ficha un número determinado de posiciones
+     * @param colorCasa color de la casa donde se encuentra
+     * @param ficha ficha que se desea mover
+     * @param numCasilla número de la casilla donde se encuentra la ficha
+     * @param mover cantidad de casillas que se desea mover
+     */
     public void moverFicha(String colorCasa, Ficha ficha, int numCasilla, int mover){
         if (!verificarBloqueo(colorCasa, numCasilla, mover, ficha.getColor())){
             this.movi1 = mover;
@@ -691,6 +797,13 @@ public class Tablero implements Serializable {
             }
         }
     }
+
+    /**
+     * Método que verifica si se debe poner un bloqueo o si se hace uso de un comodín
+     * @param ultCasilla casilla donde cayó la ficha
+     * @param color color de la casilla
+     * @param num número de la casilla
+     */
     public void ponerBloqueoComodin(Casilla ultCasilla, String color, int num) {
         if (ultCasilla.getElementos().size() == 2) {
             //System.out.println(ultCasilla.getElementos().get(0) instanceof Ficha && ultCasilla.getElementos().get(1) instanceof Ficha && ((Ficha) ultCasilla.getElementos().get(0)).getColor().equals(((Ficha) ultCasilla.getElementos().get(1)).getColor()));
@@ -730,25 +843,66 @@ public class Tablero implements Serializable {
         }
     }
 
+    /**
+     * Método para devolver una ficha a la cárcel
+     * @param color color de la ficha
+     * @param ficha objeto ficha que se llevará a la cárcel
+     */
     public void volverCarcel(String color, Ficha ficha){
         carcel.meterCarcel(color, ficha);
         mataFicha = true;
     }
+
+    /**
+     * Método para salir de la cárcel a partir de su color
+     * @param color color de la ficha que se desea sacar
+     * @return ficha sacada de la carcel
+     */
     public Ficha salirCarcel(String color){
         movi1 = 5;
         return carcel.sacarCarcel(color);
     }
+
+    /**
+     * Método que retorna la cantidad de fichas que contiene la cárcel de un color específico
+     * @param color color de la cárcel de la que se desea saber la cantidad de fichas que contiene
+     * @return cantidad de fichas que contiene
+     */
     public int getValorCarcel(String color){
         return carcel.getColor(color);
     }
 
+    /**
+     * Método que retorna si una ficha acaba de matar a otra
+     * @return booleano que dice si una ficha acaba de matar a otra
+     */
     public boolean isMataFicha(){return mataFicha;}
 
+    /**
+     * Método que retorna si un jugador acaba de coronar una ficha
+     * @return booleano que dice si un jugador acaba de coronar una ficha
+     */
     public boolean isSacaFicha() {return sacaFicha;}
 
+    /**
+     * Método que le pone un nuevo valor al atributo mataFicha
+     * @param nuevo nuevo valor booleano
+     */
     public void setMataFicha(boolean nuevo){mataFicha = nuevo;}
-
+    /**
+     * Método que le pone un nuevo valor al atributo sacaFicha
+     * @param nuevo nuevo valor booleano
+     */
     public void setSacaFicha(boolean nuevo){sacaFicha = nuevo;}
+
+    /**
+     * Método que verifica si existe un bloqueo en una cantidad de casillas adelante
+     * @param color color de la casa donde se encuentra la ficha
+     * @param inicio posición de la ficha donde está la ficha
+     * @param mover cantidad de casillas a validar
+     * @param fichaColor color de la ficha
+     * @return booleano que representa si existe un bloqueo o no
+     */
     public boolean verificarBloqueo(String color, int inicio, int mover, String fichaColor){
         boolean cambio = false;
         for (int i = 0; i < mover; i++){
@@ -820,6 +974,14 @@ public class Tablero implements Serializable {
         }
         return false;
     }
+
+    /**
+     * Método que valida donde se encuentra el bloqueo más cercano para ser usado por un comodín
+     * @param color color de la casa desde donde parte la validación
+     * @param inicio posición de inicio de la validación
+     * @param fichaColor color de la ficha que obtuvo el comodín
+     * @return Concatenación del color de la casa más la posición de donde se encuentra el bloqueo
+     */
     public String verificarBloqueoComodin(String color, int inicio, String fichaColor){
         boolean cambio = false;
         int mover = 0;
@@ -889,6 +1051,13 @@ public class Tablero implements Serializable {
         }
         return null;
     }
+
+    /**
+     * Retorna la casilla a partir del color de la casa y el número de la casilla
+     * @param colorCasa color de la casa donde se encuentra la casilla que se desea
+     * @param numCasilla número de la casilla donde se encuentra la casilla
+     * @return Casilla
+     */
     public Casilla getCasilla(String colorCasa, int numCasilla){
         return switch (colorCasa){
             case "Amarillo"-> amarillo.get(numCasilla);
@@ -897,6 +1066,12 @@ public class Tablero implements Serializable {
             default -> verde.get(numCasilla);
         };
     }
+
+    /**
+     * Método que retorna la ficha más lejos que tiene un jugador a partir de su color
+     * @param color color del cual se hará la verificación
+     * @return Color más la posición de la ficha encontrada
+     */
     public String getMaslejos(String color){
         HashMap <String, ArrayList<Integer>> posiciones = getPosFichas(color);
         if(color.equals("Amarillo")){
@@ -964,6 +1139,12 @@ public class Tablero implements Serializable {
         }
         return null;
     }
+
+    /**
+     * Método que retorna un HashMap con las posiciones de las fichas de un color correspondiente
+     * @param color color de las fichas que se desea averiguar sus posiciones
+     * @return HashMap con las posiciones de las fichas de un color correspondiente
+     */
     private HashMap<String, ArrayList<Integer>> getPosFichas(String color){
         HashMap <String, ArrayList<Integer>> posiciones = new HashMap<>();
         posiciones.put("Amarillo", new ArrayList<>());
@@ -1033,6 +1214,12 @@ public class Tablero implements Serializable {
         }
         return posiciones;
     }
+
+    /**
+     * Método que retorna la cantidad de elementos que tiene la salida de cada casa, dependiendo del color
+     * @param color color de la casa a la que se le desea conocer la cantidad de elementos que hay en la salida
+     * @return entero de la cantidad de los elementos de la salida
+     */
     public int cantElementosSalida(String color){
         return switch (color){
             case "Amarillo" -> amarillo.get(4).getElementos().size();
@@ -1041,34 +1228,15 @@ public class Tablero implements Serializable {
             default -> verde.get(4).getElementos().size();
         };
     }
+
+    /**
+     * Método que retorna la cantidad de fichas que hay coronadas de un color específico
+     * @param color color que se desea conocer
+     * @return cantidad de fichas que hay coronadas de un color específico
+     */
     public int getGanadores(String color){
         return ganadores.getColor(color);
     }
-
-
-
-    //public static void main(String arg[]){
-    //    Tablero u = new Tablero();
-    //    u.verde.get(13).agregarUno(new Ficha("Amarillo"));
-    //    u.verde.get(15).agregarUno(new Ficha("Azul"));
-    //    u.verde.get(14).agregarUno(new Ficha("Azul"));
-//
-    //    Ficha f2 = (Ficha) u.verde.get(14).getElementos().get(0);
-    //    u.moverFicha("Verde", f2, 14, 1);
-    //    Ficha f = (Ficha) u.verde.get(13).getElementos().get(0);
-    //    u.moverFicha("Verde", f, 13, 2);
-
-        //System.out.println(u.verde.get(13));
-        //System.out.println("_________");
-        //System.out.println(u.verde.get(14));
-        //System.out.println("_________");
-        //System.out.println(u.verde.get(15));
-        //System.out.println("_________");
-        //System.out.println(u.azul.get(11));
-        //System.out.println("_________");
-        //System.out.println(u.ganadores);
-
-
 
 }
 

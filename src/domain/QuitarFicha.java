@@ -1,10 +1,20 @@
 package domain;
 
+/**
+ * Clase QuitarFicha que es la representación del comodín que tiene el poder de quitar la ficha más avanzada del oponente
+ */
 public class QuitarFicha extends Comodin{
 
     private Parchis parchis;
     private  String color;
     private int pos;
+
+    /**
+     * Constructor de la clase QuitarFicha
+     * @param parchis Objeto tipo Parchis que es la clase controladora del juego en la parte de dominio
+     * @param color Color de la casa donde se encuentra el comodín
+     * @param pos posición del comodín dentro del arreglo de casillas
+     */
     public QuitarFicha (Parchis parchis, String color, int pos){
         super();
         this.parchis = parchis;
