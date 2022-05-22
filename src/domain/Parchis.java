@@ -389,8 +389,8 @@ public class Parchis implements Serializable{
         switch (turno){
             case 1:
                 if (tablero.getValorCarcel("Amarillo") == 4){todasAtrapadas += 1;
-                //valor1 = 5;
-                //valor2 = 5;
+                valor1 = 5;
+                valor2 = 5;
                 }
                 else{primeraTirada = true;}
                 break;
@@ -400,8 +400,8 @@ public class Parchis implements Serializable{
                 break;
             case 3:
                 if (tablero.getValorCarcel("Rojo") == 4){todasAtrapadas += 1;
-                    //valor1 = 5;
-                    //valor2 = 3;
+                    valor1 = 5;
+                    valor2 = 3;
                 }
                 else{primeraTirada = true;}
                 break;
