@@ -26,13 +26,12 @@ public class InicioGUI extends JFrame implements ActionListener{
 
     private TableroGUI nuevaPartida;
 
-    static private final InicioGUI juego = new InicioGUI();
 
 
     /**
      * Constructor de la clase KalahGUI
      */
-    private InicioGUI(){
+    public InicioGUI(){
         this.setContentPane(fondo);
         setTitle("POOBChis");
         prepareElements();
@@ -41,9 +40,6 @@ public class InicioGUI extends JFrame implements ActionListener{
         inicializarTipos();
     }
 
-    private static InicioGUI getJuego(){
-        return juego;
-    }
     private void inicializarTipos(){
 
         ArrayList<String> Tamarillo = new ArrayList<>();
@@ -251,7 +247,7 @@ public class InicioGUI extends JFrame implements ActionListener{
     }
 
     public static void main(String[] args) {
-        InicioGUI inicio = getJuego();
+        InicioGUI inicio = new InicioGUI();
         inicio.setResizable(false);
         inicio.setLocationRelativeTo(null);
     }
