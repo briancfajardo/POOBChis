@@ -72,7 +72,7 @@ public class InicioGUI extends JFrame implements ActionListener{
         Trojo.add("Borde");
 
         nuevaPartida = new TableroGUI(Tamarillo, Tazul, Trojo, Tverde, 2,
-                "amarillo", "azul", "verde", "rojo");
+                "amarillo", "azul", "verde", "rojo", null);
         nuevaPartida.setVisible(false);
 
     }

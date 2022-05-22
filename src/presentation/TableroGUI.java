@@ -46,6 +46,7 @@ public class TableroGUI extends JFrame implements ActionListener,Serializable{
     private ArrayList<String> tipoAzul = new ArrayList<>();
     private ArrayList<String> tipoVerde = new ArrayList<>();
     private ArrayList<String> tipoRojo = new ArrayList<>();
+    private ArrayList<String> comodines;
     private int cantJugadores;
     private String turnoActual;
 
@@ -55,10 +56,11 @@ public class TableroGUI extends JFrame implements ActionListener,Serializable{
 
     public TableroGUI(ArrayList<String> tipoAmarillo, ArrayList<String> tipoAzul, ArrayList<String> tipoVerde,
                       ArrayList<String> tipoRojo, int cantJugadores, String usuarioAmarillo, String usuarioAzul,
-                      String usuarioVerde, String usuarioRojo) {
+                      String usuarioVerde, String usuarioRojo, ArrayList<String> comodines) {
         super("POOBChisGame");
         this.cantJugadores = cantJugadores;
         this.setContentPane(fondo);
+        this.comodines = comodines;
         //inicializarTipos();
         parchis = new Parchis(tipoAmarillo, tipoAzul, tipoVerde, tipoRojo, cantJugadores);
 

@@ -71,7 +71,7 @@ public class TipoJugador extends JFrame {
         dosJugadores.setSize(30,30);
         dosJugadores.setCursor(new Cursor(Cursor.HAND_CURSOR));
         dosJugadores.addActionListener(e -> {
-            eleccionJugadorConfig jugador = new eleccionJugadorConfig(jugadores);
+            randomEleccion jugador = new randomEleccion(jugadores);
             jugador.setResizable(false);
             jugador.setLocationRelativeTo(null);
             dispose();

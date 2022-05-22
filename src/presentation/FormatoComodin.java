@@ -8,6 +8,10 @@ import java.util.ArrayList;
 public class FormatoComodin extends JFrame implements ActionListener {
     private ArrayList<String> comodines = new ArrayList<>();
 
+    private ArrayList<String> tipoAmarillo, tipoAzul, tipoVerde, tipoRojo;
+    private String usuarioAmarillo, usuarioAzul, usuarioVerde, usuarioRojo;
+    private int cantJugadores;
+
     private JRadioButton avanzar, retroceder, irCarcel, salirCarcel, jugarDoble, quitarFicha, romperBloqueo, inmortal, mutar;
 
     private JButton aceptar;
@@ -15,8 +19,21 @@ public class FormatoComodin extends JFrame implements ActionListener {
     private JLabel  comodin;
 
 
-    public FormatoComodin(){
+    public FormatoComodin(ArrayList<String> tipoAmarillo, ArrayList<String> tipoAzul, ArrayList<String> tipoVerde,
+                          ArrayList<String> tipoRojo, int cantJugadores, String usuarioAmarillo, String usuarioAzul,
+                          String usuarioVerde, String usuarioRojo){
         super("Eleccion de comodines");
+        this.tipoAmarillo = tipoAmarillo;
+        this.tipoAzul = tipoAzul;
+        this.tipoVerde = tipoVerde;
+        this.tipoRojo = tipoRojo;
+        this.cantJugadores = cantJugadores;
+        this.usuarioAmarillo = usuarioAmarillo;
+        this.usuarioAzul = usuarioAzul;
+        this.usuarioVerde = usuarioVerde;
+        this.usuarioRojo = usuarioRojo;
+
+
         prepareElements();
 
 
@@ -80,25 +97,56 @@ public class FormatoComodin extends JFrame implements ActionListener {
         //getContentPane().add(aceptar, BorderLayout.SOUTH);
     }
 
+    private void darTipos() {
+        if (avanzar.isSelected()) {
+            comodines.add("Adelantar");
+        }
+        if (retroceder.isSelected()) {
+            comodines.add("Atrasar");
+        }
+        if (irCarcel.isSelected()) {
+            comodines.add("EntraCarcel");
+        }
+        if (inmortal.isSelected()) {
+            comodines.add("Inmortal");
+        }
+        if (mutar.isSelected()) {
+            comodines.add("Mutar");
+        }
+        if (quitarFicha.isSelected()) {
+            comodines.add("Quitar");
+        }
+        if (romperBloqueo.isSelected()) {
+            comodines.add("QuitarBloqueo");
+        }
+        if (jugarDoble.isSelected()) {
+            comodines.add("RepiteTurno");
+        }
+        if (salirCarcel.isSelected()) {
+            comodines.add("SaleCarcel");
+        }
+    }
+
 
     @Override
     public void actionPerformed(ActionEvent e) {
         if (e.getSource() == aceptar){
             //System.out.println("rojo: " + nombreRojo + ", amarillo:" + nombreAmarillo + ", azul:" +
             //     nombreAzul + ", verde:" + nombreVerde);
-
-            //TableroGUI nuevaPartida = new TableroGUI(tipoAmarillo, tipoAzul, tipoVerde, tipoRojo, 2);
-            //nuevaPartida.setVisible(true);
-            //nuevaPartida.setResizable(false);
-            //nuevaPartida.setLocationRelativeTo(null);
+            darTipos();
+            TableroGUI nuevaPartida = new TableroGUI(tipoAmarillo, tipoAzul, tipoVerde, tipoRojo, cantJugadores,
+                    usuarioAmarillo, usuarioAzul, usuarioVerde, usuarioRojo, comodines);
+            nuevaPartida.setVisible(true);
+            nuevaPartida.setResizable(false);
+            nuevaPartida.setLocationRelativeTo(null);
             dispose();
         }
     }
 
-    public static void main(String[] args) {
-        FormatoComodin comodines = new FormatoComodin();
-        comodines.setResizable(false);
-        comodines.setLocationRelativeTo(null);
-    }
+    //public static void main(String[] args) {
+    //    FormatoComodin comodines = new FormatoComodin();
+    //    comodines.setResizable(false);
+    //    comodines.setLocationRelativeTo(null);
+    //}
 
 }

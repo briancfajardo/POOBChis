@@ -288,7 +288,7 @@ public class eleccionJugadorConfig extends JFrame {
         aceptar.addActionListener(new ActionListener() {
             @Override public void actionPerformed(ActionEvent e) {try {
                 verificarTam();
-                TableroGUI nuevaPartida = new TableroGUI(tiposAmarillo, tiposAzul, tiposVerde, tiposRojo, cantJugadores,
+                FormatoComodin nuevaPartida = new FormatoComodin(tiposAmarillo, tiposAzul, tiposVerde, tiposRojo, cantJugadores,
                         usuarioAmarillo, usuarioAzul, usuarioVerde, usuarioRojo);
                 nuevaPartida.setResizable(false);
                 nuevaPartida.setLocationRelativeTo(null);

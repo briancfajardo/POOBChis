@@ -1,6 +1,7 @@
 package presentation;
 
 import domain.Parchis;
+import domain.Tablero;
 
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
@@ -10,33 +11,52 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
 
-public class ConfigInicialGUI extends JFrame {
+public class randomEleccion extends JFrame {
     private int ancho = 900;
     private int alto = 500;
     private Fondo fondo = new Fondo();
     private GridBagLayout grid = new GridBagLayout();
     private GridBagConstraints constraints = new GridBagConstraints();
     private JLabel turno;
-    private int jugadores = 4;
+
+    private String[] posiblesTipos = {"Borde", "Aspiradora", "Ventajosa", "Ingeniera", "Saltarina",
+                                        "Cohete"};
+    private int jugadores;
     private JPanel fichas;
 
 
     /**
      * Constructor de la clase KalahGUI
      */
-    public ConfigInicialGUI(){
+    public randomEleccion(int jugadores){
         this.setContentPane(fondo);
+        this.jugadores = jugadores;
         setTitle("POOBChis");
         prepareElements();
         prepareActions();
         setVisible(true);
 
     }
+
+    private ArrayList<String> generarTipos(){
+        ArrayList<String> tipos = new ArrayList<String>();
+        int numero = (int)(Math.random()*4);
+        tipos.add(posiblesTipos[numero]);
+        numero = (int)(Math.random()*4);
+        tipos.add(posiblesTipos[numero]);
+        numero = (int)(Math.random()*4);
+        tipos.add(posiblesTipos[numero]);
+        numero = (int)(Math.random()*4);
+        tipos.add(posiblesTipos[numero]);
+
+        return tipos;
+    }
     private void conf() {
         constraints.fill = GridBagConstraints.BOTH;
         tituloConfig();
-        numJugadores();
+        prepareRandom();
     }
 
     private void tituloConfig(){
@@ -48,11 +68,11 @@ public class ConfigInicialGUI extends JFrame {
         turno = new JLabel();
         Font letra = new Font("Sans Serif", Font.CENTER_BASELINE, 30);
         turno.setFont(letra);
-        turno.setText("Configuración POOBChis");
+        turno.setText("Escoger cómo se desea configurar los tipos de fichas");
         turno.setForeground(new Color(0, 248, 103));
         add(turno, constraints);
     }
-    private void numJugadores(){
+    private void prepareRandom(){
         constraints.gridx = 0;
         constraints.gridwidth = 2;
         constraints.gridheight = 3;
@@ -66,13 +86,13 @@ public class ConfigInicialGUI extends JFrame {
         panelJugadores.setLayout(new GridLayout(1,2));
         //panelJugadores.setLayout(new FlowLayout());
 
-        Button dosJugadores = new Button("2 Jugadores");
-        dosJugadores.setFont(new Font("Sans Serif", Font.CENTER_BASELINE, 20));
-        dosJugadores.setSize(30,30);
-        dosJugadores.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        dosJugadores.addActionListener(e -> {
-            jugadores = 2;
-            TipoJugador jugador = new TipoJugador();
+        Button random = new Button("Random");
+        random.setFont(new Font("Sans Serif", Font.CENTER_BASELINE, 20));
+        random.setSize(30,30);
+        random.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        random.addActionListener(e -> {
+            FormatoComodin jugador = new FormatoComodin(generarTipos(), generarTipos(), generarTipos(), generarTipos(),
+                    jugadores, "Amarillo", "Azul", "Verde", "Rojo");
             jugador.setResizable(false);
             jugador.setLocationRelativeTo(null);
             dispose();
@@ -80,20 +100,19 @@ public class ConfigInicialGUI extends JFrame {
         });
 
 
-        Button cuatroJugadores = new Button("4 Jugadores");
-        cuatroJugadores.setFont(new Font("Sans Serif", Font.CENTER_BASELINE, 20));
-        cuatroJugadores.setSize(30,30);
-        cuatroJugadores.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        cuatroJugadores.addActionListener(e -> {
-            jugadores = 4;
-            randomEleccion jugador = new randomEleccion(jugadores);
+        Button manual = new Button("Manual");
+        manual.setFont(new Font("Sans Serif", Font.CENTER_BASELINE, 20));
+        manual.setSize(30,30);
+        manual.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        manual.addActionListener(e -> {
+            eleccionJugadorConfig jugador = new eleccionJugadorConfig(jugadores);
             jugador.setResizable(false);
             jugador.setLocationRelativeTo(null);
             dispose();
         });
         //opcionFichas();
-        panelJugadores.add(dosJugadores);
-        panelJugadores.add(cuatroJugadores);
+        panelJugadores.add(random);
+        panelJugadores.add(manual);
         add(panelJugadores, constraints);
         repaint();
     }
