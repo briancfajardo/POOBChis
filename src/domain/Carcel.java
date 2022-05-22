@@ -3,6 +3,10 @@ package domain;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Clase que representa la cárcel del juego POOBChis, la cual
+ * puede contener objetos tipo ficha
+ */
 public class Carcel implements Serializable {
     ArrayList<String> Trojo;
     ArrayList<String> Tamarillo;
@@ -14,6 +18,13 @@ public class Carcel implements Serializable {
     ArrayList<Ficha> azul = new ArrayList<>();
     ArrayList<Ficha> verde = new ArrayList<>();
 
+    /**
+     * contructor de la clase Carcel la cual se inicializa con la creación de las fichas de cada tipo correspondiente
+     * @param tipoAmarillo arreglo de tipos de la cárcel amarilla
+     * @param tipoAzul arreglo de tipos de la cárcel azul
+     * @param tipoVerde arreglo de tipos de la cárcel verde
+     * @param tipoRojo arreglo de tipos de la cárcel roja
+     */
     public Carcel(ArrayList<String> tipoAmarillo, ArrayList<String> tipoAzul,
                   ArrayList<String> tipoVerde, ArrayList<String> tipoRojo){
         Trojo = tipoRojo;
@@ -22,6 +33,10 @@ public class Carcel implements Serializable {
         Tverde = tipoVerde;
         inicializarFichas();
     }
+
+    /**
+     * método que crea las fichas de cada tipo correspondiente
+     */
     private void inicializarFichas(){
         for (int i = 0; i < 4; i++){
             switch (Tamarillo.get(i)){
@@ -62,6 +77,12 @@ public class Carcel implements Serializable {
             }
         }
     }
+
+    /**
+     * Método que retorna la cantidad de elementos en una cárcel a partir de su color
+     * @param color color de la cárcel que quiere ver su cantidad
+     * @return cantidad de elementos en una cárcel a partir de su color
+     */
     public int getColor(String color) {
         return switch (color) {
             case "Amarillo" -> amarillo.size();
@@ -70,7 +91,11 @@ public class Carcel implements Serializable {
             default -> verde.size();
         };
     }
-
+    /**
+     * Método que retorna un arreglo con todas las fichas que contiene cada cárcel
+     * @param color color de la cárcel que quiere ver su cantidad
+     * @return arreglo con todas las fichas que contiene cada cárcel
+     */
     public ArrayList<Ficha> getFichas(String color){
         return switch (color) {
             case "Amarillo" -> amarillo;
@@ -80,6 +105,11 @@ public class Carcel implements Serializable {
         };
     }
 
+    /**
+     * Método que saca una ficha de la cárcel a partir de su color
+     * @param color color de la cárcel de la cual quiere sacar una ficha
+     * @return ficha que saldrá de la carcel
+     */
     public Ficha sacarCarcel(String color){
         Ficha aux;
         switch (color) {
@@ -103,22 +133,42 @@ public class Carcel implements Serializable {
         return aux;
     }
 
+    /**
+     * Método que retorna el arreglo que contiene las fichas rojas
+     * @return Arreglo de las fichas rojas
+     */
+
     public ArrayList<Ficha> getRojo() {
         return rojo;
     }
 
+    /**
+     * Método que retorna el arreglo que contiene las fichas amarillas
+     * @return Arreglo de las fichas amarillas
+     */
     public ArrayList<Ficha> getAmarillo() {
         return amarillo;
     }
-
+    /**
+     * Método que retorna el arreglo que contiene las fichas azules
+     * @return Arreglo de las fichas azules
+     */
     public ArrayList<Ficha> getAzul() {
         return azul;
     }
-
+    /**
+     * Método que retorna el arreglo que contiene las fichas verdes
+     * @return Arreglo de las fichas verdes
+     */
     public ArrayList<Ficha> getVerde() {
         return verde;
     }
 
+    /**
+     * Método que devuelve una ficha a la cercel a partir de su color
+     * @param color color de la cárcel a la cual entrará
+     * @param ficha objeto ficha que entrará a la cárcel
+     */
     public void meterCarcel(String color, Ficha ficha){
         switch (color) {
             case "Amarillo" -> amarillo.add(ficha);
