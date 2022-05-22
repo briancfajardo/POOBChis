@@ -1,8 +1,9 @@
 package domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Casilla{
+public class Casilla implements Serializable {
     private ArrayList<Elemento> elementos;
     private boolean bloqueado = false;
 
@@ -49,14 +50,14 @@ public class Casilla{
         return seguro;
     }
 
-    @Override
-    public String toString(){
-        String mensaje = "";
-        mensaje += "clase: " + getClass() + "\n";
-        mensaje += "elementos: " + getElementos().toString() + "\n";
-        mensaje += "esSeguro: " + seguro + "\n";
-        mensaje += "estaBloqueado: " + bloqueado + "\n";
-        return mensaje;
-    }
+    //@Override
+    //public String toString(){
+    //    String mensaje = "";
+    //    mensaje += "clase: " + getClass() + "\n";
+    //    mensaje += "elementos: " + getElementos().toString() + "\n";
+    //    mensaje += "esSeguro: " + seguro + "\n";
+    //    mensaje += "estaBloqueado: " + bloqueado + "\n";
+    //    return mensaje;
+    //}
 
 }

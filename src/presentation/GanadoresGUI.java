@@ -4,9 +4,10 @@ import domain.Parchis;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class GanadoresGUI extends JPanel {
+public class GanadoresGUI extends JPanel implements Serializable {
     private FichasGUI fichasRojo;
     private FichasGUI fichasAzul;
     private FichasGUI fichasAmarillo;
@@ -53,6 +54,11 @@ public class GanadoresGUI extends JPanel {
         fichasVerde.setCant(parchis.getGanadores("Verde"));
         fichasAmarillo.setCant(parchis.getGanadores("Amarillo"));
         fichasAzul.setCant(parchis.getGanadores("Azul"));
+        repaint();
+    }
+
+    public void actualizarParchis(Parchis parchis){
+        this.parchis = parchis;
         repaint();
     }
     public void paint(Graphics g){

@@ -4,8 +4,9 @@ import domain.Parchis;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.Serializable;
 
-public class CarcelGUI extends JPanel {
+public class CarcelGUI extends JPanel implements Serializable {
     private int x = 100;
     private int y = 100;
     private final int ancho = 40;
@@ -65,6 +66,11 @@ public class CarcelGUI extends JPanel {
         actualizarFichas();
         fichas.setCant(cant);
         repaint();
+    }
+
+    public void actualizarParchis(Parchis parchis){
+        this.parchis = parchis;
+        //repaint();
     }
 
     public void paint(Graphics g){

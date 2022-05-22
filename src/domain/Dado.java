@@ -1,8 +1,9 @@
 package domain;
 
+import java.io.Serializable;
 import java.util.Random;
 
-public class Dado {
+public class Dado implements Serializable {
     int valor;
     Random random;
     public Dado(){

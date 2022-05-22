@@ -1,8 +1,9 @@
 package domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 
-public class Carcel {
+public class Carcel implements Serializable {
     ArrayList<String> Trojo;
     ArrayList<String> Tamarillo;
     ArrayList<String> Tazul;

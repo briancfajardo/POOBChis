@@ -97,4 +97,9 @@ public class OpcionFichaGUI extends JFrame implements ActionListener {
         tablero.juego();
         this.dispose();
     }
+
+    public void actualizarParchis(Parchis parchis){
+        this.parchis = parchis;
+        repaint();
+    }
 }

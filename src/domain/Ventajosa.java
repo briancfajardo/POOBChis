@@ -1,6 +1,8 @@
 package domain;
 
-public class Ventajosa extends Ficha{
+import java.io.Serializable;
+
+public class Ventajosa extends Ficha implements Serializable {
     private int turnoJugador;
     private Parchis parchis;
 

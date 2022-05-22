@@ -6,8 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
+import java.io.Serializable;
 
-public class CasillasGUI extends JPanel {
+public class CasillasGUI extends JPanel implements Serializable {
     private OpcionFichaGUI opcionFichaGUI;
     private boolean habilitado = true;
     private Point punto;
@@ -167,6 +168,11 @@ public class CasillasGUI extends JPanel {
             ficha.setRolFicha(ficha.ALTA);
         }
 
+    }
+
+    public void actualizarParchis(Parchis parchis){
+        this.parchis = parchis;
+        //repaint();
     }
 
     private boolean contieneFichaColor (String colorTurno){

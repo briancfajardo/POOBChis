@@ -1,6 +1,8 @@
 package domain;
 
-public class Ganadores {
+import java.io.Serializable;
+
+public class Ganadores implements Serializable {
     int rojo;
     int amarillo;
     int azul;
@@ -30,13 +32,13 @@ public class Ganadores {
         }
     }
 
-    @Override
-    public String toString(){
-        String mensaje = "";
-        mensaje += "Rojo :" + rojo + " ";
-        mensaje += "Azul :" + azul + " ";
-        mensaje += "Verde :" + verde + " ";
-        mensaje += "Amarillo :" + amarillo + " ";
-        return mensaje;
-    }
+    //@Override
+    //public String toString(){
+    //    String mensaje = "";
+    //    mensaje += "Rojo :" + rojo + " ";
+    //    mensaje += "Azul :" + azul + " ";
+    //    mensaje += "Verde :" + verde + " ";
+    //    mensaje += "Amarillo :" + amarillo + " ";
+    //    return mensaje;
+    //}
 }

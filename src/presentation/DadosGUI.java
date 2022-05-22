@@ -10,9 +10,10 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.net.URL;
 
-public class DadosGUI extends JPanel {
+public class DadosGUI extends JPanel implements Serializable {
     private int valor1 = 1;
     private int valor2 = 1;
     private OpcionFichaGUI opcionFichaGUI;
@@ -102,6 +103,12 @@ public class DadosGUI extends JPanel {
             System.out.println("Error al reproducir el sonido. " + ex);
         }
     }
+
+    public void actualizarParchis(Parchis parchis){
+        this.parchis = parchis;
+        //repaint();
+    }
+
     public void paint(Graphics g){
         Image img1 = new ImageIcon(getClass().getResource("/imagenes/Dado"+valor1+".png")).getImage();
         Image img2 = new ImageIcon(getClass().getResource("/imagenes/Dado"+valor2+".png")).getImage();

@@ -1,5 +1,8 @@
 package presentation;
 
+import domain.Parchis;
+import domain.ParchisException;
+
 import javax.swing.*;
 import javax.swing.border.CompoundBorder;
 import javax.swing.border.EmptyBorder;
@@ -9,12 +12,11 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-public class InicioGUI extends JFrame {
+public class InicioGUI extends JFrame implements ActionListener{
     private int ancho = 900;
     private int alto = 500;
     private JMenuBar menu;
     private JMenu archivoM;
-    private JMenuItem config;
     private JMenuItem nuevo;
     private JMenuItem abrir;
     private JMenuItem salvar;
@@ -22,6 +24,8 @@ public class InicioGUI extends JFrame {
     private JFileChooser archivos;
     private File partida;
     private Fondo fondo = new Fondo();
+
+    private Parchis nuevaPartida;
 
 
     /**
@@ -79,10 +83,10 @@ public class InicioGUI extends JFrame {
         salvar.setCursor(new Cursor(Cursor.HAND_CURSOR));
         salir.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
-        //nuevo.addActionListener(this);
-        //abrir.addActionListener(this);
-        //salvar.addActionListener(this);
-        //salir.addActionListener(this);
+        nuevo.addActionListener(this);
+        abrir.addActionListener(this);
+        salvar.addActionListener(this);
+        salir.addActionListener(this);
 
         archivoM.add(nuevo);
         archivoM.add(abrir);
@@ -172,14 +176,13 @@ public class InicioGUI extends JFrame {
      * Genera un JFileChooser
      */
     private void abrirArchivos(){
-
-        archivos = new JFileChooser();
-        archivos.showOpenDialog(this);
         try {
+            archivos = new JFileChooser();
+            archivos.showOpenDialog(this);
             partida = archivos.getSelectedFile();
             String nombre = partida.getName();
-            JOptionPane.showMessageDialog(this,"El elemento está en construcción, se está abriendo un archivo\n" + nombre,"Abrir",
-                    1,null);
+            nuevaPartida = nuevaPartida.abrir(nombre);
+
         }catch (Exception e){
 
         }
@@ -191,14 +194,39 @@ public class InicioGUI extends JFrame {
      * Genera un JFileChooser
      */
     private void salvarArchivos(){
-        archivos = new JFileChooser();
-        archivos.showSaveDialog(this);
-        String nombre = archivos.getSelectedFile()+"";
-        if (!nombre.equals(null+"")){
-            JOptionPane.showMessageDialog(this,"El elemento está en construcción, se está guardando un archivo\n" + nombre,"Guardar",
-                    1,null);
+        try{
+            archivos = new JFileChooser();
+            archivos.showSaveDialog(this);
+            String nombre = archivos.getSelectedFile()+"";
+            nuevaPartida.guardar(nombre);
+
+        }catch (ParchisException e){
+
+        }catch(Exception e){
+
         }
 
+
+    }
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        if (e.getSource() == nuevo) {
+            ConfigInicialGUI configInicialGUI = new ConfigInicialGUI();
+            configInicialGUI.setResizable(false);
+            configInicialGUI.setLocationRelativeTo(null);
+            dispose();
+        }
+        if (e.getSource() == abrir) {
+            abrirArchivos();
+        }
+        if (e.getSource() == salvar) {
+            salvarArchivos();
+        }
+        if (e.getSource() == salir) {
+            System.exit(0);
+        }
     }
 
     public static void main(String[] args) {

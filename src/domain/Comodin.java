@@ -1,6 +1,8 @@
 package domain;
 
-public abstract class Comodin extends Elemento{
+import java.io.Serializable;
+
+public abstract class Comodin extends Elemento implements Serializable {
     public Comodin(){
 
     }

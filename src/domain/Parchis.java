@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import java.io.*;
 
-public class Parchis {
+public class Parchis implements Serializable{
     private Tablero tablero;
     private Dado dado1, dado2;
     private int valor1, valor2, valor3;
@@ -36,6 +36,10 @@ public class Parchis {
     }
     public int getCarcel(String color){
         return tablero.getValorCarcel(color);
+    }
+
+    public int getCantJugadores(){
+        return cantJugadores;
     }
 
     public boolean getPrimeraTirada(){

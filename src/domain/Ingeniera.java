@@ -1,6 +1,8 @@
 package domain;
 
-public class Ingeniera extends Ficha{
+import java.io.Serializable;
+
+public class Ingeniera extends Ficha implements Serializable {
     Tablero tablero;
     public Ingeniera(String color) {
         super(color);

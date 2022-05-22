@@ -1,9 +1,10 @@
 package domain;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.HashMap;
 
-public class Tablero {
+public class Tablero implements Serializable {
     private HashMap<Integer, Casilla> rojo = new HashMap<>();
     private HashMap<Integer, Casilla> verde= new HashMap<>();
     private HashMap<Integer, Casilla> amarillo = new HashMap<>();

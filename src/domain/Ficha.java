@@ -1,6 +1,8 @@
 package domain;
 
-public class Ficha extends Elemento{
+import java.io.Serializable;
+
+public class Ficha extends Elemento implements Serializable {
 
     protected String color;
 
@@ -14,11 +16,11 @@ public class Ficha extends Elemento{
         return color;
     }
 
-    @Override
-    public String toString(){
-        String mensaje = "";
-        mensaje += getClass() + " ";
-        mensaje += color;
-        return mensaje;
-    }
+    //@Override
+    //public String toString(){
+    //    String mensaje = "";
+    //    mensaje += getClass() + " ";
+    //    mensaje += color;
+    //    return mensaje;
+    //}
 }

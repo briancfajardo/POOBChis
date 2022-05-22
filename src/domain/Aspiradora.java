@@ -1,6 +1,8 @@
 package domain;
 
-public class Aspiradora extends Ficha{
+import java.io.Serializable;
+
+public class Aspiradora extends Ficha implements Serializable {
     public Aspiradora(String color) {
         super(color);
     }

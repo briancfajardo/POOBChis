@@ -1,6 +1,8 @@
 package domain;
 
-public class Avanzar extends Comodin{
+import java.io.Serializable;
+
+public class Avanzar extends Comodin implements Serializable {
     private Parchis parchis;
     private  String color;
     private int pos;

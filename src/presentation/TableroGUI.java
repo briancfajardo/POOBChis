@@ -1,19 +1,35 @@
 package presentation;
 
 import domain.Parchis;
+import domain.ParchisException;
+import domain.Tablero;
 
 import javax.swing.*;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.io.*;
 import java.util.ArrayList;
 
-public class TableroGUI extends JFrame {
+public class TableroGUI extends JFrame implements ActionListener,Serializable{
 
     private GridBagLayout grid = new GridBagLayout();
     private GridBagConstraints constraints = new GridBagConstraints();
     private TableroGUI.Fondo fondo = new TableroGUI.Fondo();
     private Parchis parchis;
+    private DadosGUI dado;
     private int dado1;
     private int dado2;
+
+    private JMenuBar menu;
+    private JMenu archivoM;
+    private JMenuItem nuevo;
+    private JMenuItem abrir;
+    private JMenuItem salvar;
+    private JMenuItem salir;
+    private JFileChooser archivos;
+    private File partida;
+
     private CarcelGUI carcelAzul;
     private CarcelGUI carcelAmarilla;
     private CarcelGUI carcelRoja;
@@ -33,18 +49,33 @@ public class TableroGUI extends JFrame {
     private int cantJugadores;
     private String turnoActual;
 
+    private TableroGUI totalTablero;
+
 
 
     public TableroGUI(ArrayList<String> tipoAmarillo, ArrayList<String> tipoAzul, ArrayList<String> tipoVerde, ArrayList<String> tipoRojo, int cantJugadores) {
         super("POOBChisGame");
         this.cantJugadores = cantJugadores;
         this.setContentPane(fondo);
-        inicializarTipos();
+        //inicializarTipos();
         parchis = new Parchis(tipoAmarillo, tipoAzul, tipoVerde, tipoRojo, cantJugadores);
         prepareElements();
     }
 
     public Parchis getParchis(){return parchis;}
+
+    public ArrayList<CasillasGUI> getCasillaAmarilla() {
+        return casillaAmarilla;
+    }
+
+    public ArrayList<CasillasGUI> getCasillaAzul() {
+        return casillaAzul;
+    }
+
+    public ArrayList<CasillasGUI> getCasillaRoja() {
+        return casillaRoja;
+    }
+
 
     private void inicializarTipos(){
         tipoAmarillo.add("Borde");
@@ -110,9 +141,53 @@ public class TableroGUI extends JFrame {
         setLayout(grid);
 
         setSize(900, 900);
+        prepareElementsMenu();
         tab();
 
         setVisible(true);
+    }
+
+    /**
+     * Prepara los elementos necesarios para el menú, los botones y los
+     * layouts correspondientes
+     *
+     * Crea un JMenuBar y sus respectivos JMenuItems
+     *
+     */
+    private void prepareElementsMenu(){
+        menu = new JMenuBar();
+        setJMenuBar(menu);
+        archivoM = new JMenu("Archivo");
+
+        archivoM.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        menu.add(archivoM);
+
+        //config = new JMenuItem("Configuración");
+        //config.addActionListener(this);
+        //config.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        //menu.add(config);
+
+        nuevo = new JMenuItem("Nuevo");
+        abrir = new JMenuItem("Abrir");
+        salvar = new JMenuItem("Salvar");
+        salir = new JMenuItem("Salir");
+
+        nuevo.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        abrir.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        salvar.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        salir.setCursor(new Cursor(Cursor.HAND_CURSOR));
+
+        nuevo.addActionListener(this);
+        abrir.addActionListener(this);
+        salvar.addActionListener(this);
+        salir.addActionListener(this);
+
+        archivoM.add(nuevo);
+        archivoM.add(abrir);
+        archivoM.add(salvar);
+        archivoM.add(salir);
+
     }
     private void tab() {
         constraints.fill = GridBagConstraints.BOTH;
@@ -161,7 +236,7 @@ public class TableroGUI extends JFrame {
         constraints.gridheight = 4;
         constraints.gridy = 3;
         constraints.fill = GridBagConstraints.BOTH;
-        DadosGUI dado = new DadosGUI(this);
+        dado = new DadosGUI(this);
         dado1 = dado.getValor1();
         dado2 = dado.getValor2();
         add(dado,constraints);
@@ -415,6 +490,104 @@ public class TableroGUI extends JFrame {
         //grid.setConstraints(carcel4, constraints);
         add(carcelVerde,constraints);
     }
+
+    public void guardar(String archivo) throws ParchisException, IOException {
+        if (archivo.equals("")) throw new ParchisException(ParchisException.GENERAL_EXCEPTION);
+        FileOutputStream outFile = new FileOutputStream(archivo);
+        ObjectOutputStream outObject = new ObjectOutputStream(outFile);
+        outObject.writeObject(this);
+        outObject.flush();
+        outObject.close();
+    }
+
+    public TableroGUI abrir(String archivo) throws ParchisException, IOException, ClassNotFoundException {
+        if (archivo.equals("")) throw new ParchisException(ParchisException.GENERAL_EXCEPTION);
+        FileInputStream inFile = new FileInputStream(archivo);
+        ObjectInputStream inObject = new ObjectInputStream(inFile);
+        TableroGUI nuevo = (TableroGUI)inObject.readObject();
+        //System.out.println(nuevo);
+        inObject.close();
+        return nuevo;
+    }
+
+    /**
+     * Evento que se realiza cuando se da clic en el botón de abrir
+     * Genera un JFileChooser
+     */
+    private void abrirArchivos(){
+        try {
+            archivos = new JFileChooser();
+            archivos.showOpenDialog(this);
+            partida = archivos.getSelectedFile();
+            String nombre = partida+"";
+            parchis = parchis.abrir(nombre);
+            actualizarParchis();
+            juego();
+
+
+
+        }catch (Exception e){
+
+        }
+
+    }
+
+    public void actualizarParchis(){
+        //while (!terminar){
+        carcelAzul.actualizarParchis(parchis);
+        carcelAmarilla.actualizarParchis(parchis);
+        carcelRoja.actualizarParchis(parchis);
+        carcelVerde.actualizarParchis(parchis);
+        win1.actualizarParchis(parchis);
+        dado.actualizarParchis(parchis);
+        for(int i = 0; i<24;i++){
+            casillaAzul.get(i).actualizarParchis(parchis);
+            casillaAmarilla.get(i).actualizarParchis(parchis);
+            casillaRoja.get(i).actualizarParchis(parchis);
+            casillaVerde.get(i).actualizarParchis(parchis);
+
+        }
+    }
+
+    private void salvarArchivos(){
+        try{
+            archivos = new JFileChooser();
+            archivos.showSaveDialog(this);
+            String nombre = archivos.getSelectedFile()+"";
+
+            parchis.guardar(nombre);
+        }catch (ParchisException e){
+
+        }catch(Exception e){
+
+        }
+
+
+    }
+
+
+    @Override
+    public void actionPerformed(ActionEvent e) {
+
+        if (e.getSource() == nuevo) {
+            ConfigInicialGUI configInicialGUI = new ConfigInicialGUI();
+            configInicialGUI.setResizable(false);
+            configInicialGUI.setLocationRelativeTo(null);
+            dispose();
+        }
+        if (e.getSource() == abrir) {
+            abrirArchivos();
+            //TableroGUI tab = new TableroGUI(parchis.getTipoAmarillo(), parchis.getTipoAzul(), parchis.getTipoVerde(), parchis.getTipoRojo(), parchis.getCantJugadores());
+
+        }
+        if (e.getSource() == salvar) {
+            salvarArchivos();
+        }
+        if (e.getSource() == salir) {
+            System.exit(0);
+        }
+    }
+
 
 
     public static void main (String[] args){

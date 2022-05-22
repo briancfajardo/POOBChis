@@ -2,8 +2,9 @@ package presentation;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.Serializable;
 
-public class ElementoGUI {
+public class ElementoGUI  implements Serializable {
 
     private Image imagen;
     private String color;

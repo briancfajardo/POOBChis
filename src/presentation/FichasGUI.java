@@ -2,8 +2,9 @@ package presentation;
 
 import javax.swing.*;
 import java.awt.*;
+import java.io.Serializable;
 
-public class FichasGUI extends JFrame{
+public class FichasGUI extends JFrame implements Serializable {
     private JPanel contentPane;
     private int x;
     private int y;
