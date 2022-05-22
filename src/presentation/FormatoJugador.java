@@ -42,6 +42,7 @@ public class FormatoJugador extends JFrame {
 
         contenedor.add(seleccionFichas, BorderLayout.CENTER);
 
+
         if(num == 4){
             textfield1= new JTextField("Rojo");
             textfield1.setBounds(120,10,150,20);
