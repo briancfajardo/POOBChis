@@ -11,21 +11,21 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
-public class ConfigInicialGUI extends JFrame {
+public class NivelMaquina extends JFrame {
     private int ancho = 900;
     private int alto = 500;
     private Fondo fondo = new Fondo();
     private GridBagLayout grid = new GridBagLayout();
     private GridBagConstraints constraints = new GridBagConstraints();
     private JLabel turno;
-    private int jugadores = 4;
+    private int jugadores = 2;
     private JPanel fichas;
 
 
     /**
-     * Constructor de la clase KalahGUI
+     * Constructor de la clase TipoJugador
      */
-    public ConfigInicialGUI(){
+    public NivelMaquina(){
         this.setContentPane(fondo);
         setTitle("POOBChis");
         prepareElements();
@@ -36,23 +36,23 @@ public class ConfigInicialGUI extends JFrame {
     private void conf() {
         constraints.fill = GridBagConstraints.BOTH;
         tituloConfig();
-        numJugadores();
+        modoJugadores();
     }
 
     private void tituloConfig(){
         constraints.gridx = 0;
-        constraints.gridwidth = 8;
+        constraints.gridwidth = 10;
         constraints.gridheight = 3;
         constraints.gridy = 0;
         constraints.fill = GridBagConstraints.BOTH;
         turno = new JLabel();
         Font letra = new Font("Sans Serif", Font.CENTER_BASELINE, 30);
         turno.setFont(letra);
-        turno.setText("Configuración POOBChis");
+        turno.setText("Perfiles de las máquinas");
         turno.setForeground(new Color(0, 248, 103));
         add(turno, constraints);
     }
-    private void numJugadores(){
+    private void modoJugadores(){
         constraints.gridx = 0;
         constraints.gridwidth = 2;
         constraints.gridheight = 3;
@@ -66,13 +66,12 @@ public class ConfigInicialGUI extends JFrame {
         panelJugadores.setLayout(new GridLayout(1,2));
         //panelJugadores.setLayout(new FlowLayout());
 
-        Button dosJugadores = new Button("2 Jugadores");
+        Button dosJugadores = new Button("Principiante");
         dosJugadores.setFont(new Font("Sans Serif", Font.CENTER_BASELINE, 20));
         dosJugadores.setSize(30,30);
         dosJugadores.setCursor(new Cursor(Cursor.HAND_CURSOR));
         dosJugadores.addActionListener(e -> {
-            jugadores = 2;
-            TipoJugador jugador = new TipoJugador();
+            eleccionJugadorConfig jugador = new eleccionJugadorConfig(jugadores);
             jugador.setResizable(false);
             jugador.setLocationRelativeTo(null);
             dispose();
@@ -80,21 +79,19 @@ public class ConfigInicialGUI extends JFrame {
         });
 
 
-        Button cuatroJugadores = new Button("4 Jugadores");
-        cuatroJugadores.setFont(new Font("Sans Serif", Font.CENTER_BASELINE, 20));
-        cuatroJugadores.setSize(30,30);
-        cuatroJugadores.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        cuatroJugadores.addActionListener(e -> {
-            jugadores = 4;
+        Button jugMaquina = new Button("Experto");
+        jugMaquina.setFont(new Font("Sans Serif", Font.CENTER_BASELINE, 20));
+        jugMaquina.setSize(30,30);
+        jugMaquina.setCursor(new Cursor(Cursor.HAND_CURSOR));
+        jugMaquina.addActionListener(e -> {
             eleccionJugadorConfig jugador = new eleccionJugadorConfig(jugadores);
             jugador.setResizable(false);
             jugador.setLocationRelativeTo(null);
             dispose();
-            dispose();
         });
         //opcionFichas();
         panelJugadores.add(dosJugadores);
-        panelJugadores.add(cuatroJugadores);
+        panelJugadores.add(jugMaquina);
         add(panelJugadores, constraints);
         repaint();
     }

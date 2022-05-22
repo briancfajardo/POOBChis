@@ -11,6 +11,7 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.util.ArrayList;
 
 public class InicioGUI extends JFrame implements ActionListener{
     private int ancho = 900;
@@ -21,25 +22,60 @@ public class InicioGUI extends JFrame implements ActionListener{
     private JMenuItem abrir;
     private JMenuItem salvar;
     private JMenuItem salir;
-    private JFileChooser archivos;
-    private File partida;
     private Fondo fondo = new Fondo();
 
-    private Parchis nuevaPartida;
+    private TableroGUI nuevaPartida;
+
+    static private final InicioGUI juego = new InicioGUI();
 
 
     /**
      * Constructor de la clase KalahGUI
      */
-    public InicioGUI(){
+    private InicioGUI(){
         this.setContentPane(fondo);
         setTitle("POOBChis");
         prepareElements();
         prepareActions();
         setVisible(true);
-
+        inicializarTipos();
     }
 
+    private static InicioGUI getJuego(){
+        return juego;
+    }
+    private void inicializarTipos(){
+
+        ArrayList<String> Tamarillo = new ArrayList<>();
+        ArrayList<String> Tazul = new ArrayList<>();
+        ArrayList<String> Trojo = new ArrayList<>();
+        ArrayList<String> Tverde = new ArrayList<>();
+
+        Tamarillo.add("Borde");
+        Tamarillo.add("Borde");
+        Tamarillo.add("Borde");
+        Tamarillo.add("Borde");
+
+        Tazul.add("Borde");
+        Tazul.add("Borde");
+        Tazul.add("Borde");
+        Tazul.add("Borde");
+
+        Tverde.add("Borde");
+        Tverde.add("Borde");
+        Tverde.add("Borde");
+        Tverde.add("Borde");
+
+        Trojo.add("Borde");
+        Trojo.add("Borde");
+        Trojo.add("Borde");
+        Trojo.add("Borde");
+
+        nuevaPartida = new TableroGUI(Tamarillo, Tazul, Trojo, Tverde, 2,
+                "amarillo", "azul", "verde", "rojo");
+        nuevaPartida.setVisible(false);
+
+    }
 
 
     /**
@@ -176,17 +212,9 @@ public class InicioGUI extends JFrame implements ActionListener{
      * Genera un JFileChooser
      */
     private void abrirArchivos(){
-        try {
-            archivos = new JFileChooser();
-            archivos.showOpenDialog(this);
-            partida = archivos.getSelectedFile();
-            String nombre = partida.getName();
-            nuevaPartida = nuevaPartida.abrir(nombre);
-
-        }catch (Exception e){
-
-        }
-
+        nuevaPartida.abrirArchivos();
+        nuevaPartida.setLocationRelativeTo(null);
+        nuevaPartida.setVisible(true);
     }
 
     /**
@@ -194,17 +222,8 @@ public class InicioGUI extends JFrame implements ActionListener{
      * Genera un JFileChooser
      */
     private void salvarArchivos(){
-        try{
-            archivos = new JFileChooser();
-            archivos.showSaveDialog(this);
-            String nombre = archivos.getSelectedFile()+"";
-            nuevaPartida.guardar(nombre);
-
-        }catch (ParchisException e){
-
-        }catch(Exception e){
-
-        }
+        nuevaPartida.salvarArchivos();
+        nuevaPartida.setVisible(true);
 
 
     }
@@ -220,9 +239,11 @@ public class InicioGUI extends JFrame implements ActionListener{
         }
         if (e.getSource() == abrir) {
             abrirArchivos();
+            dispose();
         }
         if (e.getSource() == salvar) {
             salvarArchivos();
+            dispose();
         }
         if (e.getSource() == salir) {
             System.exit(0);
@@ -230,7 +251,7 @@ public class InicioGUI extends JFrame implements ActionListener{
     }
 
     public static void main(String[] args) {
-        InicioGUI inicio = new InicioGUI();
+        InicioGUI inicio = getJuego();
         inicio.setResizable(false);
         inicio.setLocationRelativeTo(null);
     }

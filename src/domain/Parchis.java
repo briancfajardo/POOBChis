@@ -526,6 +526,10 @@ public class Parchis implements Serializable{
      */
     public void guardar(String archivo) throws ParchisException, IOException {
         if (archivo.equals("")) throw new ParchisException(ParchisException.GENERAL_EXCEPTION);
+        if(!archivo.contains(".dat")) throw new ParchisException(ParchisException.ERR_EXTENSION_GUARDAR);
+        if (archivo.contains("#") || archivo.contains("*") || archivo.contains("%") || archivo.contains("$")
+                || archivo.contains("&")) throw new ParchisException(ParchisException.CARACTERES_EXCEPTION);
+
         FileOutputStream outFile = new FileOutputStream(archivo);
         ObjectOutputStream outObject = new ObjectOutputStream(outFile);
         outObject.writeObject(this);
@@ -535,6 +539,7 @@ public class Parchis implements Serializable{
 
     public Parchis abrir(String archivo) throws ParchisException, IOException, ClassNotFoundException {
         if (archivo.equals("")) throw new ParchisException(ParchisException.GENERAL_EXCEPTION);
+        if(!archivo.contains(".dat")) throw new ParchisException(ParchisException.ERR_EXTENSION_ABRIR);
         FileInputStream inFile = new FileInputStream(archivo);
         ObjectInputStream inObject = new ObjectInputStream(inFile);
         Parchis nuevo = (Parchis)inObject.readObject();

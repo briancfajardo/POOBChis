@@ -40,7 +40,7 @@ public class TableroGUI extends JFrame implements ActionListener,Serializable{
     private ArrayList<CasillasGUI> casillaAmarilla= new ArrayList<>();
     private ArrayList<CasillasGUI> casillaRoja= new ArrayList<>();
     private ArrayList<CasillasGUI> casillaVerde= new ArrayList<>();
-    private  JLabel turno;
+    private  JLabel turno, encarcelada, enjuego, coronada;
     private GanadoresGUI win1;
     private ArrayList<String> tipoAmarillo = new ArrayList<>();
     private ArrayList<String> tipoAzul = new ArrayList<>();
@@ -49,62 +49,36 @@ public class TableroGUI extends JFrame implements ActionListener,Serializable{
     private int cantJugadores;
     private String turnoActual;
 
-    private TableroGUI totalTablero;
+    private String usuarioRojo, usuarioAmarillo, usuarioVerde, usuarioAzul;
 
 
 
-    public TableroGUI(ArrayList<String> tipoAmarillo, ArrayList<String> tipoAzul, ArrayList<String> tipoVerde, ArrayList<String> tipoRojo, int cantJugadores) {
+    public TableroGUI(ArrayList<String> tipoAmarillo, ArrayList<String> tipoAzul, ArrayList<String> tipoVerde,
+                      ArrayList<String> tipoRojo, int cantJugadores, String usuarioAmarillo, String usuarioAzul,
+                      String usuarioVerde, String usuarioRojo) {
         super("POOBChisGame");
         this.cantJugadores = cantJugadores;
         this.setContentPane(fondo);
         //inicializarTipos();
         parchis = new Parchis(tipoAmarillo, tipoAzul, tipoVerde, tipoRojo, cantJugadores);
+
+        this.usuarioAmarillo = usuarioAmarillo;
+        this.usuarioAzul = usuarioAzul;
+        this.usuarioRojo = usuarioRojo;
+        this.usuarioVerde = usuarioVerde;
+
         prepareElements();
     }
 
     public Parchis getParchis(){return parchis;}
 
-    public ArrayList<CasillasGUI> getCasillaAmarilla() {
-        return casillaAmarilla;
-    }
 
-    public ArrayList<CasillasGUI> getCasillaAzul() {
-        return casillaAzul;
-    }
-
-    public ArrayList<CasillasGUI> getCasillaRoja() {
-        return casillaRoja;
-    }
-
-
-    private void inicializarTipos(){
-        tipoAmarillo.add("Borde");
-        tipoAmarillo.add("Borde");
-        tipoAmarillo.add("Borde");
-        tipoAmarillo.add("Borde");
-
-        tipoAzul.add("Borde");
-        tipoAzul.add("Borde");
-        tipoAzul.add("Borde");
-        tipoAzul.add("Borde");
-
-        tipoVerde.add("Borde");
-        tipoVerde.add("Borde");
-        tipoVerde.add("Borde");
-        tipoVerde.add("Borde");
-
-        tipoRojo.add("Borde");
-        tipoRojo.add("Borde");
-        tipoRojo.add("Borde");
-        tipoRojo.add("Borde");
-
-
-
-    }
     public void juego(){
         //while (!terminar){
         int contHabilitados = 0;
         mensajeTurno();
+        mensajeEncarceladas();
+        mensajeCoronadas();
         carcelAzul.actualizar();
         carcelAmarilla.actualizar();
         carcelRoja.actualizar();
@@ -198,6 +172,9 @@ public class TableroGUI extends JFrame implements ActionListener,Serializable{
         casillasVerdes();
         dados();
         tituloTurno();
+        tituloEncarceladas();
+        tituloCoronadas();
+
     }
     private void tituloTurno(){
         constraints.gridx = 22;
@@ -213,23 +190,88 @@ public class TableroGUI extends JFrame implements ActionListener,Serializable{
     }
     private void mensajeTurno(){
         if(parchis.getTurno(parchis.ROJO)){
-            turno.setText("Turno del rojo");
+            turno.setText("Turno de " + usuarioRojo);
             turno.setForeground(new Color(227, 128, 128));
             turnoActual = "Rojo";
         } else if (parchis.getTurno(parchis.VERDE)) {
-            turno.setText("Turno del verde");
+            turno.setText("Turno de " + usuarioVerde);
             turno.setForeground(new Color(87, 234, 135));
             turnoActual = "Verde";
         }else if (parchis.getTurno(parchis.AZUL)) {
-            turno.setText("Turno del azul");
+            turno.setText("Turno de " + usuarioAzul);
             turno.setForeground(new Color(56, 152, 248));
             turnoActual = "Azul";
         }else if (parchis.getTurno(parchis.AMARILLO)) {
-            turno.setText("Turno del amarillo");
+            turno.setText("Turno de " + usuarioAmarillo);
             turno.setForeground(new Color(241, 206, 89));
             turnoActual = "Amarillo";
         }
     }
+
+    private void tituloEncarceladas(){
+        constraints.gridx = 22;
+        constraints.gridwidth = 10;
+        constraints.gridheight = 1;
+        constraints.gridy = 8;
+        constraints.fill = GridBagConstraints.BOTH;
+        encarcelada = new JLabel();
+        Font letra = new Font("Serif", Font.CENTER_BASELINE, 30);
+        encarcelada.setFont(letra);
+        mensajeEncarceladas();
+        add(encarcelada, constraints);
+    }
+    private void mensajeEncarceladas(){
+        if(parchis.getTurno(parchis.ROJO)){
+            encarcelada.setText("Fichas en la carcel: " + parchis.getCarcel("Rojo"));
+            encarcelada.setForeground(new Color(227, 128, 128));
+            turnoActual = "Rojo";
+        } else if (parchis.getTurno(parchis.VERDE)) {
+            encarcelada.setText("Fichas en la carcel: " + parchis.getCarcel("Verde"));
+            encarcelada.setForeground(new Color(87, 234, 135));
+            turnoActual = "Verde";
+        }else if (parchis.getTurno(parchis.AZUL)) {
+            encarcelada.setText("Fichas en la carcel: " + parchis.getCarcel("Azul"));
+            encarcelada.setForeground(new Color(56, 152, 248));
+            turnoActual = "Azul";
+        }else if (parchis.getTurno(parchis.AMARILLO)) {
+            encarcelada.setText("Fichas en la carcel: " + parchis.getCarcel("Amarillo"));
+            encarcelada.setForeground(new Color(241, 206, 89));
+            turnoActual = "Amarillo";
+        }
+    }
+
+    private void tituloCoronadas(){
+        constraints.gridx = 22;
+        constraints.gridwidth = 10;
+        constraints.gridheight = 1;
+        constraints.gridy = 10;
+        constraints.fill = GridBagConstraints.BOTH;
+        coronada = new JLabel();
+        Font letra = new Font("Serif", Font.CENTER_BASELINE, 30);
+        coronada.setFont(letra);
+        mensajeCoronadas();
+        add(coronada, constraints);
+    }
+    private void mensajeCoronadas(){
+        if(parchis.getTurno(parchis.ROJO)){
+            coronada.setText("Fichas coronadas: " + parchis.getGanadores("Rojo"));
+            coronada.setForeground(new Color(227, 128, 128));
+            turnoActual = "Rojo";
+        } else if (parchis.getTurno(parchis.VERDE)) {
+            coronada.setText("Fichas coronadas: " + parchis.getGanadores("Verde"));
+            coronada.setForeground(new Color(87, 234, 135));
+            turnoActual = "Verde";
+        }else if (parchis.getTurno(parchis.AZUL)) {
+            coronada.setText("Fichas coronadas: " + parchis.getGanadores("Azul"));
+            coronada.setForeground(new Color(56, 152, 248));
+            turnoActual = "Azul";
+        }else if (parchis.getTurno(parchis.AMARILLO)) {
+            coronada.setText("Fichas coronadas: " + parchis.getGanadores("Amarillo"));
+            coronada.setForeground(new Color(241, 206, 89));
+            turnoActual = "Amarillo";
+        }
+    }
+
     private void dados(){
         constraints.gridx = 22;
         constraints.gridwidth = 8;
@@ -491,30 +533,12 @@ public class TableroGUI extends JFrame implements ActionListener,Serializable{
         add(carcelVerde,constraints);
     }
 
-    public void guardar(String archivo) throws ParchisException, IOException {
-        if (archivo.equals("")) throw new ParchisException(ParchisException.GENERAL_EXCEPTION);
-        FileOutputStream outFile = new FileOutputStream(archivo);
-        ObjectOutputStream outObject = new ObjectOutputStream(outFile);
-        outObject.writeObject(this);
-        outObject.flush();
-        outObject.close();
-    }
-
-    public TableroGUI abrir(String archivo) throws ParchisException, IOException, ClassNotFoundException {
-        if (archivo.equals("")) throw new ParchisException(ParchisException.GENERAL_EXCEPTION);
-        FileInputStream inFile = new FileInputStream(archivo);
-        ObjectInputStream inObject = new ObjectInputStream(inFile);
-        TableroGUI nuevo = (TableroGUI)inObject.readObject();
-        //System.out.println(nuevo);
-        inObject.close();
-        return nuevo;
-    }
 
     /**
      * Evento que se realiza cuando se da clic en el botón de abrir
      * Genera un JFileChooser
      */
-    private void abrirArchivos(){
+    public void abrirArchivos(){
         try {
             archivos = new JFileChooser();
             archivos.showOpenDialog(this);
@@ -524,15 +548,16 @@ public class TableroGUI extends JFrame implements ActionListener,Serializable{
             actualizarParchis();
             juego();
 
-
-
-        }catch (Exception e){
-
+        }catch (ParchisException e){
+            System.out.println(e.getMessage());
+        }catch(Exception e){
+            System.out.println("Archivo no encontrado");
         }
+
 
     }
 
-    public void actualizarParchis(){
+    private void actualizarParchis(){
         //while (!terminar){
         carcelAzul.actualizarParchis(parchis);
         carcelAmarilla.actualizarParchis(parchis);
@@ -549,17 +574,16 @@ public class TableroGUI extends JFrame implements ActionListener,Serializable{
         }
     }
 
-    private void salvarArchivos(){
+    public void salvarArchivos(){
         try{
             archivos = new JFileChooser();
             archivos.showSaveDialog(this);
             String nombre = archivos.getSelectedFile()+"";
-
             parchis.guardar(nombre);
         }catch (ParchisException e){
-
+            System.out.println(e.getMessage());
         }catch(Exception e){
-
+            System.out.println("Archivo no encontrado");
         }
 
 
