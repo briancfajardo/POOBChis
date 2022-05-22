@@ -99,6 +99,9 @@ public class TableroGUI extends JFrame implements ActionListener,Serializable{
             if(casillaRoja.get(i).isHabilitado()){contHabilitados += 1;}
             if(casillaAmarilla.get(i).isHabilitado()){contHabilitados += 1;}
         }
+
+        verificacionFinal();
+
         //System.out.println("ContHabilitados: "+ contHabilitados);
         if(contHabilitados == 0 && parchis.getCarcel(turnoActual) != 4
                 && parchis.getValor1() != parchis.getValor2()
@@ -177,6 +180,38 @@ public class TableroGUI extends JFrame implements ActionListener,Serializable{
         tituloEncarceladas();
         tituloCoronadas();
 
+    }
+
+    private void verificacionFinal(){
+        if (parchis.getGanadores("Amarillo") == 4){
+            setVisible(false);
+            FinalGUI mensajeFinal = new FinalGUI(usuarioAmarillo);
+            mensajeFinal.setResizable(false);
+            mensajeFinal.setResizable(false);
+            mensajeFinal.setLocationRelativeTo(null);
+            dispose();
+        }else if (parchis.getGanadores("Rojo") == 4){
+            setVisible(false);
+            FinalGUI mensajeFinal = new FinalGUI(usuarioRojo);
+            mensajeFinal.setResizable(false);
+            mensajeFinal.setResizable(false);
+            mensajeFinal.setLocationRelativeTo(null);
+            dispose();
+        }else if (parchis.getGanadores("Verde") == 4){
+            setVisible(false);
+            FinalGUI mensajeFinal = new FinalGUI(usuarioVerde);
+            mensajeFinal.setResizable(false);
+            mensajeFinal.setResizable(false);
+            mensajeFinal.setLocationRelativeTo(null);
+            dispose();
+        }else if (parchis.getGanadores("Azul") == 4){
+            setVisible(false);
+            FinalGUI mensajeFinal = new FinalGUI(usuarioAzul);
+            mensajeFinal.setResizable(false);
+            mensajeFinal.setResizable(false);
+            mensajeFinal.setLocationRelativeTo(null);
+            dispose();
+        }
     }
     private void tituloTurno(){
         constraints.gridx = 22;
