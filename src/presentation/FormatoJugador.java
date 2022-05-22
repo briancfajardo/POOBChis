@@ -103,7 +103,7 @@ public class FormatoJugador extends JFrame {
                 //System.out.println("rojo: " + nombreRojo + ", amarillo:" + nombreAmarillo + ", azul:" +
                 //     nombreAzul + ", verde:" + nombreVerde);
 
-                TableroGUI nuevaPartida = new TableroGUI(tipoAmarillo, tipoAzul, tipoVerde, tipoRojo);
+                TableroGUI nuevaPartida = new TableroGUI(tipoAmarillo, tipoAzul, tipoVerde, tipoRojo, 2);
                 nuevaPartida.setVisible(true);
                 nuevaPartida.setResizable(false);
                 nuevaPartida.setLocationRelativeTo(null);

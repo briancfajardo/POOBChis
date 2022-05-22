@@ -30,16 +30,17 @@ public class TableroGUI extends JFrame {
     private ArrayList<String> tipoAzul = new ArrayList<>();
     private ArrayList<String> tipoVerde = new ArrayList<>();
     private ArrayList<String> tipoRojo = new ArrayList<>();
-
+    private int cantJugadores;
     private String turnoActual;
 
 
 
-    public TableroGUI(ArrayList<String> tipoAmarillo, ArrayList<String> tipoAzul, ArrayList<String> tipoVerde, ArrayList<String> tipoRojo) {
+    public TableroGUI(ArrayList<String> tipoAmarillo, ArrayList<String> tipoAzul, ArrayList<String> tipoVerde, ArrayList<String> tipoRojo, int cantJugadores) {
         super("POOBChisGame");
+        this.cantJugadores = cantJugadores;
         this.setContentPane(fondo);
         inicializarTipos();
-        parchis = new Parchis(tipoAmarillo, tipoAzul, tipoVerde, tipoRojo, 2);
+        parchis = new Parchis(tipoAmarillo, tipoAzul, tipoVerde, tipoRojo, cantJugadores);
         prepareElements();
     }
 
@@ -91,7 +92,7 @@ public class TableroGUI extends JFrame {
             if(casillaRoja.get(i).isHabilitado()){contHabilitados += 1;}
             if(casillaAmarilla.get(i).isHabilitado()){contHabilitados += 1;}
         }
-        System.out.println("ContHabilitados: "+ contHabilitados);
+        //System.out.println("ContHabilitados: "+ contHabilitados);
         if(contHabilitados == 0 && parchis.getCarcel(turnoActual) != 4
                 && parchis.getValor1() != parchis.getValor2()
                 && !parchis.isMataFicha() && !parchis.isSacaFicha()){

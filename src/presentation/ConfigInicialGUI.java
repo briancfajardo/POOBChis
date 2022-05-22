@@ -81,7 +81,9 @@ public class ConfigInicialGUI extends JFrame {
         dosJugadores.setCursor(new Cursor(Cursor.HAND_CURSOR));
         dosJugadores.addActionListener(e -> {
             jugadores = 2;
-            System.out.println(jugadores);
+            eleccionJugadorConfig jugador = new eleccionJugadorConfig(jugadores);
+            dispose();
+            //System.out.println(jugadores);
         });
 
 
@@ -91,7 +93,7 @@ public class ConfigInicialGUI extends JFrame {
         cuatroJugadores.setCursor(new Cursor(Cursor.HAND_CURSOR));
         cuatroJugadores.addActionListener(e -> {
             jugadores = 4;
-            eleccionJugadorConfig jugador = new eleccionJugadorConfig();
+            eleccionJugadorConfig jugador = new eleccionJugadorConfig(jugadores);
             dispose();
         });
         //opcionFichas();
