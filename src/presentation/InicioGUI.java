@@ -36,6 +36,8 @@ public class InicioGUI extends JFrame {
 
     }
 
+
+
     /**
      * Prepara los elementos de la ventana inicial
      * Modifica el tamaño y añade el menú y los botones iniciales
@@ -101,11 +103,12 @@ public class InicioGUI extends JFrame {
         Button juego = new Button("Nuevo Juego");
         Button salir = new Button("Salir");
         JPanel panelBotones = new JPanel();
+
         JPanel panelSalir = new JPanel();
 
-        juego.setFont(new Font("Sans Serif", Font.CENTER_BASELINE, 20));
-        juego.setBackground(new Color(248, 197, 27));
-        juego.setSize(30,30);
+        juego.setFont(new Font("Agency FB", Font.CENTER_BASELINE, 20));
+        juego.setBackground(new Color(120, 222, 167));
+        juego.setSize(40,40);
         juego.setCursor(new Cursor(Cursor.HAND_CURSOR));
         juego.addActionListener(new ActionListener() {
             @Override
@@ -131,9 +134,9 @@ public class InicioGUI extends JFrame {
         panelSalir.setLayout(new GridLayout(1,1));
 
 
-        salir.setFont(new Font("Serif", Font.CENTER_BASELINE, 20));
-        salir.setSize(30,30);
-        salir.setBackground(new Color(248, 197, 27));
+        salir.setFont(new Font("Agency FB", Font.CENTER_BASELINE, 20));
+        salir.setSize(40,40);
+        salir.setBackground(new Color(120, 222, 167));
         salir.setCursor(new Cursor(Cursor.HAND_CURSOR));
         salir.addActionListener(new ActionListener() {
             @Override
@@ -146,8 +149,8 @@ public class InicioGUI extends JFrame {
         panelSalir.setOpaque(false);
 
 
-        titulo.setForeground(new Color(248, 197, 27));
-        titulo.setFont(new Font("Sans Serif", Font.CENTER_BASELINE, 100));
+        titulo.setForeground(new Color(0, 248, 103));
+        titulo.setFont(new Font("Agency FB", Font.CENTER_BASELINE, 100));
 
         add(titulo);
         add(panelBotones);

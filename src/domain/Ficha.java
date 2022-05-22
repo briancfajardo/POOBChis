@@ -2,13 +2,14 @@ package domain;
 
 public class Ficha extends Elemento{
 
-    private String color;
+    protected String color;
 
     public Ficha (String color){
         this.color = color;
     }
 
-    public void usarPoder(Tablero tablero, String colorCasa ,int numCasilla){}
+    public void usarPoder(Tablero tablero, String colorCasa ,int numCasilla, Parchis parchis){}
+
     public String getColor(){
         return color;
     }

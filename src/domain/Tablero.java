@@ -120,6 +120,22 @@ public class Tablero {
         return carcel;
     }
 
+    public HashMap<Integer, Casilla> getAmarillo() {
+        return amarillo;
+    }
+
+    public HashMap<Integer, Casilla> getAzul() {
+        return azul;
+    }
+
+    public HashMap<Integer, Casilla> getRojo() {
+        return rojo;
+    }
+
+    public HashMap<Integer, Casilla> getVerde() {
+        return verde;
+    }
+
     private void ponerSeguro(int numCasilla, String nombreCasa){
         switch (nombreCasa){
             case "Azul"->{
@@ -350,7 +366,7 @@ public class Tablero {
     }
 
     public void usarPoder(Ficha ficha, String colorCasa, int numCasilla){
-        ficha.usarPoder(this, colorCasa, numCasilla);
+        ficha.usarPoder(this, colorCasa, numCasilla, null);
     }
     public void moverFicha(String colorCasa, Ficha ficha, int numCasilla, int mover){
         if (!verificarBloqueo(colorCasa, numCasilla, mover, ficha.getColor())){

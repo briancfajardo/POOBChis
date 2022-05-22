@@ -33,6 +33,8 @@ public class TableroGUI extends JFrame {
 
     private String turnoActual;
 
+
+
     public TableroGUI(ArrayList<String> tipoAmarillo, ArrayList<String> tipoAzul, ArrayList<String> tipoVerde, ArrayList<String> tipoRojo) {
         super("POOBChisGame");
         this.setContentPane(fondo);

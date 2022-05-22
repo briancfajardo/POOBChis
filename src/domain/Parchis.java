@@ -41,9 +41,30 @@ public class Parchis {
     public boolean getPrimeraTirada(){
         return primeraTirada;
     }
+
+    public void usarPoder(String color, int posFicha){
+        int tam = getTablero().getElementosCasilla(color, posFicha).size();
+        if (tam == 1 && getTablero().getElementosCasilla(color, posFicha).get(0) instanceof Ficha){
+            ((Ficha) getTablero().getElementosCasilla(color, posFicha).get(0)).usarPoder(getTablero(), color, posFicha, this);
+        }else if (tam == 2){
+            if (getTablero().getElementosCasilla(color, posFicha).get(0) instanceof Ficha){
+                ((Ficha) getTablero().getElementosCasilla(color, posFicha).get(0)).usarPoder(getTablero(), color, posFicha, this);
+            }else if (getTablero().getElementosCasilla(color, posFicha).get(1) instanceof Ficha){
+                ((Ficha) getTablero().getElementosCasilla(color, posFicha).get(1)).usarPoder(getTablero(), color, posFicha, this);
+            }
+
+        }
+    }
+
+
+    public void verificarUsoPoder(){
+
+    }
+
     public void moverFicha(String color, int posFicha){
         //System.out.println("mov1: " + mov1 + "   mov2: " + mov2+ "   mata: " + isMataFicha() + "   saca: " + isSacaFicha()+ "  No ver par: "
         //        + !verificarTresPares(color, posFicha));
+
         if (!verificarTresPares(color, posFicha)){
 
             tablero.verificacion(color, posFicha, valor3, turnoString());
@@ -240,6 +261,10 @@ public class Parchis {
         };
     }
 
+
+
+
+
     public void tirarDado() {
         valor1 = dado1.tirarDado();
         valor2 = dado2.tirarDado();
@@ -281,6 +306,7 @@ public class Parchis {
         //System.out.println("Amarillo "+tablero.contarBloqueos("Amarillo"));
         //System.out.println("Azul "+tablero.contarBloqueos("Azul")+"\n");
         quitarBloqueoPares();
+
         if (todasAtrapadas == 3 && valor1 != 5 && valor2 != 5 && !isMataFicha() && !isSacaFicha()){
             reglaSalirCarcel();
             cambiarTurno();

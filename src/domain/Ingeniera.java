@@ -6,7 +6,7 @@ public class Ingeniera extends Ficha{
         super(color);
     }
     @Override
-    public void usarPoder(Tablero tablero, String colorCasa ,int numCasilla){
+    public void usarPoder(Tablero tablero, String colorCasa ,int numCasilla, Parchis parchis){
         this.tablero = tablero;
         tablero.getCasilla(colorCasa, numCasilla).setSeguro();
     }
