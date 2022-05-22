@@ -240,16 +240,18 @@ public class Parchis implements Serializable{
             }else if (turno == VERDE) {
                 tablero.volverCarcel("Verde", (Ficha) tablero.getElementosCasilla(color,posFicha).get(tablero.getElementosCasilla(color,posFicha).size()-1));
             }
-            tablero.getElementosCasilla(color, posFicha).remove(tablero.getElementosCasilla(color,posFicha).size()-1);
-            if(tablero.getCasilla(color,posFicha).isBloqueado())tablero.getCasilla(color,posFicha).quitarBloqueo();
-            tablero.setMataFicha(false);
-            cambiarTurno();
-            pares = 0;
+            if(!((Ficha)tablero.getElementosCasilla(color, posFicha).get(tablero.getElementosCasilla(color,posFicha).size()-1)).isInmortal()){
+                tablero.getElementosCasilla(color, posFicha).remove(tablero.getElementosCasilla(color,posFicha).size()-1);
+                if(tablero.getCasilla(color,posFicha).isBloqueado())tablero.getCasilla(color,posFicha).quitarBloqueo();
+                tablero.setMataFicha(false);
+                cambiarTurno();
+                pares = 0;
+                return true;
+            }
             //pares = 0;
             //mov1 = false;
             //mov2 = false;
             //primeraTirada = false;
-            return true;
         }
         return false;
     }
@@ -264,7 +266,9 @@ public class Parchis implements Serializable{
             default -> "Verde";
         };
     }
-
+    public String getMasLejos(String color){
+        return tablero.getMaslejos(color);
+    }
 
 
 
@@ -369,7 +373,8 @@ public class Parchis implements Serializable{
                 setMov1(true);
                 setMov2(true);
 
-            } else if (valor1 == 5 && valor2 == 5 && !mov1 && !mov2 && tablero.cantElementosSalida(colorCasa) == 1 && tablero.getValorCarcel(colorCasa) > 1) {
+            } else if (valor1 == 5 && valor2 == 5 && !mov1 && !mov2 && tablero.cantElementosSalida(colorCasa) == 1 && tablero.getValorCarcel(colorCasa) > 1
+                    && !((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(0)).isInmortal()) {
                 tablero.volverCarcel(((Ficha) tablero.getElementosCasilla(colorCasa, 4).get(0)).getColor(), (Ficha) tablero.getElementosCasilla(colorCasa, 4).get(0));
                 tablero.getElementosCasilla(colorCasa, 4).remove(0);
                 tablero.nuevaFicha(colorCasa, 4, tablero.salirCarcel(colorCasa));
@@ -378,7 +383,19 @@ public class Parchis implements Serializable{
                 setMov1(true);
                 setMov2(true);
 
-            }else if (valor1 == 5 && valor2 == 5 && !mov1 && !mov2 && tablero.cantElementosSalida(colorCasa) == 2 && tablero.getValorCarcel(colorCasa) > 1) {
+            }else if (valor1 == 5 && valor2 == 5 && !mov1 && !mov2 && tablero.cantElementosSalida(colorCasa) == 1 && tablero.getValorCarcel(colorCasa) > 1
+                    && ((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(0)).isInmortal()) {
+                //tablero.volverCarcel(((Ficha) tablero.getElementosCasilla(colorCasa, 4).get(0)).getColor(), (Ficha) tablero.getElementosCasilla(colorCasa, 4).get(0));
+                //tablero.getElementosCasilla(colorCasa, 4).remove(0);
+                tablero.nuevaFicha(colorCasa, 4, tablero.salirCarcel(colorCasa));
+                //tablero.nuevaFicha(colorCasa, 4, tablero.salirCarcel(colorCasa));
+                sacoFicha = 1;
+                //setMov1(true);
+                setMov2(true);
+
+            }else if (valor1 == 5 && valor2 == 5 && !mov1 && !mov2 && tablero.cantElementosSalida(colorCasa) == 2 && tablero.getValorCarcel(colorCasa) > 1
+            && !((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(0)).isInmortal()
+            && !((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(1)).isInmortal()) {
                 tablero.volverCarcel(((Ficha) tablero.getElementosCasilla(colorCasa, 4).get(0)).getColor(), (Ficha) tablero.getElementosCasilla(colorCasa, 4).get(0));
                 tablero.getElementosCasilla(colorCasa, 4).remove(0);
                 tablero.volverCarcel(((Ficha) tablero.getElementosCasilla(colorCasa, 4).get(0)).getColor(), (Ficha) tablero.getElementosCasilla(colorCasa, 4).get(0));
@@ -388,6 +405,28 @@ public class Parchis implements Serializable{
                 sacoFicha = 2;
                 setMov1(true);
                 setMov2(true);
+
+            }else if (valor1 == 5 && valor2 == 5 && !mov1 && !mov2 && tablero.cantElementosSalida(colorCasa) == 2 && tablero.getValorCarcel(colorCasa) > 1
+                    && ((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(0)).isInmortal()
+                    && !((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(1)).isInmortal()) {
+                tablero.volverCarcel(((Ficha) tablero.getElementosCasilla(colorCasa, 4).get(1)).getColor(), (Ficha) tablero.getElementosCasilla(colorCasa, 4).get(0));
+                tablero.getElementosCasilla(colorCasa, 4).remove(1);
+                //tablero.nuevaFicha(colorCasa, 4, tablero.salirCarcel(colorCasa));
+                tablero.nuevaFicha(colorCasa, 4, tablero.salirCarcel(colorCasa));
+                sacoFicha = 1;
+                setMov1(true);
+                //setMov2(true);
+
+            }else if (valor1 == 5 && valor2 == 5 && !mov1 && !mov2 && tablero.cantElementosSalida(colorCasa) == 2 && tablero.getValorCarcel(colorCasa) > 1
+                    && !((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(0)).isInmortal()
+                    && ((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(1)).isInmortal()) {
+                tablero.volverCarcel(((Ficha) tablero.getElementosCasilla(colorCasa, 4).get(0)).getColor(), (Ficha) tablero.getElementosCasilla(colorCasa, 4).get(0));
+                tablero.getElementosCasilla(colorCasa, 4).remove(0);
+                //tablero.nuevaFicha(colorCasa, 4, tablero.salirCarcel(colorCasa));
+                tablero.nuevaFicha(colorCasa, 4, tablero.salirCarcel(colorCasa));
+                sacoFicha = 1;
+                setMov1(true);
+                //setMov2(true);
 
             }else if(tablero.cantElementosSalida(colorCasa) < 2 && tablero.getValorCarcel(colorCasa) > 0){
                 if (!mov1 && valor1 == 5){
@@ -407,13 +446,15 @@ public class Parchis implements Serializable{
 
                 if (!mov1 && valor1 == 5 && (!((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(1)).getColor().equals(colorCasa)
                         || !((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(0)).getColor().equals(colorCasa))){
-                    if (!((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(0)).getColor().equals(colorCasa)){
+                    if (!((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(0)).getColor().equals(colorCasa)
+                    && !((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(0)).isInmortal()){
                         tablero.eliminarBloqueada(((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(0)).getColor(),colorCasa,4);
                         tablero.volverCarcel(((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(0)).getColor(), (Ficha)tablero.getElementosCasilla(colorCasa, 4).get(0));
                         tablero.getElementosCasilla(colorCasa, 4).remove(0);
                         tablero.nuevaFicha(colorCasa, 4, tablero.salirCarcel(colorCasa));
 
-                    }else if (!((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(1)).getColor().equals(colorCasa)) {
+                    }else if (!((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(1)).getColor().equals(colorCasa)
+                            && !((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(1)).isInmortal()) {
                         tablero.eliminarBloqueada(((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(1)).getColor(),colorCasa,4);
                         tablero.volverCarcel(((Ficha) tablero.getElementosCasilla(colorCasa, 4).get(1)).getColor(), (Ficha) tablero.getElementosCasilla(colorCasa, 4).get(1));
                         tablero.getElementosCasilla(colorCasa, 4).remove(1);
@@ -424,13 +465,15 @@ public class Parchis implements Serializable{
                 }else if (!mov2 && valor2 == 5 && (!((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(1)).getColor().equals(colorCasa)
                         || !((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(0)).getColor().equals(colorCasa))) {
 
-                    if (!((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(0)).getColor().equals(colorCasa)){
+                    if (!((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(0)).getColor().equals(colorCasa)
+                    && !((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(0)).isInmortal()){
                         tablero.eliminarBloqueada(((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(0)).getColor(),colorCasa,4);
                         tablero.volverCarcel(((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(0)).getColor(), (Ficha)tablero.getElementosCasilla(colorCasa, 4).get(0));
                         tablero.getElementosCasilla(colorCasa, 4).remove(0);
                         tablero.nuevaFicha(colorCasa, 4, tablero.salirCarcel(colorCasa));
 
-                    }else if (!((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(1)).getColor().equals(colorCasa)) {
+                    }else if (!((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(1)).getColor().equals(colorCasa)
+                            && !((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(1)).isInmortal()) {
                         tablero.eliminarBloqueada(((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(1)).getColor(),colorCasa,4);
                         tablero.volverCarcel(((Ficha) tablero.getElementosCasilla(colorCasa, 4).get(1)).getColor(), (Ficha) tablero.getElementosCasilla(colorCasa, 4).get(1));
                         tablero.getElementosCasilla(colorCasa, 4).remove(1);
@@ -440,13 +483,15 @@ public class Parchis implements Serializable{
                 }else if (!mov1 && !mov2 && valor1 + valor2 == 5 && (!((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(1)).getColor().equals(colorCasa)
                         || !((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(0)).getColor().equals(colorCasa))) {
 
-                    if (!((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(0)).getColor().equals(colorCasa)){
+                    if (!((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(0)).getColor().equals(colorCasa)
+                    && !((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(0)).isInmortal()){
                         tablero.eliminarBloqueada(((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(0)).getColor(),colorCasa,4);
                         tablero.volverCarcel(((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(0)).getColor(), (Ficha)tablero.getElementosCasilla(colorCasa, 4).get(0));
                         tablero.getElementosCasilla(colorCasa, 4).remove(0);
                         tablero.nuevaFicha(colorCasa, 4, tablero.salirCarcel(colorCasa));
 
-                    }else if (!((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(1)).getColor().equals(colorCasa)) {
+                    }else if (!((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(1)).getColor().equals(colorCasa)
+                            && !((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(1)).isInmortal()) {
                         tablero.eliminarBloqueada(((Ficha)tablero.getElementosCasilla(colorCasa, 4).get(1)).getColor(),colorCasa,4);
                         tablero.volverCarcel(((Ficha) tablero.getElementosCasilla(colorCasa, 4).get(1)).getColor(), (Ficha) tablero.getElementosCasilla(colorCasa, 4).get(1));
                         tablero.getElementosCasilla(colorCasa, 4).remove(1);

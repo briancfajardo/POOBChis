@@ -706,11 +706,19 @@ public class Tablero implements Serializable {
 
             } else if (ultCasilla.getElementos().get(0) instanceof Ficha && ultCasilla.getElementos().get(1) instanceof Ficha
                     && !((Ficha) ultCasilla.getElementos().get(0)).getColor().equals(((Ficha) ultCasilla.getElementos().get(1)).getColor())
-                    && !ultCasilla.isSeguro()) {
+                    && !ultCasilla.isSeguro() && !((Ficha) ultCasilla.getElementos().get(0)).isInmortal()) {
                 volverCarcel(((Ficha) ultCasilla.getElementos().get(0)).getColor(), (Ficha) ultCasilla.getElementos().get(0));
                 ultCasilla.getElementos().remove(0);
 
-            } else if (ultCasilla.getElementos().get(0) instanceof Ficha && ultCasilla.getElementos().get(1) instanceof Ficha && ultCasilla.isSeguro()) {
+            } else if (ultCasilla.getElementos().get(0) instanceof Ficha && ultCasilla.getElementos().get(1) instanceof Ficha
+                    && !((Ficha) ultCasilla.getElementos().get(0)).getColor().equals(((Ficha) ultCasilla.getElementos().get(1)).getColor())
+                    && !ultCasilla.isSeguro() && ((Ficha) ultCasilla.getElementos().get(0)).isInmortal()) {
+                ultCasilla.setBloqueado();
+                agregarBloqueada(((Ficha) ultCasilla.getElementos().get(0)).getColor(), color, num);
+                agregarBloqueada(((Ficha) ultCasilla.getElementos().get(1)).getColor(), color, num);
+
+            } else if (ultCasilla.getElementos().get(0) instanceof Ficha && ultCasilla.getElementos().get(1) instanceof Ficha
+                    && ultCasilla.isSeguro()) {
                 ultCasilla.setBloqueado();
                 agregarBloqueada(((Ficha) ultCasilla.getElementos().get(0)).getColor(), color, num);
                 agregarBloqueada(((Ficha) ultCasilla.getElementos().get(1)).getColor(), color, num);
@@ -812,6 +820,75 @@ public class Tablero implements Serializable {
         }
         return false;
     }
+    public String verificarBloqueoComodin(String color, int inicio, String fichaColor){
+        boolean cambio = false;
+        int mover = 0;
+        boolean entcontro = false;
+        while (!entcontro){
+            if (inicio == 23){entcontro = true;}
+            switch (color) {
+                case "Amarillo" -> {
+
+                    if (amarillo.get(inicio + 1).isBloqueado()) {
+                        entcontro = true;
+                        inicio +=1;
+                        return "Amarillo "+inicio;
+                    } else if (inicio + 1 == 16 && !cambio) {
+                        inicio = 14;
+                        color = "Azul";
+                        cambio = true;
+                    } else if (inicio + 1 == 17 && !fichaColor.equals(color)) {
+                        inicio = -2;
+                        cambio = false;
+                    }
+                    inicio += 1;
+                }
+                case "Azul" -> {
+                    if (azul.get(inicio + 1).isBloqueado()) {
+                        inicio += 1;
+                        return "Azul "+inicio;
+                    } else if (inicio + 1 == 16 && !cambio) {
+                        inicio = 14;
+                        color = "Rojo";
+                        cambio = true;
+                    } else if (inicio + 1 == 17 && !fichaColor.equals(color)) {
+                        inicio = -2;
+                        cambio = false;
+                    }
+                    inicio += 1;
+                }
+                case "Rojo" -> {
+                    if (rojo.get(inicio + 1).isBloqueado()) {
+                        inicio += 1;
+                        return "Rojo "+inicio;
+                    } else if (inicio + 1 == 16 && !cambio) {
+                        inicio = 14;
+                        color = "Verde";
+                        cambio = true;
+                    } else if (inicio + 1 == 17 && !fichaColor.equals(color)) {
+                        inicio = -2;
+                        cambio = false;
+                    }
+                    inicio += 1;
+                }
+                default -> {
+                    if (verde.get(inicio + 1).isBloqueado()) {
+                        inicio += 1;
+                        return "Verde "+inicio;
+                    } else if (inicio + 1 == 16 && !cambio) {
+                        inicio = 14;
+                        color = "Amarillo";
+                        cambio = true;
+                    } else if (inicio + 1 == 17 && !fichaColor.equals(color)) {
+                        inicio = -2;
+                        cambio = false;
+                    }
+                    inicio += 1;
+                }
+            }
+        }
+        return null;
+    }
     public Casilla getCasilla(String colorCasa, int numCasilla){
         return switch (colorCasa){
             case "Amarillo"-> amarillo.get(numCasilla);
@@ -819,6 +896,142 @@ public class Tablero implements Serializable {
             case "Rojo"-> rojo.get(numCasilla);
             default -> verde.get(numCasilla);
         };
+    }
+    public String getMaslejos(String color){
+        HashMap <String, ArrayList<Integer>> posiciones = getPosFichas(color);
+        if(color.equals("Amarillo")){
+            if(posiciones.get("Amarillo").get(posiciones.get("Amarillo").size()-1) > 15){
+                return "Amarillo "+ posiciones.get("Amarillo").get(posiciones.get("Amarillo").size()-1);
+            }
+            if(posiciones.get("Verde").size() > 0 && posiciones.get("Verde").get(posiciones.get("Verde").size()-1) < 16){
+                return "Verde "+ posiciones.get("Verde").get(posiciones.get("Verde").size()-1);
+            } else if (posiciones.get("Verde").size() > 1 && posiciones.get("Verde").get(posiciones.get("Verde").size()-2) < 16) {
+                return "Verde "+ posiciones.get("Verde").get(posiciones.get("Verde").size()-2);
+            } else if (posiciones.get("Verde").size() > 0 && posiciones.get("Verde").get(posiciones.get("Verde").size()-1) == 16) {
+                return "Verde "+ posiciones.get("Verde").get(posiciones.get("Verde").size()-1);
+            }
+
+            if(posiciones.get("Rojo").size() > 0 && posiciones.get("Rojo").get(posiciones.get("Rojo").size()-1) < 16){
+                return "Rojo "+ posiciones.get("Rojo").get(posiciones.get("Rojo").size()-1);
+            } else if (posiciones.get("Rojo").size() > 1 && posiciones.get("Rojo").get(posiciones.get("Rojo").size()-2) < 16) {
+                return "Rojo "+ posiciones.get("Rojo").get(posiciones.get("Rojo").size()-2);
+            } else if (posiciones.get("Rojo").size() > 0 && posiciones.get("Rojo").get(posiciones.get("Rojo").size()-1) == 16) {
+                return "Rojo "+ posiciones.get("Rojo").get(posiciones.get("Rojo").size()-1);
+            }
+
+            if(posiciones.get("Azul").size() > 0 && posiciones.get("Azul").get(posiciones.get("Azul").size()-1) < 16){
+                return "Azul "+ posiciones.get("Azul").get(posiciones.get("Azul").size()-1);
+            } else if (posiciones.get("Azul").size() > 1 && posiciones.get("Azul").get(posiciones.get("Azul").size()-2) < 16) {
+                return "Azul "+ posiciones.get("Azul").get(posiciones.get("Azul").size()-2);
+            } else if (posiciones.get("Azul").size() > 0 && posiciones.get("Azul").get(posiciones.get("Azul").size()-1) == 16) {
+                return "Azul "+ posiciones.get("Azul").get(posiciones.get("Azul").size()-1);
+            }
+
+            if(posiciones.get("Amarillo").size() > 0){
+                return "Amarillo "+ posiciones.get("Amarillo").get(posiciones.get("Amarillo").size()-1);
+            }
+        } else if (color.equals("Rojo")) {
+            if(posiciones.get("Rojo").get(posiciones.get("Rojo").size()-1) > 15){
+                return "Rojo "+ posiciones.get("Rojo").get(posiciones.get("Rojo").size()-1);
+            }
+
+            if(posiciones.get("Azul").size() > 0 && posiciones.get("Azul").get(posiciones.get("Azul").size()-1) < 16){
+                return "Azul "+ posiciones.get("Azul").get(posiciones.get("Azul").size()-1);
+            } else if (posiciones.get("Azul").size() > 1 && posiciones.get("Azul").get(posiciones.get("Azul").size()-2) < 16) {
+                return "Azul "+ posiciones.get("Azul").get(posiciones.get("Azul").size()-2);
+            } else if (posiciones.get("Azul").size() > 0 && posiciones.get("Azul").get(posiciones.get("Azul").size()-1) == 16) {
+                return "Azul "+ posiciones.get("Azul").get(posiciones.get("Azul").size()-1);
+            }
+
+
+            if(posiciones.get("Amarillo").size() > 0 && posiciones.get("Amarillo").get(posiciones.get("Amarillo").size()-1) < 16){
+                return "Amarillo "+ posiciones.get("Amarillo").get(posiciones.get("Amarillo").size()-1);
+            } else if (posiciones.get("Amarillo").size() > 1 && posiciones.get("Amarillo").get(posiciones.get("Amarillo").size()-2) < 16) {
+                return "Amarillo "+ posiciones.get("Amarillo").get(posiciones.get("Amarillo").size()-2);
+            } else if (posiciones.get("Amarillo").size() > 0 && posiciones.get("Amarillo").get(posiciones.get("Amarillo").size()-1) == 16) {
+                return "Amarillo "+ posiciones.get("Amarillo").get(posiciones.get("Amarillo").size()-1);
+            }
+            if(posiciones.get("Verde").size() > 0 && posiciones.get("Verde").get(posiciones.get("Verde").size()-1) < 16){
+                return "Verde "+ posiciones.get("Verde").get(posiciones.get("Verde").size()-1);
+            } else if (posiciones.get("Verde").size() > 1 && posiciones.get("Verde").get(posiciones.get("Verde").size()-2) < 16) {
+                return "Verde "+ posiciones.get("Verde").get(posiciones.get("Verde").size()-2);
+            } else if (posiciones.get("Verde").size() > 0 && posiciones.get("Verde").get(posiciones.get("Verde").size()-1) == 16) {
+                return "Verde "+ posiciones.get("Verde").get(posiciones.get("Verde").size()-1);
+            }
+            if(posiciones.get("Rojo").size() > 0) {
+                return "Rojo " + posiciones.get("Rojo").get(posiciones.get("Rojo").size() - 1);
+            }
+        }
+        return null;
+    }
+    private HashMap<String, ArrayList<Integer>> getPosFichas(String color){
+        HashMap <String, ArrayList<Integer>> posiciones = new HashMap<>();
+        posiciones.put("Amarillo", new ArrayList<>());
+        posiciones.put("Azul", new ArrayList<>());
+        posiciones.put("Rojo", new ArrayList<>());
+        posiciones.put("Verde", new ArrayList<>());
+        for(int c : amarillo.keySet()){
+            if(color.equals("Amarillo")){
+                if(amarillo.get(c).getElementos().size() > 0 && amarillo.get(c).getElementos().get(0) instanceof Ficha
+                        && ((Ficha)amarillo.get(c).getElementos().get(0)).getColor().equals("Amarillo")){
+                    posiciones.get("Amarillo").add(c);
+                } else if (amarillo.get(c).getElementos().size() > 1 && amarillo.get(c).getElementos().get(0) instanceof Ficha
+                        && ((Ficha)amarillo.get(c).getElementos().get(1)).getColor().equals("Amarillo")) {
+                    posiciones.get("Amarillo").add(c);
+                }
+                if(azul.get(c).getElementos().size() > 0 && azul.get(c).getElementos().get(0) instanceof Ficha
+                        && ((Ficha)azul.get(c).getElementos().get(0)).getColor().equals("Amarillo")){
+                    posiciones.get("Azul").add(c);
+                }else if (azul.get(c).getElementos().size() > 1 && azul.get(c).getElementos().get(0) instanceof Ficha
+                        && ((Ficha)azul.get(c).getElementos().get(1)).getColor().equals("Amarillo")) {
+                    posiciones.get("Azul").add(c);
+                }
+                if(rojo.get(c).getElementos().size() > 0 && rojo.get(c).getElementos().get(0) instanceof Ficha
+                        && ((Ficha)rojo.get(c).getElementos().get(0)).getColor().equals("Amarillo")){
+                    posiciones.get("Rojo").add(c);
+                }else if (rojo.get(c).getElementos().size() > 1 && rojo.get(c).getElementos().get(0) instanceof Ficha
+                        && ((Ficha)rojo.get(c).getElementos().get(1)).getColor().equals("Amarillo")) {
+                    posiciones.get("Rojo").add(c);
+                }
+                if(verde.get(c).getElementos().size() > 0 && verde.get(c).getElementos().get(0) instanceof Ficha
+                        && ((Ficha)verde.get(c).getElementos().get(0)).getColor().equals("Amarillo")){
+                    posiciones.get("Verde").add(c);
+                }else if (verde.get(c).getElementos().size() > 1 && verde.get(c).getElementos().get(0) instanceof Ficha
+                        && ((Ficha)verde.get(c).getElementos().get(1)).getColor().equals("Amarillo")) {
+                    posiciones.get("Amarillo").add(c);
+                }
+            } else if (color.equals("Rojo")) {
+                if(amarillo.get(c).getElementos().size() > 0 && amarillo.get(c).getElementos().get(0) instanceof Ficha
+                        && ((Ficha)amarillo.get(c).getElementos().get(0)).getColor().equals("Rojo")){
+                    posiciones.get("Amarillo").add(c);
+                } else if (amarillo.get(c).getElementos().size() > 1 && amarillo.get(c).getElementos().get(0) instanceof Ficha
+                        && ((Ficha)amarillo.get(c).getElementos().get(1)).getColor().equals("Rojov")) {
+                    posiciones.get("Amarillo").add(c);
+                }
+                if(azul.get(c).getElementos().size() > 0 && azul.get(c).getElementos().get(0) instanceof Ficha
+                        && ((Ficha)azul.get(c).getElementos().get(0)).getColor().equals("Rojo")){
+                    posiciones.get("Azul").add(c);
+                }else if (azul.get(c).getElementos().size() > 1 && azul.get(c).getElementos().get(0) instanceof Ficha
+                        && ((Ficha)azul.get(c).getElementos().get(1)).getColor().equals("Rojo")) {
+                    posiciones.get("Azul").add(c);
+                }
+                if(rojo.get(c).getElementos().size() > 0 && rojo.get(c).getElementos().get(0) instanceof Ficha
+                        && ((Ficha)rojo.get(c).getElementos().get(0)).getColor().equals("Rojo")){
+                    posiciones.get("Rojo").add(c);
+                }else if (rojo.get(c).getElementos().size() > 1 && rojo.get(c).getElementos().get(0) instanceof Ficha
+                        && ((Ficha)rojo.get(c).getElementos().get(1)).getColor().equals("Rojo")) {
+                    posiciones.get("Rojo").add(c);
+                }
+                if(verde.get(c).getElementos().size() > 0 && verde.get(c).getElementos().get(0) instanceof Ficha
+                        && ((Ficha)verde.get(c).getElementos().get(0)).getColor().equals("Rojo")){
+                    posiciones.get("Verde").add(c);
+                }else if (verde.get(c).getElementos().size() > 1 && verde.get(c).getElementos().get(0) instanceof Ficha
+                        && ((Ficha)verde.get(c).getElementos().get(1)).getColor().equals("Rojo")) {
+                    posiciones.get("Amarillo").add(c);
+                }
+            }
+        }
+        return posiciones;
     }
     public int cantElementosSalida(String color){
         return switch (color){
@@ -858,3 +1071,4 @@ public class Tablero implements Serializable {
 
 
 }
+
