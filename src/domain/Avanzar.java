@@ -5,9 +5,6 @@ import java.io.Serializable;
  * Clase Avanzar la cual representa un tipo de comodín que hace que una ficha avance 5 casillas automáticamente.
  */
 public class Avanzar extends Comodin implements Serializable {
-    private Parchis parchis;
-    private  String color;
-    private int pos;
     /**
      * Constructor de la clase Avanzar que inicializa el comodín con el objeto Parchis, un color y una posición
      * correspondientes a su ubicación en el tablero del juego

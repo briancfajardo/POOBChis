@@ -3,10 +3,6 @@ package domain;
  * Clase que representa al comodín Romper bloqueo el cual tiene como poder hacer que el bloqueo más cercano sea destruido
  */
 public class RomperBloqueo extends Comodin{
-
-    private Parchis parchis;
-    private  String color;
-    private int pos;
     /**
      * Constructor de la clase RomperBloqueo
      * @param parchis Objeto tipo Parchis

@@ -15,14 +15,13 @@ import java.io.File;
  * Clase ConfiguracionInicialGUI que hereda de Jframe
  */
 public class ConfigInicialGUI extends JFrame {
-    private int ancho = 900;
-    private int alto = 500;
-    private Fondo fondo = new Fondo();
-    private GridBagLayout grid = new GridBagLayout();
-    private GridBagConstraints constraints = new GridBagConstraints();
-    private JLabel turno;
-    private int jugadores = 4;
-    private JPanel fichas;
+    protected int ancho = 900;
+    protected int alto = 500;
+    protected Fondo fondo = new Fondo();
+    protected GridBagLayout grid = new GridBagLayout();
+    protected GridBagConstraints constraints = new GridBagConstraints();
+    protected JLabel turno;
+    protected int jugadores = 4;
 
 
     /**
@@ -40,7 +39,7 @@ public class ConfigInicialGUI extends JFrame {
     /**
      * Método usado para agregar elementos al frame como el título
      */
-    private void conf() {
+    protected void conf() {
         constraints.fill = GridBagConstraints.BOTH;
         tituloConfig();
         numJugadores();
@@ -49,7 +48,7 @@ public class ConfigInicialGUI extends JFrame {
     /**
      * Método que configura y agrega el título al frame
      */
-    private void tituloConfig(){
+    protected void tituloConfig(){
         constraints.gridx = 0;
         constraints.gridwidth = 8;
         constraints.gridheight = 3;
@@ -115,7 +114,7 @@ public class ConfigInicialGUI extends JFrame {
      * Prepara los elementos de la ventana ConfigInicialGUI
      * Modifica el tamaño y configura el Layout correspondiente
      */
-    private void prepareElements() {
+    protected void prepareElements() {
         setSize(ancho, alto);
         setLayout(grid);
         conf();
@@ -128,7 +127,7 @@ public class ConfigInicialGUI extends JFrame {
     /**
      * Modifica la acción de cerrar
      */
-    private void prepareActions() {
+    protected void prepareActions() {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 

@@ -90,14 +90,14 @@ public class Casilla implements Serializable {
         return seguro;
     }
 
-    //@Override
-    //public String toString(){
-    //    String mensaje = "";
-    //    mensaje += "clase: " + getClass() + "\n";
-    //    mensaje += "elementos: " + getElementos().toString() + "\n";
-    //    mensaje += "esSeguro: " + seguro + "\n";
-    //    mensaje += "estaBloqueado: " + bloqueado + "\n";
-    //    return mensaje;
-    //}
+    @Override
+    public String toString(){
+        String mensaje = "";
+        mensaje += "clase: " + getClass() + "\n";
+        mensaje += "elementos: " + getElementos().toString() + "\n";
+        mensaje += "esSeguro: " + seguro + "\n";
+        mensaje += "estaBloqueado: " + bloqueado + "\n";
+        return mensaje;
+    }
 
 }

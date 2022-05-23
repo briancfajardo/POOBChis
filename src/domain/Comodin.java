@@ -6,6 +6,9 @@ import java.io.Serializable;
  * Clase abstracta que representa un comodín del juego POOBChis
  */
 public abstract class Comodin extends Elemento implements Serializable {
+    protected Parchis parchis;
+    protected  String color;
+    protected int pos;
     /**
      * Constructor de la clase comodín
      */

@@ -22,7 +22,6 @@ public class TipoJugador extends JFrame {
     private GridBagConstraints constraints = new GridBagConstraints();
     private JLabel turno;
     private int jugadores = 2;
-    private JPanel fichas;
 
 
     /**

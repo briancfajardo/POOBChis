@@ -4,9 +4,7 @@ package domain;
  * una seleccionada aleatoriamente entre las que no tenga el jugador en turno.
  */
 public class Mutar extends Comodin{
-    private Parchis parchis;
-    private  String color;
-    private int pos;
+
     /**
      * Constructor de la clase Mutar que inicializa el comodín con el objeto Parchis, un color y una posición
      * correspondientes a su ubicación en el tablero del juego

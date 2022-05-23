@@ -49,13 +49,13 @@ public class Ganadores implements Serializable {
         }
     }
 
-    //@Override
-    //public String toString(){
-    //    String mensaje = "";
-    //    mensaje += "Rojo :" + rojo + " ";
-    //    mensaje += "Azul :" + azul + " ";
-    //    mensaje += "Verde :" + verde + " ";
-    //    mensaje += "Amarillo :" + amarillo + " ";
-    //    return mensaje;
-    //}
+    @Override
+    public String toString(){
+        String mensaje = "";
+        mensaje += "Rojo :" + rojo + " ";
+        mensaje += "Azul :" + azul + " ";
+        mensaje += "Verde :" + verde + " ";
+        mensaje += "Amarillo :" + amarillo + " ";
+        return mensaje;
+    }
 }

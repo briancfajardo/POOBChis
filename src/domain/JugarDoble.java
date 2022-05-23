@@ -3,9 +3,6 @@ package domain;
  * Clase JugarDoble la cual representa un tipo de comodín que hace que un jugador puedo tirar una vez más el dado.
  */
 public class JugarDoble extends Comodin{
-    private Parchis parchis;
-    private  String color;
-    private int pos;
     /**
      * Constructor de la clase JugarDoble que inicializa el comodín con el objeto Parchis, un color y una posición
      * correspondientes a su ubicación en el tablero del juego

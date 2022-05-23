@@ -4,9 +4,6 @@ package domain;
  * Clase que representa al comodín Retroceder el cual tiene como poder hacer que la ficha que lo obtenga retroceda 5 casillas
  */
 public class Retroceder extends Comodin{
-    private Parchis parchis;
-    private  String color;
-    private int pos;
 
     /**
      * Constructor de la clase Retroceder

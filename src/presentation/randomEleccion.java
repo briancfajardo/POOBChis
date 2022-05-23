@@ -27,7 +27,6 @@ public class randomEleccion extends JFrame {
     private String[] posiblesTipos = {"Borde", "Aspiradora", "Ventajosa", "Ingeniera", "Saltarina",
                                         "Cohete"};
     private int jugadores;
-    private JPanel fichas;
 
 
     /**

@@ -51,11 +51,11 @@ public class Ficha extends Elemento implements Serializable {
     public void setInmortal(boolean inmortal) {
         this.inmortal = inmortal;
     }
-    //@Override
-    //public String toString(){
-    //    String mensaje = "";
-    //    mensaje += getClass() + " ";
-    //    mensaje += color;
-    //    return mensaje;
-    //}
+    @Override
+    public String toString(){
+        String mensaje = "";
+        mensaje += getClass() + " ";
+        mensaje += color;
+        return mensaje;
+    }
 }

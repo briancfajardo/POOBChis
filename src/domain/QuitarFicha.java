@@ -5,10 +5,6 @@ package domain;
  */
 public class QuitarFicha extends Comodin{
 
-    private Parchis parchis;
-    private  String color;
-    private int pos;
-
     /**
      * Constructor de la clase QuitarFicha
      * @param parchis Objeto tipo Parchis que es la clase controladora del juego en la parte de dominio

@@ -4,9 +4,6 @@ package domain;
  */
 public class SacarCarcel extends Comodin{
 
-    private Parchis parchis;
-    private  String color;
-    private int pos;
     /**
      * Constructor de la clase SacarCarcel
      * @param parchis Objeto tipo Parchis
