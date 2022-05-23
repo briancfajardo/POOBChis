@@ -83,6 +83,13 @@ public class CasillasGUI extends JPanel implements Serializable {
 
     //private String turno;
 
+    /**
+     * Constructor de la clase CasillasGUI
+     * @param num número de elementos con los que se crea
+     * @param msg Mensaje que contendrá (Se usó para cuadrar tamaños)
+     * @param tablero Tablero GUI
+     * @param color color de la casa a la que pertenece
+     */
     public CasillasGUI(int num, String msg, TableroGUI tablero, String color){
         parchis = tablero.getParchis();
         this.tablero = tablero;
@@ -100,18 +107,18 @@ public class CasillasGUI extends JPanel implements Serializable {
         //turno = convertirStringTurno();
     }
 
-    public void setTipo1(String tipo){
-        tipo1 = tipo;
-    }
-
-    public void setTipo2(String tipo){
-        tipo2 = tipo;
-    }
-
+    /**
+     * Método que retorna si la casilla se encuentra habilitada
+     * @return booleano que representa si la casilla se encuentra habilitada
+     */
     public boolean isHabilitado() {
         return habilitado;
     }
 
+    /**
+     * Método que actualiza todos los parámetros de la casilla
+     * @param turno turno para saber si se habilita o no la casilla
+     */
     public void actualizar(String turno){
         int aux = parchis.getCantidadCasilla(color, num);
         ficha.setCant(aux);
@@ -160,6 +167,12 @@ public class CasillasGUI extends JPanel implements Serializable {
         //}
         repaint();
     }
+
+    /**
+     * Método para especificar un tipo de casilla, entre ancha y alta, esto debido a que pese a que se crean todas las casillas
+     * al tiempo la forma cambia dependiendo de su posición
+     * @param tipo tipo de casilla
+     */
     public void setTipo(int tipo){
         this.tipo = tipo;
         if(tipo == ANCHA){
@@ -170,11 +183,20 @@ public class CasillasGUI extends JPanel implements Serializable {
 
     }
 
+    /**
+     * Método que sobrescribe parchis cuando se se abre un nuevo archivo
+     * @param parchis objeto Parchis que se reemplazará
+     */
     public void actualizarParchis(Parchis parchis){
         this.parchis = parchis;
         //repaint();
     }
 
+    /**
+     * Métod que dice si la casilla contiene una ficha de un color específico
+     * @param colorTurno color del turno actual, esto para saber que casillas estarán habilitas
+     * @return booleano
+     */
     private boolean contieneFichaColor (String colorTurno){
         //System.out.println("mataFicha: " + parchis.isMataFicha() + "   sacaFicha: " + parchis.isSacaFicha());
         //System.out.println("Bloqueo:"+!parchis.getTablero().verificarBloqueo(color, num, 20, colorTurno) + "   color: " + color + "   numero: " + num);
@@ -229,7 +251,7 @@ public class CasillasGUI extends JPanel implements Serializable {
         }
         return false;
     }
-
+    @Override
     public void paint(Graphics g){
         super.paint(g);
         alto = getSize().height;

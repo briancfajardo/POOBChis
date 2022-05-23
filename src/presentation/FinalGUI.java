@@ -35,11 +35,8 @@ public class FinalGUI extends JFrame implements ActionListener {
     private JFileChooser archivos;
 
     /**
-     * Constructor de la clase KalahGUIFinal que tiene como
-     * parámetros la cantidad de semillas en los contenedores de ambos
-     * contenedores
-     *
-     * @param nombre
+     * Constructor de la clase FinalGUI que inicializada con el nombre del ganador del juego
+     * @param nombre nombre del ganador
      */
     public FinalGUI(String nombre){
         this.setContentPane(fondo);
@@ -128,33 +125,12 @@ public class FinalGUI extends JFrame implements ActionListener {
 
         add(mensaje);
         add(panelBotones);
-
     }
-
     /**
-     * Modifica la acción de cerrar para solicitar confirmación
+     * Modifica la acción de cerrar la ventana
      */
     private void prepareActions() {
-        setDefaultCloseOperation(JFrame.DO_NOTHING_ON_CLOSE);
-        addWindowListener(new WindowAdapter() {
-            @Override
-            public void windowClosing(WindowEvent e) {
-                close();
-            }
-        });
-    }
-
-    /**
-     * Método que genera una ventana emergente que solicita confirmación acerca de
-     * si se desea cerrar la ventana actual o no
-     */
-    private void close(){
-        String opciones[] = {"Cerrar", "Cancelar"};
-        int elecccion = JOptionPane.showOptionDialog(this, "Confirme si desea salir", "Cerrar",
-                0,0,null, opciones,this);
-        if(elecccion == JOptionPane.YES_OPTION){
-            System.exit(0);
-        }
+        setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
     @Override
@@ -174,18 +150,9 @@ public class FinalGUI extends JFrame implements ActionListener {
             dispose();
         }
         if(e.getSource() == salir){
-            close();
+            System.exit(0);
         }
     }
-
-    public static void main(String[] arg){
-        FinalGUI gui = new FinalGUI("Juan");
-        gui.setResizable(false);
-        gui.setResizable(false);
-        gui.setLocationRelativeTo(null);
-    }
-
-
     /**
      * Clase que genera un nuevo fondo para el JFrame de una imagen dentro del
      * paquete presentation

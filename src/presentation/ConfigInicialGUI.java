@@ -11,6 +11,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+/**
+ * Clase ConfiguracionInicialGUI que hereda de Jframe
+ */
 public class ConfigInicialGUI extends JFrame {
     private int ancho = 900;
     private int alto = 500;
@@ -23,7 +26,7 @@ public class ConfigInicialGUI extends JFrame {
 
 
     /**
-     * Constructor de la clase KalahGUI
+     * Constructor de la clase ConfInicialGUI el cual se encarga de actualizar todos los elementos necesarios iniciales como el fondo título entre otros
      */
     public ConfigInicialGUI(){
         this.setContentPane(fondo);
@@ -33,12 +36,19 @@ public class ConfigInicialGUI extends JFrame {
         setVisible(true);
 
     }
+
+    /**
+     * Método usado para agregar elementos al frame como el título
+     */
     private void conf() {
         constraints.fill = GridBagConstraints.BOTH;
         tituloConfig();
         numJugadores();
     }
 
+    /**
+     * Método que configura y agrega el título al frame
+     */
     private void tituloConfig(){
         constraints.gridx = 0;
         constraints.gridwidth = 8;
@@ -52,6 +62,10 @@ public class ConfigInicialGUI extends JFrame {
         turno.setForeground(new Color(0, 248, 103));
         add(turno, constraints);
     }
+
+    /**
+     * Método que agrega los JPanel que contienen los botones que contienen las opciones de la cantidad de jugadores
+     */
     private void numJugadores(){
         constraints.gridx = 0;
         constraints.gridwidth = 2;
@@ -98,20 +112,18 @@ public class ConfigInicialGUI extends JFrame {
         repaint();
     }
     /**
-     * Prepara los elementos de la ventana inicial
-     * Modifica el tamaño y añade el menú y los botones iniciales
+     * Prepara los elementos de la ventana ConfigInicialGUI
+     * Modifica el tamaño y configura el Layout correspondiente
      */
     private void prepareElements() {
         setSize(ancho, alto);
         setLayout(grid);
         conf();
     }
-
+    @Override
     public void paint(Graphics g){
         super.paint(g);
     }
-
-
 
     /**
      * Modifica la acción de cerrar
@@ -120,7 +132,9 @@ public class ConfigInicialGUI extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-
+    /**
+     * Clase auxiliar que configura el fondo para poderlo usar
+     */
     class Fondo extends JPanel{
         private Image imagen;
         @Override

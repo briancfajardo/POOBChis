@@ -13,6 +13,9 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ * Clase inicial de la presentación
+ */
 public class InicioGUI extends JFrame implements ActionListener{
     private int ancho = 900;
     private int alto = 500;
@@ -29,7 +32,7 @@ public class InicioGUI extends JFrame implements ActionListener{
 
 
     /**
-     * Constructor de la clase KalahGUI
+     * Constructor de la clase InicioGUI
      */
     public InicioGUI(){
         this.setContentPane(fondo);
@@ -40,6 +43,9 @@ public class InicioGUI extends JFrame implements ActionListener{
         inicializarTipos();
     }
 
+    /**
+     * Inicializa los tipos base "Borde" de las fichas de cada color
+     */
     private void inicializarTipos(){
 
         ArrayList<String> Tamarillo = new ArrayList<>();
@@ -99,11 +105,6 @@ public class InicioGUI extends JFrame implements ActionListener{
         archivoM.setCursor(new Cursor(Cursor.HAND_CURSOR));
 
         menu.add(archivoM);
-
-        //config = new JMenuItem("Configuración");
-        //config.addActionListener(this);
-        //config.setCursor(new Cursor(Cursor.HAND_CURSOR));
-        //menu.add(config);
 
         nuevo = new JMenuItem("Nuevo");
         abrir = new JMenuItem("Abrir");
@@ -246,6 +247,9 @@ public class InicioGUI extends JFrame implements ActionListener{
         }
     }
 
+    /**
+     * Método pricipal
+     */
     public static void main(String[] args) {
         InicioGUI inicio = new InicioGUI();
         inicio.setResizable(false);

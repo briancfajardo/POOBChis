@@ -10,6 +10,9 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.io.IOException;
 
+/**
+ * Clase OpcionFichaGUI que es la encargada de mostrar la posibilidad de seleccionar el valor del dado a mover
+ */
 public class OpcionFichaGUI extends JFrame implements ActionListener {
     private Parchis parchis;
     private JButton boton1;
@@ -20,6 +23,12 @@ public class OpcionFichaGUI extends JFrame implements ActionListener {
     private int x, y;
     private TableroGUI tablero;
 
+    /**
+     * Constructor de OpcionFichaGUI
+     * @param tablero Objeto TableroGUI que contiene Parchis
+     * @param x posición en x del mouse
+     * @param y posición en y del mouse
+     */
     public OpcionFichaGUI(TableroGUI tablero, int x, int y) {
         this.tablero = tablero;
         parchis = tablero.getParchis();
@@ -31,6 +40,9 @@ public class OpcionFichaGUI extends JFrame implements ActionListener {
 
     }
 
+    /**
+     * Prepara los elementos correspondientes de la ventana
+     */
     private void prepareElements() {
         setSize(150, 80);
         setLocation(x, y-80);
@@ -55,16 +67,29 @@ public class OpcionFichaGUI extends JFrame implements ActionListener {
         }
     }
 
+    /**
+     * Prepara las acciones iniciales como cerrar la ventana pero no el juego
+     */
     private void prepareActions() {
         setDefaultCloseOperation(DISPOSE_ON_CLOSE);
         setResizable(false);
     }
 
+    /**
+     * Método que muestra las opciones de los dados para poder mover
+     * @param color color de la casilla
+     * @param num posición de la casilla dentro de su casa
+     */
     public void moverFicha(String color, int num) {
         setVisible(true);
         this.color = color;
         this.num = num;
     }
+
+    /**
+     * Método que reproduce un sonido a partir de una dirección de directorios
+     * @param nombreSonido
+     */
     private void ReproducirSonido(String nombreSonido){
         try {
             //"src/audios/dados.wav";
@@ -96,10 +121,5 @@ public class OpcionFichaGUI extends JFrame implements ActionListener {
 
         tablero.juego();
         this.dispose();
-    }
-
-    public void actualizarParchis(Parchis parchis){
-        this.parchis = parchis;
-        repaint();
     }
 }

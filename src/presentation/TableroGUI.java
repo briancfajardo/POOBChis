@@ -11,6 +11,9 @@ import java.awt.event.ActionListener;
 import java.io.*;
 import java.util.ArrayList;
 
+/**
+ * Clase TableroGUI contenedora del tablerp, casillas y fichas del juego POOBChis
+ */
 public class TableroGUI extends JFrame implements ActionListener,Serializable{
 
     private GridBagLayout grid = new GridBagLayout();
@@ -49,11 +52,21 @@ public class TableroGUI extends JFrame implements ActionListener,Serializable{
     private ArrayList<String> comodines;
     private int cantJugadores;
     private String turnoActual;
-
     private String usuarioRojo, usuarioAmarillo, usuarioVerde, usuarioAzul;
 
-
-
+    /**
+     * Constructor de la clase TableroGUI a partir de lso tipos de fichas, cantidad de jugadores y nombres de usuarios
+     * @param tipoAmarillo Tipos de fichas amarillas
+     * @param tipoAzul Tipos de fichas Azules
+     * @param tipoVerde Tipos de fichas Verdes
+     * @param tipoRojo Tipos de fichas Rojas
+     * @param cantJugadores Cantidad de jugadores
+     * @param usuarioAmarillo Nombre del ususario Amarillo
+     * @param usuarioAzul Nombre del usuario Azul
+     * @param usuarioVerde Nombre del usuario Verde
+     * @param usuarioRojo Nombre del usuario Ron¿jo
+     * @param comodines ArrayList de los tipos de comodines a usar
+     */
     public TableroGUI(ArrayList<String> tipoAmarillo, ArrayList<String> tipoAzul, ArrayList<String> tipoVerde,
                       ArrayList<String> tipoRojo, int cantJugadores, String usuarioAmarillo, String usuarioAzul,
                       String usuarioVerde, String usuarioRojo, ArrayList<String> comodines) {
@@ -72,9 +85,15 @@ public class TableroGUI extends JFrame implements ActionListener,Serializable{
         prepareElements();
     }
 
+    /**
+     * Devuelve el atributo Parchis
+     * @return Objeto Parchis
+     */
     public Parchis getParchis(){return parchis;}
 
-
+    /**
+     * Método que actualiza todo el tablero y dados
+     */
     public void juego(){
         //while (!terminar){
         int contHabilitados = 0;
@@ -110,10 +129,9 @@ public class TableroGUI extends JFrame implements ActionListener,Serializable{
         }
     }
 
-    public String getTurnoActual() {
-        return turnoActual;
-    }
-
+    /**
+     * Prepara los elementos necesarios de la ventana
+     */
     private void prepareElements() {
         setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE );
         setFont(new Font("SansSerif", Font.PLAIN, 14));
@@ -166,8 +184,11 @@ public class TableroGUI extends JFrame implements ActionListener,Serializable{
         archivoM.add(abrir);
         archivoM.add(salvar);
         archivoM.add(salir);
-
     }
+
+    /**
+     * Método que inicializa los elementos del tablero
+     */
     private void tab() {
         constraints.fill = GridBagConstraints.BOTH;
         carcel();
@@ -182,6 +203,9 @@ public class TableroGUI extends JFrame implements ActionListener,Serializable{
 
     }
 
+    /**
+     * Método que verifica si el juego terminó y quien es el ganador
+     */
     private void verificacionFinal(){
         if (parchis.getGanadores("Amarillo") == 4){
             setVisible(false);
@@ -213,6 +237,10 @@ public class TableroGUI extends JFrame implements ActionListener,Serializable{
             dispose();
         }
     }
+
+    /**
+     * Método que configura el título del turno
+     */
     private void tituloTurno(){
         constraints.gridx = 22;
         constraints.gridwidth = 8;
@@ -225,6 +253,10 @@ public class TableroGUI extends JFrame implements ActionListener,Serializable{
         mensajeTurno();
         add(turno, constraints);
     }
+
+    /**
+     * Método que arma el mensaje del turno
+     */
     private void mensajeTurno(){
         if(parchis.getTurno(parchis.ROJO)){
             turno.setText("Turno de " + usuarioRojo);
@@ -245,6 +277,9 @@ public class TableroGUI extends JFrame implements ActionListener,Serializable{
         }
     }
 
+    /**
+     * Mensaje que informa las fichas que hay encarceladas
+     */
     private void tituloEncarceladas(){
         constraints.gridx = 22;
         constraints.gridwidth = 10;
@@ -257,6 +292,10 @@ public class TableroGUI extends JFrame implements ActionListener,Serializable{
         mensajeEncarceladas();
         add(encarcelada, constraints);
     }
+
+    /**
+     * Realización del mensaje que aparecerá en título encarceladas
+     */
     private void mensajeEncarceladas(){
         if(parchis.getTurno(parchis.ROJO)){
             encarcelada.setText("Fichas en la carcel: " + parchis.getCarcel("Rojo"));
@@ -277,6 +316,9 @@ public class TableroGUI extends JFrame implements ActionListener,Serializable{
         }
     }
 
+    /**
+     * Titulo que informa al usuario cuantas fichas ha coronado
+     */
     private void tituloCoronadas(){
         constraints.gridx = 22;
         constraints.gridwidth = 10;
@@ -289,6 +331,10 @@ public class TableroGUI extends JFrame implements ActionListener,Serializable{
         mensajeCoronadas();
         add(coronada, constraints);
     }
+
+    /**
+     * Realización del mensaje que se usa en tituloCoronadas
+     */
     private void mensajeCoronadas(){
         if(parchis.getTurno(parchis.ROJO)){
             coronada.setText("Fichas coronadas: " + parchis.getGanadores("Rojo"));
@@ -309,6 +355,9 @@ public class TableroGUI extends JFrame implements ActionListener,Serializable{
         }
     }
 
+    /**
+     * Método que pinta los dados del juego
+     */
     private void dados(){
         constraints.gridx = 22;
         constraints.gridwidth = 8;
@@ -320,6 +369,10 @@ public class TableroGUI extends JFrame implements ActionListener,Serializable{
         dado2 = dado.getValor2();
         add(dado,constraints);
     }
+
+    /**
+     * Método que inicializa las casillas Azules
+     */
     private void casillasAzules(){
         //tramo 1
         for (int i = 0; i < 8; i++){
@@ -369,6 +422,9 @@ public class TableroGUI extends JFrame implements ActionListener,Serializable{
             casillaAzul.add(casilla);
         }
     }
+    /**
+     * Método que inicializa las casillas Amarillas
+     */
     private void casillasAmarillas(){
         //tramo 1
         for (int i = 0; i < 8; i++){
@@ -417,6 +473,9 @@ public class TableroGUI extends JFrame implements ActionListener,Serializable{
             }casillaAmarilla.add(casilla);
         }
     }
+    /**
+     * Método que inicializa las casillas Rojas
+     */
     private void casillasRojas(){
         //tramo 1
         for (int i = 0; i < 8; i++){
@@ -464,6 +523,9 @@ public class TableroGUI extends JFrame implements ActionListener,Serializable{
             }casillaRoja.add(casilla);
         }
     }
+    /**
+     * Método que inicializa las casillas Verdes
+     */
     private void casillasVerdes(){
         //tramo 1
         for (int i = 0; i < 8; i++){
@@ -510,7 +572,9 @@ public class TableroGUI extends JFrame implements ActionListener,Serializable{
             }casillaVerde.add(casilla);
         }
     }
-
+    /**
+     * Método que inicializa la carcel
+     */
     private void carcel(){
         constraints.fill = GridBagConstraints.BOTH;
         //GridLayout grid = new GridLayout();
@@ -594,6 +658,9 @@ public class TableroGUI extends JFrame implements ActionListener,Serializable{
 
     }
 
+    /**
+     * Método que actualiza los objetos Parchis de cada clase de presentación
+     */
     private void actualizarParchis(){
         //while (!terminar){
         carcelAzul.actualizarParchis(parchis);
@@ -611,6 +678,9 @@ public class TableroGUI extends JFrame implements ActionListener,Serializable{
         }
     }
 
+    /**
+     * Método para guardar archivos
+     */
     public void salvarArchivos(){
         try{
             archivos = new JFileChooser();
@@ -648,15 +718,6 @@ public class TableroGUI extends JFrame implements ActionListener,Serializable{
             System.exit(0);
         }
     }
-
-
-
-    public static void main (String[] args){
-        //TableroGUI u = new TableroGUI();
-        //u.juego();
-    }
-
-
 
     class Fondo extends JPanel{
         private Image imagen;

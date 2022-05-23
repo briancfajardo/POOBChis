@@ -13,6 +13,9 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 
+/**
+ * Clase RandomEleccion
+ */
 public class randomEleccion extends JFrame {
     private int ancho = 900;
     private int alto = 500;
@@ -28,7 +31,7 @@ public class randomEleccion extends JFrame {
 
 
     /**
-     * Constructor de la clase KalahGUI
+     * Constructor de la clase randomEleccion
      */
     public randomEleccion(int jugadores){
         this.setContentPane(fondo);
@@ -40,6 +43,10 @@ public class randomEleccion extends JFrame {
 
     }
 
+    /**
+     * Método que genera tipos aleatoriamente
+     * @return Array de tipos generados
+     */
     private ArrayList<String> generarTipos(){
         ArrayList<String> tipos = new ArrayList<String>();
         int numero = (int)(Math.random()*4);
@@ -53,12 +60,19 @@ public class randomEleccion extends JFrame {
 
         return tipos;
     }
+
+    /**
+     * Método que prepara las configuraciones iniciales
+     */
     private void conf() {
         constraints.fill = GridBagConstraints.BOTH;
         tituloConfig();
         prepareRandom();
     }
 
+    /**
+     * método que configura la estructura del título de la ventana
+     */
     private void tituloConfig(){
         constraints.gridx = 0;
         constraints.gridwidth = 8;
@@ -72,6 +86,10 @@ public class randomEleccion extends JFrame {
         turno.setForeground(new Color(0, 248, 103));
         add(turno, constraints);
     }
+
+    /**
+     * Método que prepara la elección aleatoria
+     */
     private void prepareRandom(){
         constraints.gridx = 0;
         constraints.gridwidth = 2;
@@ -125,12 +143,10 @@ public class randomEleccion extends JFrame {
         setLayout(grid);
         conf();
     }
-
+    @Override
     public void paint(Graphics g){
         super.paint(g);
     }
-
-
 
     /**
      * Modifica la acción de cerrar

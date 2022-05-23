@@ -14,7 +14,9 @@ import java.awt.event.ActionListener;
 import java.io.File;
 import java.util.ArrayList;
 
-
+/**
+ * Clase eleccionJugadorConfig que sirve para escoger a que jugador se le van a configurar los elementos
+ */
 public class eleccionJugadorConfig extends JFrame {
     private int ancho = 900;
     private int alto = 500;
@@ -33,7 +35,7 @@ public class eleccionJugadorConfig extends JFrame {
     private String usuarioRojo, usuarioAmarillo, usuarioVerde, usuarioAzul;
 
     /**
-     * Constructor de la clase KalahGUI
+     * Constructor de la clase eleccionJugadorConfig dependiendo de una cierta cantidad de jugadores
      */
     public eleccionJugadorConfig(int cantJugadores){
         this.cantJugadores = cantJugadores;
@@ -46,8 +48,8 @@ public class eleccionJugadorConfig extends JFrame {
     }
 
     /**
-     * Prepara los elementos de la ventana inicial
-     * Modifica el tamaño y añade el menú y los botones iniciales
+     * Prepara los elementos neceasrios
+     * Modifica el tamaño, el fondo y el Layout
      */
     private void prepareElements(){
         setLayout(grid);
@@ -58,6 +60,11 @@ public class eleccionJugadorConfig extends JFrame {
         botonAceptar();
     }
 
+    /**
+     * Método que hace el llamado al método setTipos... dependiendo del color correspondiente
+     * @param color color del tipo de fichas que se desea actualizar
+     * @param tipos Arreglo de los tipos de fichas
+     */
     public void setTipo(String color, ArrayList<String> tipos){
         switch (color){
             case "Amarillo" -> setTiposAmarillo(tipos);
@@ -67,21 +74,40 @@ public class eleccionJugadorConfig extends JFrame {
         }
     }
 
+    /**
+     * Método que actualiza el atributo tiposRojo
+     * @param tiposRojo nuevo tiposRojo
+     */
     private void setTiposRojo(ArrayList<String> tiposRojo){
         this.tiposRojo = tiposRojo;
     }
+    /**
+     * Método que actualiza el atributo tiposAmarillo
+     * @param tiposAmarillo nuevo tiposAmarillo
+     */
     private void setTiposAmarillo(ArrayList<String> tiposAmarillo){
         this.tiposAmarillo = tiposAmarillo;
     }
-
+    /**
+     * Método que actualiza el atributo tiposVerde
+     * @param tiposVerde nuevo tiposVerde
+     */
     private void setTiposVerde(ArrayList<String> tiposVerde){
         this.tiposVerde = tiposVerde;
     }
-
+    /**
+     * Método que actualiza el atributo tiposAzul
+     * @param tiposAzul nuevo tiposAzul
+     */
     private void setTiposAzul(ArrayList<String> tiposAzul){
         this.tiposAzul = tiposAzul;
     }
 
+    /**
+     * Método que configura el nombre del jugador según su color
+     * @param color color del jugador
+     * @param nombre nombre del jugador
+     */
     public void setNombre(String color, String nombre){
         switch (color){
             case "Amarillo" -> usuarioAmarillo = nombre;
@@ -91,13 +117,8 @@ public class eleccionJugadorConfig extends JFrame {
         }
     }
 
-
     /**
-     * Prepara los elementos necesarios para los botones principales
-     * dentro de la pantalla de inicio, incluyendo el título y dos botones
-     *
-     * Le agrega a cada botón su propio oyente para que realiza el evento
-     * correspondiente
+     * Configura el título con su color, posición y tamaño
      */
 
     private void tituloConfig(){
@@ -113,7 +134,13 @@ public class eleccionJugadorConfig extends JFrame {
         titulo.setForeground(new Color(0, 248, 103));
         add(titulo, constraints);
     }
-
+    /**
+     * Prepara los elementos necesarios para los botones principales
+     * dentro de la pantalla de inicio, incluyendo el título y dos botones
+     *
+     * Le agrega a cada botón su propio oyente para qué realice el evento
+     * correspondiente
+     */
     private void prepareElementsBeginning(){
         constraints.gridx = 0;
         constraints.gridwidth = 3;
@@ -262,6 +289,10 @@ public class eleccionJugadorConfig extends JFrame {
 
     }
 
+    /**
+     * Método que verifica que la cantidad de jugadores y los tipos de las fichas estén completos
+     * @throws ParchisException FALTA_CONFIGURACION
+     */
     private void verificarTam() throws ParchisException {
         if (cantJugadores == 4 && tiposRojo.size() != 4 && tiposAmarillo.size() != 4 && tiposVerde.size() != 4 && tiposAzul.size() != 4){
             throw new ParchisException(ParchisException.FALTA_CONFIGURACION);
@@ -273,6 +304,9 @@ public class eleccionJugadorConfig extends JFrame {
         }
     }
 
+    /**
+     * Crea, configura el oyente y pinta el botón aceptar para pasar a una nueva partida
+     */
     private void botonAceptar(){
         constraints.gridx = 0;
         constraints.gridwidth = 8;
@@ -309,7 +343,9 @@ public class eleccionJugadorConfig extends JFrame {
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-
+    /**
+     * Clase auxiliar que configura el fondo para poderlo usar
+     */
     class Fondo extends JPanel{
         private Image imagen;
         @Override

@@ -5,6 +5,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+/**
+ * Clase FormatoComodin que se encarga de ofrecer al usuario la opción de escoger que tipo de comodines que quiere en el juego
+ */
 public class FormatoComodin extends JFrame implements ActionListener {
     private ArrayList<String> comodines = new ArrayList<>();
 
@@ -18,7 +21,18 @@ public class FormatoComodin extends JFrame implements ActionListener {
 
     private JLabel  comodin;
 
-
+    /**
+     * Constructor de la clase FormatoComodin
+     * @param tipoAmarillo tipo de fichas Amarillas
+     * @param tipoAzul tipo de fichas Azules
+     * @param tipoVerde tipo de fichas Verdes
+     * @param tipoRojo tipo de fichas Rojas
+     * @param cantJugadores cantidad de jugadores
+     * @param usuarioAmarillo Nombre del usuario Amarillo
+     * @param usuarioAzul Nombre del usuario Azul
+     * @param usuarioVerde Nombre del usuario Verde
+     * @param usuarioRojo Nombre del usuario Rojo
+     */
     public FormatoComodin(ArrayList<String> tipoAmarillo, ArrayList<String> tipoAzul, ArrayList<String> tipoVerde,
                           ArrayList<String> tipoRojo, int cantJugadores, String usuarioAmarillo, String usuarioAzul,
                           String usuarioVerde, String usuarioRojo){
@@ -39,6 +53,9 @@ public class FormatoComodin extends JFrame implements ActionListener {
 
     }
 
+    /**
+     * Prepara los elementos necesarios para la ventana como el tamaño, Layout, visibilidad entre otros
+     */
     private void prepareElements(){
         getContentPane().setLayout(null);
         setSize(900,500);
@@ -47,7 +64,9 @@ public class FormatoComodin extends JFrame implements ActionListener {
         setVisible(true);
     }
 
-
+    /**
+     * Recolecta la información correspondiente a los tipos de comodines
+     */
     private void prepareComodines(){
         comodin = new JLabel("Seleccione los comodines que desea ver dentro del juego");
         comodin.setBounds(10, 20, 500, 30);
@@ -87,16 +106,19 @@ public class FormatoComodin extends JFrame implements ActionListener {
         crearBotonAceptar();
     }
 
-
+    /**
+     * Creo el botón Aceptar y lo agrega al layout
+     */
     private void crearBotonAceptar(){
         aceptar = new JButton("Aceptar");
         aceptar.setBounds(220 ,400,120,30);
         aceptar.addActionListener(this);
         add(aceptar);
-
-        //getContentPane().add(aceptar, BorderLayout.SOUTH);
     }
 
+    /**
+     * Muestra los tipos de comodines disponibles que existen
+     */
     private void darTipos() {
         if (avanzar.isSelected()) {
             comodines.add("Adelantar");
@@ -142,11 +164,4 @@ public class FormatoComodin extends JFrame implements ActionListener {
             dispose();
         }
     }
-
-    //public static void main(String[] args) {
-    //    FormatoComodin comodines = new FormatoComodin();
-    //    comodines.setResizable(false);
-    //    comodines.setLocationRelativeTo(null);
-    //}
-
 }

@@ -6,6 +6,9 @@ import javax.swing.*;
 import java.awt.*;
 import java.io.Serializable;
 
+/**
+ * Clase de presentación CarceGUI que hereda de JPanel
+ */
 public class CarcelGUI extends JPanel implements Serializable {
     private int x = 100;
     private int y = 100;
@@ -22,6 +25,14 @@ public class CarcelGUI extends JPanel implements Serializable {
     private String tipo3;
     private String tipo4;
 
+    /**
+     * Constructor de la clase CarcelGUI
+     * @param color Tono del color al que corresponde la cárcel
+     * @param color2 Tono del color de fondo al que corresponde la cárcel
+     * @param col color de la carcel en Strin
+     * @param parchis Objeto Parchis
+     */
+
     public CarcelGUI(Color color, Color color2, String col, Parchis parchis){
         this.col = col;
         this.parchis = parchis;
@@ -36,6 +47,9 @@ public class CarcelGUI extends JPanel implements Serializable {
         fichas.setRolFicha(fichas.CARCEL);
     }
 
+    /**
+     * Método que actualiza los tipos de fichas
+     */
     public void actualizarTipos(){
         if(parchis.getTipo(col).size() == 4){
             tipo1 = parchis.getTipo(col).get(0);
@@ -52,14 +66,20 @@ public class CarcelGUI extends JPanel implements Serializable {
         }else if (parchis.getTipo(col).size() == 1){
             tipo1 = parchis.getTipo(col).get(0);
         }
-
     }
+    /**
+     * Método que actualiza los tipos de las fichas
+     */
     public void actualizarFichas(){
         fichas.setClase1(tipo1);
         fichas.setClase2(tipo2);
         fichas.setClase3(tipo3);
         fichas.setClase4(tipo4);
     }
+
+    /**
+     * Método que actualiza todos los parámetros de la cárcel
+     */
     public void actualizar(){
         cant = parchis.getCarcel(col);
         actualizarTipos();
@@ -68,11 +88,15 @@ public class CarcelGUI extends JPanel implements Serializable {
         repaint();
     }
 
+    /**
+     * Método que sobrescribe parchis cuando se se abre un nuevo archivo
+     * @param parchis objeto Parchis que se reemplazará
+     */
     public void actualizarParchis(Parchis parchis){
         this.parchis = parchis;
         //repaint();
     }
-
+    @Override
     public void paint(Graphics g){
         super.paint(g);
         g.setColor(color);

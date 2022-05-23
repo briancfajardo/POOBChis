@@ -7,6 +7,9 @@ import java.awt.*;
 import java.io.Serializable;
 import java.util.ArrayList;
 
+/**
+ * Clase GanadoreaGUI que heresa de JPanel
+ */
 public class GanadoresGUI extends JPanel implements Serializable {
     private FichasGUI fichasRojo;
     private FichasGUI fichasAzul;
@@ -21,6 +24,10 @@ public class GanadoresGUI extends JPanel implements Serializable {
     private ArrayList<String> tipoVerde = new ArrayList<>();
     private ArrayList<String> tipoRojo = new ArrayList<>();
 
+    /**
+     * Contructor de la clase GanadoresGUI
+     * @param parchis Objeto Parchis, esto para tener facilidad de comunicación entre el dominio y la actualización de la interfaz gráfica
+     */
     public GanadoresGUI(Parchis parchis){
         setBorder(BorderFactory.createEtchedBorder());
         setVisible(true);
@@ -41,6 +48,9 @@ public class GanadoresGUI extends JPanel implements Serializable {
         fichasAmarillo.setRolFicha(fichasAmarillo.FINAL);
     }
 
+    /**
+     * Inicializa los tipos de fichas desde su conexión con la clase controladora de la lógica Parchis
+     */
     private void inicializarTipos(){
         tipoAmarillo = parchis.getTipoAmarillo();
         tipoAzul = parchis.getTipoAzul();
@@ -48,6 +58,10 @@ public class GanadoresGUI extends JPanel implements Serializable {
         tipoVerde = parchis.getTipoVerde();
 
     }
+
+    /**
+     * Método que actualiza la clase actualizando las cantidades desde la lógica
+     */
     public void actualizar(){
 
         fichasRojo.setCant(parchis.getGanadores("Rojo"));
@@ -57,10 +71,15 @@ public class GanadoresGUI extends JPanel implements Serializable {
         repaint();
     }
 
+    /**
+     * Método que actuliza el objeto Parchis cuando se abre un nuevo archivo
+     * @param parchis Objeto Parchis
+     */
     public void actualizarParchis(Parchis parchis){
         this.parchis = parchis;
         repaint();
     }
+    @Override
     public void paint(Graphics g){
         super.paint(g);
         alto = getSize().height;

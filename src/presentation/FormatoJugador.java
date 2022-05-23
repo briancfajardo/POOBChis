@@ -9,6 +9,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.util.ArrayList;
 
+/**
+ * Clase FormatoJugador que hereda de JFrame
+ */
 public class FormatoJugador extends JFrame implements ActionListener{
     private String color = "Rojo";
     private ArrayList<String> tiposRojo = new ArrayList<>();
@@ -32,7 +35,10 @@ public class FormatoJugador extends JFrame implements ActionListener{
 
     private eleccionJugadorConfig config;
 
-
+    /**
+     * Constructor de la clase FormatoJugador que usa el constructor del padre con un nombre "Formato Jugador"
+     * @param config la pestaña a la que retorna para que seleccione todos los jugadores
+     */
     public FormatoJugador(eleccionJugadorConfig config){
         super("Formato del jugador");
         this.config = config;
@@ -41,10 +47,17 @@ public class FormatoJugador extends JFrame implements ActionListener{
 
     }
 
+    /**
+     * Cambia el color
+     * @param color color por el que se cambiará el atributo
+     */
     public void setColor(String color){
         this.color = color;
     }
 
+    /**
+     * Prepara los elementos correspondientes para la ventana
+     */
     private void prepareElements(){
         getContentPane().setLayout(null);
         setSize(900,500);
@@ -61,7 +74,9 @@ public class FormatoJugador extends JFrame implements ActionListener{
         setDefaultCloseOperation(EXIT_ON_CLOSE);
     }
 
-
+    /**
+     * Prepara los contenedores para que el usuario diligencie los parámetros correspondientes
+     */
     private void prepareUser(){
         usuario = new JLabel("Ingrese el nombre del usuario: ");
         usuario.setBounds(10,10,200,20);
@@ -72,7 +87,9 @@ public class FormatoJugador extends JFrame implements ActionListener{
         add(textfield1);
     }
 
-
+    /**
+     * Lee las opciones que seleccionó el usuario
+     */
     private void prepareElection(){
 
         eleccion = new JLabel("Seleccione los 4 tipos de fichas");
@@ -220,16 +237,22 @@ public class FormatoJugador extends JFrame implements ActionListener{
 
     }
 
-
+    /**
+     * Crea el botón aceptar para guardar la selección
+     */
     private void crearBotonAceptar(){
         aceptar = new JButton("Aceptar");
         aceptar.setBounds(380 ,400,120,30);
         aceptar.addActionListener(this);
         add(aceptar);
 
-        //getContentPane().add(aceptar, BorderLayout.SOUTH);
     }
 
+    /**
+     * Varifica que el nombre escrito sea valido
+     * @param nombre nombre escrito por el usuario
+     * @throws ParchisException SIN_NOMBRE_EXCEPTION, CARACTERES_EXCEPTION
+     */
     private void verificarNombre(String nombre) throws ParchisException{
         if (nombre.equals("")) throw new ParchisException(ParchisException.SIN_NOMBRE_EXCEPTION);
         if (nombre.contains("#") || nombre.contains("*") || nombre.contains("%") || nombre.contains("$")
@@ -237,6 +260,9 @@ public class FormatoJugador extends JFrame implements ActionListener{
 
     }
 
+    /**
+     * Reinicia los tipos de fichas para el siguiente usuario
+     */
     private void reiniciarTipos(){
         tiposRojo = new ArrayList<>();
         tiposAmarillo = new ArrayList<>();
@@ -244,6 +270,10 @@ public class FormatoJugador extends JFrame implements ActionListener{
         tiposAzul = new ArrayList<>();
     }
 
+    /**+
+     * método que tiene en cuenta todos los posibles casos que escogió el usuario
+     * @return retorna el arrelo de los tipos listo
+     */
     private ArrayList<String> darTipos(){
         int cont = 0;
         switch (color){
@@ -770,7 +800,6 @@ public class FormatoJugador extends JFrame implements ActionListener{
                 String nombre = textfield1.getText();
                 verificarNombre(nombre);
 
-                //System.out.println(color + "   " + darTipos());
                 config.setNombre(color, nombre);
                 config.setTipo(color,darTipos());
                 config.setVisible(true);
@@ -786,11 +815,5 @@ public class FormatoJugador extends JFrame implements ActionListener{
 
 
         }
-    }
-
-    public static void main(String[] args) {
-        FormatoJugador inicio = new FormatoJugador(new eleccionJugadorConfig(2));
-        inicio.setResizable(false);
-        inicio.setLocationRelativeTo(null);
     }
 }

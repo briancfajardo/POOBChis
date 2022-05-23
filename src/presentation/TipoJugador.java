@@ -11,6 +11,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+/**
+ * Clase TipoJugador que hereda de JFrame
+ */
 public class TipoJugador extends JFrame {
     private int ancho = 900;
     private int alto = 500;
@@ -31,14 +34,20 @@ public class TipoJugador extends JFrame {
         prepareElements();
         prepareActions();
         setVisible(true);
-
     }
+
+    /**
+     * Hace el llamado a métodos que ponen los elementos que necesita la ventana
+     */
     private void conf() {
         constraints.fill = GridBagConstraints.BOTH;
         tituloConfig();
         modoJugadores();
     }
 
+    /**
+     * Método que configura el título de modos de juego POOBChis
+     */
     private void tituloConfig(){
         constraints.gridx = 0;
         constraints.gridwidth = 10;
@@ -52,6 +61,10 @@ public class TipoJugador extends JFrame {
         turno.setForeground(new Color(0, 248, 103));
         add(turno, constraints);
     }
+
+    /**
+     * Pone las opciones correspondientes a los de modo juego
+     */
     private void modoJugadores(){
         constraints.gridx = 0;
         constraints.gridwidth = 2;
@@ -104,12 +117,10 @@ public class TipoJugador extends JFrame {
         setLayout(grid);
         conf();
     }
-
+    @Override
     public void paint(Graphics g){
         super.paint(g);
     }
-
-
 
     /**
      * Modifica la acción de cerrar

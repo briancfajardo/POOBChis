@@ -13,6 +13,9 @@ import java.io.IOException;
 import java.io.Serializable;
 import java.net.URL;
 
+/**
+ * Clase encargada de mostrar los dados, hereda de JPanel
+ */
 public class DadosGUI extends JPanel implements Serializable {
     private int valor1 = 1;
     private int valor2 = 1;
@@ -68,18 +71,36 @@ public class DadosGUI extends JPanel implements Serializable {
 
         }
     };
+
+    /**
+     * Constructor de la clase DadosGUI con un atributo TableroGUI que contiene parchis y le permite actualizar su valor
+     * @param tablero
+     */
     public DadosGUI(TableroGUI tablero){
         parchis = tablero.getParchis();
         this.tablero = tablero;
         prepareElements();
 
     }
+
+    /**
+     * Método que permite saber cual es el valor del dado 1
+     * @return retorna el valor del dado 1
+     */
     public int getValor1(){
         return valor1;
     }
+    /**
+     * Método que permite saber cual es el valor del dado 2
+     * @return retorna el valor del dado 2
+     */
     public int getValor2(){
         return valor2;
     }
+
+    /**
+     * Método que prepara los elementos necesarios como el tamaño el fondo y su visibilidad
+     */
     private void prepareElements(){
         setPreferredSize(new Dimension((96*2)+10,96));
         //setBorder(BorderFactory.createEtchedBorder());
@@ -88,6 +109,9 @@ public class DadosGUI extends JPanel implements Serializable {
         setVisible(true);
     }
 
+    /**
+     * Método que busca en el paquete de sonidos, los carga y los reproduce
+     */
     private void ReproducirSonido(){
         try {
             //URL url = getClass().getResource("/audios/dados.wav");
@@ -104,11 +128,15 @@ public class DadosGUI extends JPanel implements Serializable {
         }
     }
 
+    /**
+     * Método que sobrescribe parchis cuando se se abre un nuevo archivo
+     * @param parchis objeto Parchis que se reemplazará
+     */
     public void actualizarParchis(Parchis parchis){
         this.parchis = parchis;
         //repaint();
     }
-
+    @Override
     public void paint(Graphics g){
         Image img1 = new ImageIcon(getClass().getResource("/imagenes/Dado"+valor1+".png")).getImage();
         Image img2 = new ImageIcon(getClass().getResource("/imagenes/Dado"+valor2+".png")).getImage();

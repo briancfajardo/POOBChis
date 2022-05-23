@@ -11,6 +11,9 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
 
+/**
+ * Clase NivelMaquina que se encarga de la elección de las dificultades de la máquina
+ */
 public class NivelMaquina extends JFrame {
     private int ancho = 900;
     private int alto = 500;
@@ -23,7 +26,7 @@ public class NivelMaquina extends JFrame {
 
 
     /**
-     * Constructor de la clase TipoJugador
+     * Constructor de la clase NivelMáquina
      */
     public NivelMaquina(){
         this.setContentPane(fondo);
@@ -31,14 +34,20 @@ public class NivelMaquina extends JFrame {
         prepareElements();
         prepareActions();
         setVisible(true);
-
     }
+
+    /**
+     * Método que configura las opciones iniciales
+     */
     private void conf() {
         constraints.fill = GridBagConstraints.BOTH;
         tituloConfig();
         modoJugadores();
     }
 
+    /**
+     * configura el título de la ventana
+     */
     private void tituloConfig(){
         constraints.gridx = 0;
         constraints.gridwidth = 10;
@@ -52,6 +61,10 @@ public class NivelMaquina extends JFrame {
         turno.setForeground(new Color(0, 248, 103));
         add(turno, constraints);
     }
+
+    /**
+     * Método que configura el modo de juego de los jugadores
+     */
     private void modoJugadores(){
         constraints.gridx = 0;
         constraints.gridwidth = 2;
@@ -104,7 +117,7 @@ public class NivelMaquina extends JFrame {
         setLayout(grid);
         conf();
     }
-
+    @Override
     public void paint(Graphics g){
         super.paint(g);
     }
