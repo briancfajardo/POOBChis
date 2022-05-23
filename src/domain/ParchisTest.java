@@ -36,9 +36,6 @@ public class ParchisTest extends Parchis{
             add("Borde");
         }}, 2);
     }
-    private void prepareTipos(){
-
-    }
     @Test
     void DeberiaMoverLaFicha(){
 
