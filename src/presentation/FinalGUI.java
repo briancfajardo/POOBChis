@@ -25,14 +25,12 @@ public class FinalGUI extends JFrame implements ActionListener {
     private FinalGUI.Fondo fondo = new FinalGUI.Fondo();
     private Button aceptar;
 
-    private Button reiniciar;
     private String nombre;
 
     private JMenuBar menu;
     private JMenu archivoM;
     private JMenuItem nuevo;
     private JMenuItem salir;
-    private JFileChooser archivos;
 
     /**
      * Constructor de la clase FinalGUI que inicializada con el nombre del ganador del juego
@@ -101,7 +99,6 @@ public class FinalGUI extends JFrame implements ActionListener {
                 "Para los otros participantes, suerte para la próxima </center><html>");
 
         aceptar = new Button("Aceptar");
-        reiniciar = new Button("Reiniciar");
 
         JPanel panelBotones = new JPanel();
 
